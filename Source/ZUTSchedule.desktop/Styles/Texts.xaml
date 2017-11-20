@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ZUTSchedule.desktop"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Menu Tooltips -->
+    <system:String x:Key="TooltipProjects">Projects</system:String>
+    
+
+    <!-- Info Page -->
+    <system:String x:Key="InfoPageProjectName">ZUTSchedule</system:String>
+    <system:String x:Key="InfoPageDescription">s</system:String>
+    <system:String x:Key="InfoPageAuthorName">Author:</system:String>
+    <system:String x:Key="InfoPageAuthorSite">Site:</system:String>
+
+    <!-- Other -->
+    <system:String x:Key="SaveButtonToolTip">Save changes</system:String>
+    <system:String x:Key="CancelButtonToolTip">Discard all changes</system:String>
+
+</ResourceDictionary>

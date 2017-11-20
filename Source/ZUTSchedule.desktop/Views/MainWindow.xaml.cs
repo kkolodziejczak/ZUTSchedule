@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
@@ -23,6 +24,10 @@ namespace ZUTSchedule.desktop
         public MainWindow()
         {
             InitializeComponent();
+
+            CourseService service = new CourseService();
+
+            service.getCourses(new List<DateTime>() { DateTime.Now });
         }
     }
 }

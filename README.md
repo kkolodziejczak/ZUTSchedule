@@ -1,5 +1,5 @@
 # ZUTSchedule
-ZUTSchedule is an application that downloads schedule from Universities system and display it in the clean way.
+ZUTSchedule is an application that downloads schedule from university system and display it in the clean way.
 
 <p align="center">
   <img src="Resource/Images/Schedule_5_days.png">
