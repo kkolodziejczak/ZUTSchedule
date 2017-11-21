@@ -13,14 +13,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Contains all classes of the day
         /// </summary>
-        public ObservableCollection<CourseViewModel> Courses { get; private set; }
+        public ObservableCollection<CourseViewModel> Courses { get; set; }
 
-        /// <summary>
-        /// Default Constructor
-        /// </summary>
-        public DayViewModel()
-        {
-
-        }
     }
 }

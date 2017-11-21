@@ -26,8 +26,8 @@ namespace ZUTSchedule.desktop
             InitializeComponent();
 
             CourseService service = new CourseService();
-
             service.getCourses(new List<DateTime>() { DateTime.Now });
+
         }
     }
 }
