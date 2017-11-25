@@ -12,6 +12,7 @@ namespace ZUTSchedule.mobile
 		public MainPage()
 		{
 			InitializeComponent();
+
 		}
 	}
 }

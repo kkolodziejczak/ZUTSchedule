@@ -16,7 +16,7 @@
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />

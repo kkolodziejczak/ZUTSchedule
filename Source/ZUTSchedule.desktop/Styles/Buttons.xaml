@@ -336,4 +336,62 @@
 
     </Style>
 
+    <!-- Icon Button with transparent background-->
+    <Style x:Key="SwitchWeekButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource LightPrimaryColorBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Height" Value="{Binding ActualWidth,RelativeSource={RelativeSource Self}}"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            >
+                        <Grid>
+                            <Viewbox>
+                                <Grid>
+                                    <Polygon x:Name="PlayButtonR"
+                                         StrokeThickness="0"
+                                         Fill="{StaticResource TextIconsColorBrush}"
+                                         Focusable="False" 
+                                         Margin="5 0"
+                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                         Points="0,0 8,5, 0,10" />
+                                    <Polygon x:Name="PlayButtonL"
+                                         StrokeThickness="0"
+                                         Fill="{StaticResource TextIconsColorBrush}"
+                                         Focusable="False" 
+                                         Margin="5 0"
+                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                         Points="0,5 8,0, 8,10" />
+                                </Grid>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Tag" Value="L">
+                            <Setter Property="Visibility" TargetName="PlayButtonR" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Tag" Value="R">
+                            <Setter Property="Visibility" TargetName="PlayButtonL" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+
 </ResourceDictionary>

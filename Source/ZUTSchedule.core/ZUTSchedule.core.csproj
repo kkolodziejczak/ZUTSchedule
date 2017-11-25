@@ -9,8 +9,4 @@
     <PackageReference Include="PropertyChanged.Fody" Version="2.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

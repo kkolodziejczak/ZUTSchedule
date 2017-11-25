@@ -15,5 +15,20 @@ namespace ZUTSchedule.core
         /// </summary>
         public ObservableCollection<CourseViewModel> Courses { get; set; }
 
+        /// <summary>
+        /// Date of the day
+        /// </summary>
+        public DateTime date { get; set; }
+
+        public string DayOfTheWeek
+        {
+            get { return date.DayOfWeek.ToString(); }
+        }
+
+        public DayViewModel()
+        {
+            Courses = new ObservableCollection<CourseViewModel>();
+        }
+
     }
 }

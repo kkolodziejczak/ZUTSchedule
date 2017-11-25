@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUTSchedule.desktop", "ZUTSchedule.desktop\ZUTSchedule.desktop.csproj", "{A0678C21-9530-4FCD-8600-51B32464EFB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUTSchedule.core", "ZUTSchedule.core\ZUTSchedule.core.csproj", "{47930F30-4C49-4535-BA6D-B5E5934D6769}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZUTSchedule.core", "ZUTSchedule.core\ZUTSchedule.core.csproj", "{47930F30-4C49-4535-BA6D-B5E5934D6769}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ZUTSchedule.mobile", "ZUTSchedule.mobile\ZUTSchedule.mobile\ZUTSchedule.mobile.shproj", "{CE618DCC-8986-452D-B15B-87871897075A}"
 EndProject

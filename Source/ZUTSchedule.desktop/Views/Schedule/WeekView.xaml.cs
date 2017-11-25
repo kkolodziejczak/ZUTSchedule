@@ -17,17 +17,15 @@ using ZUTSchedule.core;
 namespace ZUTSchedule.desktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WeekView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WeekView : UserControl
     {
-        public MainWindow()
+        public WeekView()
         {
             InitializeComponent();
 
-            // Set Data context
-            DataContext = MainWindowViewModel.Instance;
-
+            DataContext = new WeekViewModel();
         }
     }
 }

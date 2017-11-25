@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ZUTSchedule.core
 {
@@ -9,6 +10,7 @@ namespace ZUTSchedule.core
     /// </summary>
     public class CourseViewModel : BaseViewModel
     {
+
         /// <summary>
         /// Starting time of the course
         /// </summary>
@@ -25,12 +27,6 @@ namespace ZUTSchedule.core
         public string CourseName { get; set; }
 
         /// <summary>
-        /// Course Type 
-        /// i.e. Laboratory, Lecture, ...
-        /// </summary>
-        public string ClassType { get; set; }
-
-        /// <summary>
         /// Teachers name
         /// </summary>
         public string TeacherName { get; set; }
@@ -40,5 +36,33 @@ namespace ZUTSchedule.core
         /// </summary>
         public string ClassroomID { get; set; }
 
+        /// <summary>
+        /// Status of the class
+        ///     1. Cancelled
+        ///     2. Exam
+        ///     3. Rector hours
+        /// </summary>
+        public string Status { get; set; }
+
+        private DateTime _Date;
+
+        /// <summary>
+        /// Date of the class
+        /// </summary>
+        public DateTime Date
+        {
+            get { return _Date; }
+            set
+            {
+                if (_Date == value)
+                    return;
+
+                _Date = value;
+
+                Now = value.IsRightNow();
+            }
+        }
+
+        public bool Now { get; set; }
     }
 }

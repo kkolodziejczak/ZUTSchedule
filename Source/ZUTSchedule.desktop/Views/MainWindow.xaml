@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZUTSchedule.desktop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" 
+        Height="350"
+        Width="525"
+        Margin="0,0,0,0" 
+        ResizeMode="NoResize" 
+        SizeToContent="WidthAndHeight">
     <Grid>
-        
+        <ContentPresenter Content="{Binding State, Converter={local:MainWindowStateValueConverter}}"/>
     </Grid>
 </Window>

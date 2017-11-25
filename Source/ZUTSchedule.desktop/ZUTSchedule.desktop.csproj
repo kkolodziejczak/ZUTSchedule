@@ -61,6 +61,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\BoolToVisibilityValueConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeToNowValueConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeToTodayValueConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeToVisibilityValueConverter.cs" />
+    <Compile Include="ValueConverters\MainWindowStateValueConverter.cs" />
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Schedule\ClassView.xaml.cs">
+      <DependentUpon>ClassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Schedule\DayView.xaml.cs">
+      <DependentUpon>DayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Schedule\WeekView.xaml.cs">
+      <DependentUpon>WeekView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Schedule\ClassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Schedule\DayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +100,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Storage.cs" />
+    <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -96,6 +129,10 @@
     <Page Include="Styles\ValidationStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Schedule\WeekView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

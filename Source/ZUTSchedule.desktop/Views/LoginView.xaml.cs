@@ -17,17 +17,15 @@ using ZUTSchedule.core;
 namespace ZUTSchedule.desktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginView : UserControl
     {
-        public MainWindow()
+        public LoginView()
         {
             InitializeComponent();
 
-            // Set Data context
-            DataContext = MainWindowViewModel.Instance;
-
+            DataContext = new LoginViewModel();
         }
     }
 }

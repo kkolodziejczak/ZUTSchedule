@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ClassView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ClassView : UserControl
     {
-        public MainWindow()
+        public ClassView()
         {
             InitializeComponent();
-
-            // Set Data context
-            DataContext = MainWindowViewModel.Instance;
-
         }
     }
 }

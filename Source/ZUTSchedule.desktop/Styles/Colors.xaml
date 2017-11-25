@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZUTSchedule.desktop">
 
+    <Color x:Key="ZUTGreenColor">#007e3f</Color>
+    <SolidColorBrush x:Key="ZUTGreenColorBrush" Color="{StaticResource ZUTGreenColor}"/>
+
+    <Color x:Key="ZUTBlueColor">#003d8f</Color>
+    <SolidColorBrush x:Key="ZUTBlueColorBrush" Color="{StaticResource ZUTBlueColor}"/>
+
     <Color x:Key="DarkerPrimaryColor">#064887</Color>
     <SolidColorBrush x:Key="DarkerPrimaryColorBrush" Color="{StaticResource DarkerPrimaryColor}"/>
     

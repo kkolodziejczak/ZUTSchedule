@@ -4,8 +4,49 @@
              xmlns:local="clr-namespace:ZUTSchedule.mobile"
              x:Class="ZUTSchedule.mobile.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout VerticalOptions="Center"
+                 WidthRequest="200"
+                 HorizontalOptions="Center">
+
+        <!-- Login label -->
+        <Label Text="Login:"/>
+        
+        <!-- Login Entry -->
+        <Entry/>
+
+        <!-- Password Label -->
+        <Label Text="Password:"
+               Margin="0,5,0,0"/>
+        <!-- Password Entry -->
+        <Entry IsPassword="True"/>
+
+        <!-- Login type-->
+        <Picker Margin="0,15,0,10" HorizontalOptions="FillAndExpand">
+            <Picker.Items>
+                <x:String>Student</x:String>
+                <x:String>Nauczyciel</x:String>
+            </Picker.Items>
+            <Picker.SelectedItem>
+                <x:String>Student</x:String>
+            </Picker.SelectedItem>
+        </Picker>
+
+        <!-- Login Button-->
+        <Button Text="Login" Command="{Binding LoginCommand}"/>
+
+        <!-- Auto login -->
+        <StackLayout Orientation="Horizontal">
+            
+            <!-- automatic login label-->
+            <Label Text="Auto login?" 
+                   Margin="0,0,10,0"
+                   VerticalOptions="CenterAndExpand" />
+            
+            <!-- Automatic login switch -->
+            <Switch VerticalOptions="CenterAndExpand" />
+            
+        </StackLayout>
+            
+    </StackLayout>
 
 </ContentPage>
