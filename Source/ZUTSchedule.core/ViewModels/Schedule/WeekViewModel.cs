@@ -13,7 +13,9 @@ namespace ZUTSchedule.core
         /// </summary>
         public ObservableCollection<DayViewModel> Days { get; set; }
 
-
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public WeekViewModel()
         {
             int howManyDays = Storage.NumberOfDaysInTheWeek;

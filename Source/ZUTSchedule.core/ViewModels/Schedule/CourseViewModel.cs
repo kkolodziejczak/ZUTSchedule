@@ -59,7 +59,7 @@ namespace ZUTSchedule.core
 
                 _Date = value;
 
-                Now = value.IsRightNow();
+                Now = _Date.IsRightNow();
             }
         }
 

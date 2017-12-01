@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ZUTSchedule.core;
 
 using Xamarin.Forms;
 
@@ -9,12 +10,32 @@ namespace ZUTSchedule.mobile
 {
 	public partial class App : Application
 	{
+        public static Page Page { get; private set; }
+
 		public App ()
 		{
 			InitializeComponent();
 
-			MainPage = new ZUTSchedule.mobile.MainPage();
-		}
+			MainPage = new NavigationPage( new LoginPage());
+            
+            MainPage.ToolbarItems.Add(new ToolbarItem()
+            {
+                Text = "R",
+                Order = ToolbarItemOrder.Secondary,
+            });
+            MainPage.ToolbarItems.Add(new ToolbarItem()
+            {
+                Text = "L",
+                Order = ToolbarItemOrder.Secondary,
+            });
+            MainPage.ToolbarItems.Add(new ToolbarItem()
+            {
+                Text = "C",
+                Order = ToolbarItemOrder.Primary,
+            });
+
+            Page = this.MainPage;
+        }
 
 		protected override void OnStart ()
 		{

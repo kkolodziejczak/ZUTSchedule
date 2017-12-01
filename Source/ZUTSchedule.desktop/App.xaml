@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/ScrollBar.xaml"/>
                 <ResourceDictionary Source="Styles/ValidationStyle.xaml"/>
+                <ResourceDictionary Source="Styles/VectorImages.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

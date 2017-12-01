@@ -80,6 +80,10 @@
     <Compile Include="Views\Schedule\WeekView.xaml.cs">
       <DependentUpon>WeekView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\VectorImages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

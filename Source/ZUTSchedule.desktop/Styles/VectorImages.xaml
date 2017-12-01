@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ZUTSchedule.desktop">
+
+    <DrawingImage x:Key="ZUTDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup >
+                <DrawingGroup Transform="1.25,0,0,-1.25,-9.2791295,50.29375">
+                    <GeometryDrawing Brush="#FF007E3F" Geometry="F0 M57.93212,41.008751z M0,0z M17.871,8.228L33.473,39.431 17.871,39.431 10.066,23.829C5.762,15.216,9.254,8.228,17.871,8.228z" />
+                    <GeometryDrawing Brush="#FF003D8F" Geometry="F0 M57.93212,41.008751z M0,0z M37.367,39.435L52.969,39.435 37.367,8.228 21.766,8.228 37.367,39.435z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="WILogoDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V65,936508 H94,476196 V0 H0 Z">
+                <DrawingGroup Transform="1,0,0,1,-24.1746,-36.552657">
+                    <GeometryDrawing Brush="#FF6CADDF" Geometry="F0 M65.936508,94.476196z M0,0z M70.42857,36.552657L24.1746,36.552657 24.1746,87.727267C24.1746,110.36219,40.90476,129.0606,61.57143,131.02885L61.57143,77.885997C61.57143,75.917737,63.53968,74.933617,65.50794,74.933617L70.42857,74.933617 70.42857,70.012977C68.46032,70.012977 66.49206,68.044727 64.52381,67.060597 61.57143,64.108217 59.60317,59.187587 59.60317,55.251077L59.60317,55.251077 59.60317,55.251077 59.60317,55.251077C59.60317,50.330437 61.57143,46.393927 64.52381,43.441547 65.50794,42.457427 65.50794,42.457427 65.50794,42.457427 66.49206,41.473297 68.46032,40.489167 70.42857,39.505047L70.42857,36.552657z M77.31746,41.473297C84.20635,41.473297 90.11111,47.378057 90.11111,55.251077 90.11111,62.139967 84.20635,68.044727 77.31746,68.044727 69.44444,68.044727 63.53968,62.139967 63.53968,55.251077 63.53968,47.378057 69.44444,41.473297 77.31746,41.473297z M89.12698,131.02885L89.12698,77.885997 65.50794,77.885997 65.50794,131.02885 89.12698,131.02885z" />
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

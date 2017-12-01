@@ -122,6 +122,12 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ZUTSchedule.core\ZUTSchedule.core.csproj">
+      <Project>{47930f30-4c49-4535-ba6d-b5e5934d6769}</Project>
+      <Name>ZUTSchedule.core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\ZUTSchedule.mobile\ZUTSchedule.mobile.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

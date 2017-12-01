@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZUTSchedule.mobile.ClassView">
+    <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Frame CornerRadius="0"
+                   Grid.Column="0"
+                   BackgroundColor="Blue"/>
+
+            <StackLayout Grid.Column="1"
+                         Margin="5,0"
+                         Spacing="0"
+                         VerticalOptions="Center">
+                <Label Text="{Binding StartTime}" VerticalOptions="End"/>
+                <Label Text="{Binding EndTime}" VerticalOptions="Start"/>
+            </StackLayout>
+
+            <StackLayout Grid.Column="2"
+                         Margin="0,0,5,0"
+                         Spacing="0"
+                         VerticalOptions="Center">
+                <Label Text="{Binding CourseName}"/>
+                <Label Text="{Binding TeacherName}"/>
+                <Label Text="{Binding ClassroomID}"/>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

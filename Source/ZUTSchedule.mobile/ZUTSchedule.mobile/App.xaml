@@ -4,7 +4,7 @@
              x:Class="ZUTSchedule.mobile.App">
 	<Application.Resources>
 
-		<!-- Application resource dictionary -->
+            <!-- Application resource dictionary -->
 
 	</Application.Resources>
 </Application>
