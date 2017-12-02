@@ -15,7 +15,7 @@
             <!-- Password Entry -->
             <Entry IsPassword="True" 
                    Margin="0,5,0,0"
-                   Text="{Binding UserPassword, Mode=TwoWay}"
+                   Text="{Binding password, Mode=TwoWay}"
                    Placeholder="Password"/>
 
             <!-- Login type-->

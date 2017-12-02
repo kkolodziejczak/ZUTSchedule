@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
@@ -25,6 +26,11 @@ namespace ZUTSchedule.desktop
 
             var type = (DateTime)value;
 
+            if (core.Storage.NumberOfDaysInTheWeek == 1)
+            {
+                return Visibility.Visible;
+            }
+
             //Left
             if (parameter != null)
             {
@@ -36,7 +42,11 @@ namespace ZUTSchedule.desktop
             // Right
             else
             {
-                if (type.DayOfWeek == DayOfWeek.Friday)
+                if (type.DayOfWeek == DayOfWeek.Friday && Storage.NumberOfDaysInTheWeek == 5)
+                {
+                    return Visibility.Visible;
+                }
+                if (type.DayOfWeek == DayOfWeek.Sunday && Storage.NumberOfDaysInTheWeek == 7)
                 {
                     return Visibility.Visible;
                 }

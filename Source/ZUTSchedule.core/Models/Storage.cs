@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security;
 using System.Text;
 
 namespace ZUTSchedule.core
 {
-    public static class Storage
+    public class Storage
     {
         // Temp Login data
         public static string login;
-        public static string Password;
+        public static SecureString Password;
         public static string Typ;
         //
 
-        public static int NumberOfDaysInTheWeek { get; } = 7;
+        public static int NumberOfDaysInTheWeek { get; } = 5;
+        public static int DayShift { get; private set; } = 0;
+
+        public delegate void ShiftDayUpdate();
+
+        public event ShiftDayUpdate OnDayShiftUpdate = () => { };
+
+        public void IncrementWeek()
+        {
+            DayShift++;
+            OnDayShiftUpdate();
+        }
+
+        public void DecrementWeek()
+        {
+            DayShift--;
+            OnDayShiftUpdate();
+        }
+
 
         public static string LoginURL { get; } = "https://www.zut.edu.pl/WU/Logowanie2.aspx";
         public static string PlanURL { get; } = "https://www.zut.edu.pl/WU/PodzGodzin.aspx";
@@ -31,5 +50,21 @@ namespace ZUTSchedule.core
             DayOfWeek.Sunday
         };
 
+        private static Storage _Instance;
+        public static Storage Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                    _Instance = new Storage();
+
+                return _Instance;
+            }
+        }
+
+        private Storage()
+        {
+
+        }
     }
 }

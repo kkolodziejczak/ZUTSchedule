@@ -46,10 +46,6 @@ namespace ZUTSchedule.core
 
                 return _Instance;
             }
-            private set
-            {
-                _Instance = value;
-            }
         }
 
         /// <summary>

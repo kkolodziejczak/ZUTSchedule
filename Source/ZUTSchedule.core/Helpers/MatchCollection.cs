@@ -25,14 +25,18 @@ namespace ZUTSchedule.core
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        public static DateTime ToDateTime(this MatchCollection collection)
+        public static DateTime ToDateTime(this MatchCollection collection, string time)
         {
 
             int ClassDay = Int32.Parse(collection[0].Groups[1].Value);
             int ClassMonth = Int32.Parse(collection[0].Groups[2].Value);
             int ClassYear = Int32.Parse(collection[0].Groups[3].Value);
 
-            return new DateTime(ClassYear, ClassMonth, ClassDay);
+            var times = time.Split(':');
+            int Hour = Int32.Parse(times[0]);
+            int Mins = Int32.Parse(times[1]);
+
+            return new DateTime(ClassYear, ClassMonth, ClassDay,Hour,Mins,0);
 
         }
     }

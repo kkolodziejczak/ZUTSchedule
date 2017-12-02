@@ -5,25 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZUTSchedule.desktop"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-        <TextBlock Text="Login:"/>
-        <TextBox/>
-        <TextBlock Text="Password:"
-                   Margin="0 5 0 0"/>
-        <PasswordBox/>
+             >
+    <StackPanel Margin="50">
 
         <StackPanel Orientation="Horizontal"
-                    Margin="0 15 0 10">
-            <RadioButton Margin="0 0 10 0"
-                         Content="Student" 
-                         GroupName="LoginTyp" 
-                         IsChecked="True"/>
-            <RadioButton Content="Teacher" 
-                         GroupName="LoginTyp"/>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 25">
+            
+            <Border Height="45"
+                    Padding="0 8 0 0">
+                <Image HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Stretch"
+                       Source="{StaticResource ZUTDrawingImage}"/>
+            </Border>
+
+            <TextBlock Text="E-Dziekanat"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="0 6 0 0"
+                       FontSize="18"/>
         </StackPanel>
 
-        <Button Content="Login" Command="{Binding LoginCommand}"/>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    >
+
+            <TextBlock Text="Login:"
+                       Margin="0 0 0 3"/>
+            <TextBox Text="{Binding UserLogin, Mode=TwoWay}"
+                     TabIndex="0"/>
+            <TextBlock Text="Password:"
+                       Margin="0 10 0 3"/>
+            <PasswordBox Name="PasswordBox"
+                         TabIndex="1"
+                         PasswordChanged="PasswordBox_PasswordChanged"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 15 0 10">
+                <RadioButton Margin="0 0 10 0"
+                             Content="Student" 
+                             GroupName="LoginTyp" 
+                             IsChecked="True"
+                             FontSize="14"
+                             TabIndex="2"
+                             VerticalContentAlignment="Center"/>
+                <RadioButton Content="Teacher" 
+                             GroupName="LoginTyp"
+                             FontSize="14"
+                             VerticalContentAlignment="Center"
+                             TabIndex="3"/>
+            </StackPanel>
+
+            <Button Content="Login" 
+                    IsDefault="True"
+                    TabIndex="4"
+                    Command="{Binding LoginCommand}"/>
+        </StackPanel>
     </StackPanel>
+
 </UserControl>

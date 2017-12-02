@@ -9,19 +9,14 @@ using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
-    public class DateTimeToNowValueConverter : BaseValueConverter<DateTimeToNowValueConverter>
+    public class BoolToFontWeightValueConverter : BaseValueConverter<BoolToFontWeightValueConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || !(value is DateTime date))
+            if (value == null || !(value is bool Now))
                 return null;
 
-            if(date.IsRightNow())
-            {
-                return FontWeights.Bold;
-            }
-
-            return FontWeights.Regular;
+            return Now ? FontWeights.Bold : FontWeights.Regular;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

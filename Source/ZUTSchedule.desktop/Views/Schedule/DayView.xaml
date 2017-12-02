@@ -9,7 +9,7 @@
     <StackPanel Background="White">
         
         <!-- Day of the week -->
-        <Grid Background="{Binding Path=date, Converter={local:DateTimeToTodayValueConverter}}">
+        <Grid Background="{Binding Path=Today, Converter={local:BoolToTodayColorValueConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -29,6 +29,7 @@
                     Style="{StaticResource SwitchWeekButton}"
                     Tag="L"
                     Visibility="{Binding Path=date, Converter={local:DateTimeToVisibilityValueConverter}, ConverterParameter=true}"
+                    Command="{Binding DecrementCommand}"
                     />
 
             <Button Grid.Column="2"
@@ -39,6 +40,7 @@
                     Style="{StaticResource SwitchWeekButton}"
                     Visibility="{Binding Path=date, Converter={local:DateTimeToVisibilityValueConverter}}"
                     Tag="R"
+                    Command="{Binding IncrementCommand}"
                     />
         
             <TextBlock Grid.Column="1"

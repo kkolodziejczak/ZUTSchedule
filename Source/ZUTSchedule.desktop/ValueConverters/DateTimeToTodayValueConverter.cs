@@ -1,27 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+
+using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
-    public class DateTimeToTodayValueConverter : BaseValueConverter<DateTimeToTodayValueConverter>
+    public class BoolToTodayColorValueConverter : BaseValueConverter<BoolToTodayColorValueConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || !(value is DateTime date))
+            if (value == null || !(value is bool Today))
                 return null;
 
-            if(DateTime.Compare(date, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)) == 0)
-            {
-                return ResourceHelper.GetStaticFieldValue("ZUTBlueColorBrush");
-            }
-
-
-            return ResourceHelper.GetStaticFieldValue("ZUTGreenColorBrush");
+            // TODO: Change to normal Method
+            return ResourceHelper.GetStaticFieldValue(Today ? "ZUTBlueColorBrush" : "ZUTGreenColorBrush");
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

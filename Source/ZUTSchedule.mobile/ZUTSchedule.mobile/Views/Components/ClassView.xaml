@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ZUTSchedule.mobile"
              x:Class="ZUTSchedule.mobile.ClassView">
+
     <ContentView.Content>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -12,14 +14,17 @@
 
             <Frame CornerRadius="0"
                    Grid.Column="0"
-                   BackgroundColor="Blue"/>
+                   BackgroundColor="Blue"
+                   IsVisible="{Binding Now}"/>
 
             <StackLayout Grid.Column="1"
                          Margin="5,0"
                          Spacing="0"
                          VerticalOptions="Center">
-                <Label Text="{Binding StartTime}" VerticalOptions="End"/>
-                <Label Text="{Binding EndTime}" VerticalOptions="Start"/>
+                <Label Text="{Binding StartTime, StringFormat='HH:mm'}" 
+                       VerticalOptions="End"/>
+                <Label Text="{Binding EndTime, StringFormat='HH:mm'}" 
+                       VerticalOptions="Start"/>
             </StackLayout>
 
             <StackLayout Grid.Column="2"

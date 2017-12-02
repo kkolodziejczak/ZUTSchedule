@@ -23,11 +23,13 @@
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     >
-            <TextBlock Text="{Binding StartTime}"
+            <TextBlock Text="{Binding StartTimeString}"
                        VerticalAlignment="Bottom"
-                       FontWeight="{Binding Date, Converter={local:DateTimeToNowValueConverter}}"/>
-            <TextBlock Text="{Binding EndTime}"
-                       FontWeight="{Binding Date, Converter={local:DateTimeToNowValueConverter}}"
+                       Foreground="{Binding Path=Status, Converter={local:ClassStatusToColorValueConverter}}"
+                       FontWeight="{Binding Now, Converter={local:BoolToFontWeightValueConverter}}"/>
+            <TextBlock Text="{Binding EndTimeString}"
+                       Foreground="{Binding Path=Status, Converter={local:ClassStatusToColorValueConverter}}"
+                       FontWeight="{Binding Now, Converter={local:BoolToFontWeightValueConverter}}"
                        VerticalAlignment="Top"/>
         </StackPanel>
 
@@ -35,13 +37,16 @@
                     Grid.Column="2"
                     VerticalAlignment="Center">
             <TextBlock Text="{Binding CourseName}"
-                       FontWeight="{Binding Date, Converter={local:DateTimeToNowValueConverter}}"
+                       Foreground="{Binding Path=Status, Converter={local:ClassStatusToColorValueConverter}}"
+                       FontWeight="{Binding Now, Converter={local:BoolToFontWeightValueConverter}}"
                        TextWrapping="WrapWithOverflow"/>
             <TextBlock Text="{Binding TeacherName}"
-                       FontWeight="{Binding Date, Converter={local:DateTimeToNowValueConverter}}"
+                       Foreground="{Binding Path=Status, Converter={local:ClassStatusToColorValueConverter}}"
+                       FontWeight="{Binding Now, Converter={local:BoolToFontWeightValueConverter}}"
                        TextWrapping="WrapWithOverflow"/>
             <TextBlock Text="{Binding ClassroomID}"
-                       FontWeight="{Binding Date, Converter={local:DateTimeToNowValueConverter}}"
+                       Foreground="{Binding Path=Status, Converter={local:ClassStatusToColorValueConverter}}"
+                       FontWeight="{Binding Now, Converter={local:BoolToFontWeightValueConverter}}"
                        TextWrapping="WrapWithOverflow"/>
         </StackPanel>
 

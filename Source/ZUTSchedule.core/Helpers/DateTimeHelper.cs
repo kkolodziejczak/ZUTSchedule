@@ -6,7 +6,13 @@ namespace ZUTSchedule.core
 {
     public static class DateTimeHelper
     {
-        public static DateTime StartOfWeek(this DateTime date, DayOfWeek startOfWeek)
+        /// <summary>
+        /// Returns <see cref="DateTime"/> with 1st day of the week starting from <paramref name="startOfWeek"/>
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="startOfWeek">1st day of the week</param>
+        /// <returns></returns>
+        public static DateTime StartOfWeek(this DateTime date, DayOfWeek startOfWeek = DayOfWeek.Monday)
         {
             int diff = date.DayOfWeek - startOfWeek;
             if (diff < 0)
@@ -17,18 +23,34 @@ namespace ZUTSchedule.core
         }
 
         /// <summary>
-        /// Returns if classes are happening in this hour
+        /// Returns <see cref="DateTime"/> with only Date values
         /// </summary>
         /// <param name="date"></param>
-        /// <param name="compare"></param>
         /// <returns></returns>
-        public static bool IsRightNow(this DateTime date)
+        public static DateTime OnlyDate(this DateTime date)
         {
-            return date.Hour  >= DateTime.Now.Hour
-                && date.Hour  <= DateTime.Now.Hour + 2
-                && date.Year  == DateTime.Now.Year
-                && date.Month == DateTime.Now.Month
-                && date.Day   == DateTime.Now.Day;
+            return new DateTime(date.Year, date.Month, date.Day);
+        }
+
+        private static Dictionary<DayOfWeek, string> Week = new Dictionary<DayOfWeek, string>()
+        {
+            {DayOfWeek.Monday, "Poniedziałek"},
+            {DayOfWeek.Tuesday, "Wtorek"},
+            {DayOfWeek.Wednesday, "Środa"},
+            {DayOfWeek.Thursday, "Czwartek"},
+            {DayOfWeek.Friday, "Piątek"},
+            {DayOfWeek.Saturday, "Sobota"},
+            {DayOfWeek.Sunday, "Niedziela"},
+        };
+
+        /// <summary>
+        /// Returns DayOfWeek in Polish
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string GetDayOfWeekPolish(this DateTime date)
+        {
+            return Week[date.DayOfWeek];
         }
     }
 }

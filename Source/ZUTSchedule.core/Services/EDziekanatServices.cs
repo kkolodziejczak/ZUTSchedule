@@ -38,9 +38,9 @@ namespace ZUTSchedule.core
             using (HttpClient client = new HttpClient(handle))
             {
 
-                string POST_LoginMessage = $"ctl00_ctl00_ScriptManager1_HiddenField=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUKMTc3NTQ1OTc2NA8WAh4DaGFzZRYCZg9kFgJmD2QWAgIBD2QWBAIDD2QWAgIBD2QWAgIBD2QWAgICDxQrAAIUKwACDxYEHgtfIURhdGFCb3VuZGceF0VuYWJsZUFqYXhTa2luUmVuZGVyaW5naGRkZGQCBA9kFgICAQ9kFhICAQ8WAh4JaW5uZXJodG1sBSZlLUR6aWVrYW5hdDwhLS0gc3RhdHVzOiA1NjE0NTAxMjYgLS0%2BIGQCDQ8PFgIeBE1vZGULKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRleHRCb3hNb2RlAmRkAhUPDxYEHgRUZXh0BRlPZHp5c2tpd2FuaWUgaGFzxYJhPGJyIC8%2BHgdWaXNpYmxlaGRkAhcPZBYCAgMPEGQPFgJmAgEWAgURc3R1ZGVudC9kb2t0b3JhbnQFCGR5ZGFrdHlrFgFmZAIZD2QWBAIBDw8WAh8FBTQ8YnIgLz5MdWIgemFsb2d1aiBzacSZIGpha28gc3R1ZGVudCBwcnpleiBPZmZpY2UzNjU6ZGQCAw8PFgIfBQUIUHJ6ZWpkxbpkZAIbDw8WBB8FBRhTZXJ3aXMgQWJzb2x3ZW50w7N3PGJyLz4fBmhkZAIfDw8WAh8GaGRkAiEPDxYCHwZoZBYGAgEPDxYCHwVkZGQCAw8PFgIfBQUGQW51bHVqZGQCBQ8PFgIfBQUHUG9iaWVyemRkAiMPDxYCHwUFI1fFgsSFY3ogcmVrbGFtxJkgYXBsaWthY2ppIG1vYmlsbmVqZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFSmN0bDAwJGN0bDAwJFRvcE1lbnVQbGFjZUhvbGRlciRUb3BNZW51Q29udGVudFBsYWNlSG9sZGVyJE1lbnVUb3AzJG1lbnVUb3Az38BzqfstGliCA7rUUjKrKnlhZpc%3D&__VIEWSTATEGENERATOR=7D6A02AE&ctl00_ctl00_TopMenuPlaceHolder_TopMenuContentPlaceHolder_MenuTop3_menuTop3_ClientState=&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtIdent={Storage.login}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtHaslo={Storage.Password}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24rbKto={Storage.Typ}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24butLoguj=Zaloguj";
-
-                var LoginRequestContent = new StringContent(POST_LoginMessage, Encoding.UTF8, "application/x-www-form-urlencoded");
+                var LoginRequestContent = new StringContent($"ctl00_ctl00_ScriptManager1_HiddenField=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUKMTc3NTQ1OTc2NA8WAh4DaGFzZRYCZg9kFgJmD2QWAgIBD2QWBAIDD2QWAgIBD2QWAgIBD2QWAgICDxQrAAIUKwACDxYEHgtfIURhdGFCb3VuZGceF0VuYWJsZUFqYXhTa2luUmVuZGVyaW5naGRkZGQCBA9kFgICAQ9kFhICAQ8WAh4JaW5uZXJodG1sBSZlLUR6aWVrYW5hdDwhLS0gc3RhdHVzOiA1NjE0NTAxMjYgLS0%2BIGQCDQ8PFgIeBE1vZGULKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRleHRCb3hNb2RlAmRkAhUPDxYEHgRUZXh0BRlPZHp5c2tpd2FuaWUgaGFzxYJhPGJyIC8%2BHgdWaXNpYmxlaGRkAhcPZBYCAgMPEGQPFgJmAgEWAgURc3R1ZGVudC9kb2t0b3JhbnQFCGR5ZGFrdHlrFgFmZAIZD2QWBAIBDw8WAh8FBTQ8YnIgLz5MdWIgemFsb2d1aiBzacSZIGpha28gc3R1ZGVudCBwcnpleiBPZmZpY2UzNjU6ZGQCAw8PFgIfBQUIUHJ6ZWpkxbpkZAIbDw8WBB8FBRhTZXJ3aXMgQWJzb2x3ZW50w7N3PGJyLz4fBmhkZAIfDw8WAh8GaGRkAiEPDxYCHwZoZBYGAgEPDxYCHwVkZGQCAw8PFgIfBQUGQW51bHVqZGQCBQ8PFgIfBQUHUG9iaWVyemRkAiMPDxYCHwUFI1fFgsSFY3ogcmVrbGFtxJkgYXBsaWthY2ppIG1vYmlsbmVqZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFSmN0bDAwJGN0bDAwJFRvcE1lbnVQbGFjZUhvbGRlciRUb3BNZW51Q29udGVudFBsYWNlSG9sZGVyJE1lbnVUb3AzJG1lbnVUb3Az38BzqfstGliCA7rUUjKrKnlhZpc%3D&__VIEWSTATEGENERATOR=7D6A02AE&ctl00_ctl00_TopMenuPlaceHolder_TopMenuContentPlaceHolder_MenuTop3_menuTop3_ClientState=&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtIdent={Storage.login}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtHaslo={Storage.Password.Unsecure()}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24rbKto={Storage.Typ}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24butLoguj=Zaloguj",
+                                                            Encoding.UTF8, 
+                                                            "application/x-www-form-urlencoded");
 
                 string SiteDocument = await PostRequest(Storage.LoginURL, LoginRequestContent, client);
 
@@ -140,24 +140,32 @@ namespace ZUTSchedule.core
                 var RecordData = Regex.Matches(record.ToString(),
                     "(?:<td.*?>(?:(?:<font.*?>)*(?:<a.*?>)*(.*?)(?:</a>)*(?:</font>)*)</td>?)");
 
-                var ClassDateTime = Regex.Matches(RecordData.getValueAt(0), "(\\d+)\\.(\\d+)\\.(\\d+).*").ToDateTime();
+                // Prepare data
+                var Date = RecordData.getValueAt(0).Split(' ')[0].Split('.');
+                var StartTime = RecordData.getValueAt(1).Split(':');
+                var EndTime = RecordData.getValueAt(2).Split(':');
 
-                // If there is no day with this date add new day
-                if (Result.Where(date => date.date == ClassDateTime).Count() == 0)
+                // Generate DateTime
+                var ClassDateTime = new DateTime(Date[2].ToInt(), Date[1].ToInt(), Date[0].ToInt());
+                var ClassStartDateTime = new DateTime(Date[2].ToInt(), Date[1].ToInt(), Date[0].ToInt(), StartTime[0].ToInt(), StartTime[1].ToInt(), 0);
+                var ClassEndDateTime = new DateTime(Date[2].ToInt(), Date[1].ToInt(), Date[0].ToInt(), EndTime[0].ToInt(), EndTime[1].ToInt(), 0);
+                
+                // If there is no day with this date...
+                if (Result.Where(date => date.date == ClassDateTime.OnlyDate()).Count() == 0)
                 {
-                    Result.Add(new DayViewModel() { date = ClassDateTime });
+                    // add new day
+                    Result.Add(new DayViewModel() { date = ClassDateTime.OnlyDate() });
                 }
 
                 // add class to last added day
-                Result.Last().Courses.Add(new CourseViewModel()
+                Result.Last().Courses.Add(new ClassViewModel()
                 {
-                    StartTime = RecordData.getValueAt(ClassRecordData.StartTime),
-                    EndTime = RecordData.getValueAt(ClassRecordData.EndTime),
+                    StartTime = ClassStartDateTime,
+                    EndTime = ClassEndDateTime,
                     ClassroomID = RecordData.getValueAt(ClassRecordData.Place),
                     TeacherName = RecordData.getValueAt(ClassRecordData.Teacher),
                     CourseName = $"{RecordData.getValueAt(ClassRecordData.Course)} ({RecordData.getValueAt(ClassRecordData.CourseType)})",
                     Status = RecordData.getValueAt(ClassRecordData.Status),
-                    Date = ClassDateTime,
                 });
 
             }

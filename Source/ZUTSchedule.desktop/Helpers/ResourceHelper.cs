@@ -25,7 +25,7 @@ namespace ZUTSchedule.desktop
             {
                 returnValue = Application.Current.FindResource(KeyValue);
             }
-            catch
+            catch(Exception e)
             {
                 // Ignore any errors and return null
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -25,12 +26,13 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Password provided by user
         /// </summary>
-        public string UserPassword
+        public SecureString UserPassword
         {
             get { return Storage.Password; }
             set { Storage.Password = value; }
         }
 
+        public string password { get; set; }
         /// <summary>
         /// Indicates if user is login in as teacher
         /// </summary>
@@ -67,7 +69,7 @@ namespace ZUTSchedule.core
             EDziekanatService service = new EDziekanatService();
 
             // In case of something is missing
-            if(string.IsNullOrWhiteSpace(UserLogin) || string.IsNullOrWhiteSpace(UserPassword))
+            if(string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
             {
                 //TODO: signalize to login
                 //TODO: Add MessageService

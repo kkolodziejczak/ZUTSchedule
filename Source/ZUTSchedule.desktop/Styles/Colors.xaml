@@ -2,12 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ZUTSchedule.desktop">
 
-    <Color x:Key="ZUTGreenColor">#007e3f</Color>
-    <SolidColorBrush x:Key="ZUTGreenColorBrush" Color="{StaticResource ZUTGreenColor}"/>
-
-    <Color x:Key="ZUTBlueColor">#003d8f</Color>
-    <SolidColorBrush x:Key="ZUTBlueColorBrush" Color="{StaticResource ZUTBlueColor}"/>
-
     <Color x:Key="DarkerPrimaryColor">#064887</Color>
     <SolidColorBrush x:Key="DarkerPrimaryColorBrush" Color="{StaticResource DarkerPrimaryColor}"/>
     
@@ -44,11 +38,24 @@
     <Color x:Key="DividerColor">#212121</Color>
     <SolidColorBrush x:Key="DividerColorBrush" Color="{StaticResource DividerColor}"/>
 
-    <Color x:Key="WarningColor">#d50000</Color>
-    <SolidColorBrush x:Key="WarningColorBrush" Color="{StaticResource WarningColor}"/>
-
     <Color x:Key="DisabledButtonColor">#9E9E9E</Color>
     <SolidColorBrush x:Key="DisabledButtonColorBrush" Color="{StaticResource DisabledButtonColor}"/>
 
+    <!-- ZUTShedule -->
+
+    <Color x:Key="ZUTGreenColor">#007e3f</Color>
+    <SolidColorBrush x:Key="ZUTGreenColorBrush" Color="{StaticResource ZUTGreenColor}"/>
+
+    <Color x:Key="ZUTBlueColor">#003d8f</Color>
+    <SolidColorBrush x:Key="ZUTBlueColorBrush" Color="{StaticResource ZUTBlueColor}"/>
+
+    <Color x:Key="CanceledColor">#e74c3c</Color>
+    <SolidColorBrush x:Key="CanceledColorBrush" Color="{StaticResource CanceledColor}"/>
+
+    <Color x:Key="RectorColor">#009900</Color>
+    <SolidColorBrush x:Key="RectorColorBrush" Color="{StaticResource RectorColor}"/>
+
+    <Color x:Key="ExamColor">#9b59b6</Color>
+    <SolidColorBrush x:Key="ExamColorBrush" Color="{StaticResource ExamColor}"/>
 
 </ResourceDictionary>

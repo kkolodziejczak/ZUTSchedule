@@ -18,28 +18,55 @@ namespace ZUTSchedule.core
         /// </summary>
         public WeekViewModel()
         {
-            int howManyDays = Storage.NumberOfDaysInTheWeek;
-            var HowManyWeekShift = 0;
-
-            var ShiftedDateTime = DateTime.Now.AddDays(howManyDays * HowManyWeekShift);
-            var FirstDayOfTheWeek = ShiftedDateTime.StartOfWeek(DayOfWeek.Monday);
-
-            if (Storage.Classes == null)
-                return;
-
-            var WeekDays = Storage.Classes.Where(day => day.date.DayOfYear >= FirstDayOfTheWeek.DayOfYear
-                                                     && day.date.DayOfYear < FirstDayOfTheWeek.DayOfYear + 7)
-                                          .ToList();
-
-            Days = GetMissingsDays(WeekDays);
-
+            RefreshSchedule();
+            Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
         }
 
-        private ObservableCollection<DayViewModel> GetMissingsDays(List<DayViewModel> week)
+        /// <summary>
+        /// Refreshes schedule
+        /// </summary>
+        public void RefreshSchedule()
+        {
+            switch (Storage.NumberOfDaysInTheWeek)
+            {
+                // Logic for 1 day Week
+                case 1:
+                    var ShiftedDate = DateTime.Now.AddDays(Storage.NumberOfDaysInTheWeek * Storage.DayShift);
+
+                    var Day = Storage.Classes.Where(day => day.date.DayOfYear == ShiftedDate.DayOfYear)
+                                                                                 .ToList();
+                    if (!Day.Any())
+                    {
+                        Days = new ObservableCollection<DayViewModel>()
+                        {
+                            new DayViewModel() { date = ShiftedDate }
+                        };
+                        return;
+                    }
+
+                    Days = new ObservableCollection<DayViewModel>(Day);
+                    break;
+
+                // Logic for 5 and 7 week Days
+                default:
+                    var ShiftedDateTime = DateTime.Now.AddDays(Storage.NumberOfDaysInTheWeek * Storage.DayShift);
+                    var FirstDayOfTheWeek = ShiftedDateTime.StartOfWeek(DayOfWeek.Monday);
+
+                    if (Storage.Classes == null)
+                        return;
+
+                    var WeekDays = Storage.Classes.Where(day => day.date.DayOfYear >= FirstDayOfTheWeek.DayOfYear
+                                                             && day.date.DayOfYear < FirstDayOfTheWeek.DayOfYear + 7)
+                                                  .ToList();
+
+                    Days = GetMissingsDays(WeekDays, FirstDayOfTheWeek);
+                    break;
+            }
+        }
+
+        private ObservableCollection<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)
         {
             var output = new ObservableCollection<DayViewModel>();
-
-            var FirstDayOfTheWeek = week.First().date.StartOfWeek(DayOfWeek.Monday);
 
             //TODO get number of days from Settings! 
             // Also check for 1 day view
