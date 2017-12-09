@@ -34,6 +34,7 @@ namespace ZUTSchedule.core
             }
         }
 
+
         /// <summary>
         /// Singleton
         /// </summary>
@@ -55,7 +56,6 @@ namespace ZUTSchedule.core
         {
 
             State = MainWindowState.loginPage;
-
         }
 
     }

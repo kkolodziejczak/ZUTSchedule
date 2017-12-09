@@ -15,12 +15,24 @@ namespace ZUTSchedule.desktop
             if (value == null || !(value is bool type))
                 return null;
 
-            if (type == false)
+            bool ConverterLogic = false;
+
+            if (parameter != null)
+            {
+                // negate converter logic if parameter is provided
+                ConverterLogic = !ConverterLogic;
+            }
+
+            if (type == ConverterLogic)
             {
                 return Visibility.Collapsed;
             }
+            else
+            {
+                return Visibility.Visible;
 
-            return Visibility.Visible;
+            }
+
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

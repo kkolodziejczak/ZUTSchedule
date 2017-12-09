@@ -5,6 +5,7 @@
 
     <!-- Menu Tooltips -->
     <system:String x:Key="TooltipProjects">Projects</system:String>
+    <system:String x:Key="NewText">NOWOŚĆ</system:String>
     
 
     <!-- Info Page -->

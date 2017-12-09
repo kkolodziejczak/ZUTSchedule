@@ -87,12 +87,14 @@
     <Style x:Key="TextButton" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{StaticResource AccentBlueColorBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0 2"/>
+        <Setter Property="Margin" Value="0 2 0 0"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -107,7 +109,6 @@
                                 <TextBlock x:Name="ContentText"
                                            Text="{TemplateBinding Content}" 
                                            Focusable="False" 
-                                           TextDecorations="Underline"
                                            FontFamily="{TemplateBinding FontFamily}"
                                            FontSize="{TemplateBinding FontSize}"
                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
@@ -120,7 +121,7 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation To="{StaticResource AccentOrangeColor}" 
+                                    <ColorAnimation To="{StaticResource WIBlueColor}" 
                                                     Duration="0:0:0.2" 
                                                     Storyboard.TargetName="ContentText" 
                                                     Storyboard.TargetProperty="Foreground.Color"/>
@@ -130,7 +131,7 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation To="{StaticResource AccentBlueColor}" 
+                                    <ColorAnimation To="{StaticResource PrimaryText}" 
                                                     Duration="0:0:0.2" 
                                                     Storyboard.TargetName="ContentText" 
                                                     Storyboard.TargetProperty="Foreground.Color"/>
@@ -138,7 +139,7 @@
                             </BeginStoryboard>
                         </EventTrigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" TargetName="ContentText" Value="{StaticResource AccentBlueColor}"/>
+                            <Setter Property="Foreground" TargetName="ContentText" Value="{StaticResource PrimaryText}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -391,7 +392,5 @@
         </Setter>
 
     </Style>
-
-
 
 </ResourceDictionary>

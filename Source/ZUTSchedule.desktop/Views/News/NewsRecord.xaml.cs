@@ -9,28 +9,20 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NewsRecord.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NewsRecord : UserControl
     {
-        public MainWindow()
+        public NewsRecord()
         {
             InitializeComponent();
-
-            // Set Data context
-            DataContext = MainWindowViewModel.Instance;
-
         }
-
-
     }
 }

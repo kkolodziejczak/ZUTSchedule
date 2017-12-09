@@ -4,63 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZUTSchedule.desktop"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"
+             >
+
+
     <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition  Height="20"/>
+            <RowDefinition  Height="Auto"/>
         </Grid.RowDefinitions>
-
         <!-- News Feed -->
-        <Rectangle Grid.Row="0"
-                   Fill="Red"/>
-       
-        <!-- University Logo -->
 
-        <Border Grid.Row="0"
-                HorizontalAlignment="Left"
-                Padding="0 2 0 0"
-                Background="{StaticResource TextIconsColorBrush}">
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Hidden"
+                      Width="{Binding ElementName=Week, Path=ActualWidth}"
+                      Grid.Row="0"
+                      >
+            <Grid>
+                <local:NewsContainer DataContext="{Binding News}"
+                                     x:Name="News"
+                                     Loaded="UserControl_Loaded"
+                                     />
+                <local:NewsContainer DataContext="{Binding News}"
+                                     x:Name="News2"
+                                     Visibility="Collapsed"
+                                     />
+            </Grid>
+        </ScrollViewer>
 
-            <Image HorizontalAlignment="Stretch" 
-                   VerticalAlignment="Stretch"
-                   Source="{StaticResource ZUTDrawingImage}"/>
-        </Border>
 
-        <!-- Nowość border -->
-        <Border Grid.Row="0"
-                HorizontalAlignment="Left"
-                Padding="5 2 5 0"
-                Margin="65 0 0 0"
-                Background="{StaticResource ZUTBlueColorBrush}"
-                >
 
-            <TextBlock Text="NOWOŚĆ" 
-                       FontWeight="Bold"
-                       FontStyle="Italic"
-                       VerticalAlignment="Center"
-                       FontSize="12"
-                       Foreground="{StaticResource TextIconsColorBrush}"/>
-        </Border>
-
-        <!-- Department Logo -->
-        <Border Grid.Row="0"
-                HorizontalAlignment="Left"
-                Margin="35 0 0 0"
-                Padding="5 0"
-                Background="{StaticResource TextIconsColorBrush}">
-            <Image Grid.Row="0"
-               Margin="2"
-               HorizontalAlignment="Stretch" 
-               VerticalAlignment="Stretch"
-               Source="{StaticResource WILogoDrawingImage}"/>
-
-        </Border>
-        
         <!-- Classes -->
         <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding Days}">
+                        Name="Week"
+                        ItemsSource="{Binding Days}"
+                        >
 
             <!-- Set items panel to StackPanel in vertical orientatnion-->
             <ItemsControl.ItemsPanel>
@@ -79,6 +58,6 @@
             </ItemsControl.ItemTemplate>
 
         </ItemsControl>
-
     </Grid>
+
 </UserControl>

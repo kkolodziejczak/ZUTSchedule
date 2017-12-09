@@ -13,6 +13,8 @@ namespace ZUTSchedule.core
         /// </summary>
         public ObservableCollection<DayViewModel> Days { get; set; }
 
+        public NewsContainerViewModel News { get; set; }
+
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -20,6 +22,8 @@ namespace ZUTSchedule.core
         {
             RefreshSchedule();
             Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
+            News = new NewsContainerViewModel();
+
         }
 
         /// <summary>
