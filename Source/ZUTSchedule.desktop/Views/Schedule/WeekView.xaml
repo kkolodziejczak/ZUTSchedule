@@ -12,7 +12,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition  Height="20"/>
-            <RowDefinition  Height="Auto"/>
+            <RowDefinition  Height="*"/>
         </Grid.RowDefinitions>
         <!-- News Feed -->
 
@@ -37,9 +37,9 @@
 
         <!-- Classes -->
         <ItemsControl Grid.Row="1"
-                        Name="Week"
-                        ItemsSource="{Binding Days}"
-                        >
+                      Name="Week"
+                      ItemsSource="{Binding Days}"
+                      >
 
             <!-- Set items panel to StackPanel in vertical orientatnion-->
             <ItemsControl.ItemsPanel>

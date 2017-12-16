@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ZUTSchedule.core
 {
@@ -22,8 +23,18 @@ namespace ZUTSchedule.core
         {
             RefreshSchedule();
             Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
-            News = new NewsContainerViewModel();
 
+            var list = new List<INewsService>()
+            {
+                new WINewsService(),
+                new ZUTNewsService(),
+            };
+
+            var t = Task.Run(() =>
+            {
+                News = new NewsContainerViewModel(list);
+            });
+            t.Wait();
         }
 
         /// <summary>
@@ -66,6 +77,8 @@ namespace ZUTSchedule.core
                     Days = GetMissingsDays(WeekDays, FirstDayOfTheWeek);
                     break;
             }
+
+            OnPropertyChanged(nameof(Days));
         }
 
         private ObservableCollection<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)

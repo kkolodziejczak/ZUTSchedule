@@ -5,11 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZUTSchedule.desktop"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Background="White">
-        
+             >
+    <Grid Background="White">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <!-- Day of the week -->
-        <Grid Background="{Binding Path=Today, Converter={local:BoolToTodayColorValueConverter}}">
+        <Grid Background="{Binding Path=Today, Converter={local:BoolToTodayColorValueConverter}}"
+              Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -64,7 +69,8 @@
         </Grid>
 
         <!-- Classes -->
-        <ItemsControl ItemsSource="{Binding Courses}">
+        <ItemsControl ItemsSource="{Binding Courses}"
+                      Grid.Row="1">
 
             <!-- Set items panel to StackPanel in vertical orientatnion-->
             <ItemsControl.ItemsPanel>
@@ -82,6 +88,6 @@
 
         </ItemsControl>
 
-    </StackPanel>
+    </Grid>
 
 </UserControl>

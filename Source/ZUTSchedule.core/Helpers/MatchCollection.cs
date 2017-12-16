@@ -19,6 +19,16 @@ namespace ZUTSchedule.core
             return collection[place].Groups[1].Value;
         }
 
+        /// <summary>
+        /// Returns Value of item at <paramref name="place"/> from Group number <paramref name="group"/>.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="place"></param>
+        /// <returns></returns>
+        public static string getValueAt(this MatchCollection collection, int place, int group)
+        {
+            return collection[place].Groups[group].Value;
+        }
 
         /// <summary>
         /// Returns Simple <see cref="DateTime"/> from Match Collection

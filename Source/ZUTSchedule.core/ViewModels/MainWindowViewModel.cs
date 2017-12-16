@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ZUTSchedule.core
 {
@@ -54,7 +55,6 @@ namespace ZUTSchedule.core
         /// </summary>
         private MainWindowViewModel()
         {
-
             State = MainWindowState.loginPage;
         }
 

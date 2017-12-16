@@ -66,7 +66,7 @@ namespace ZUTSchedule.core
         private async Task Login()
         {
             // Create new Service
-            EDziekanatService service = new EDziekanatService();
+            EDziekanatService EDziekanatService = new EDziekanatService();
 
             // In case of something is missing
             if(string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
@@ -77,7 +77,7 @@ namespace ZUTSchedule.core
             }
 
             // Get courses
-            Storage.Classes = await service.getClasses(new List<DateTime>() { DateTime.Now });
+            Storage.Classes = await EDziekanatService.getClasses(new List<DateTime>() { DateTime.Now });
 
             // Switch page to week view
             MainWindowViewModel.Instance.State = MainWindowState.WeekView;

@@ -35,7 +35,7 @@ namespace ZUTSchedule.core
         public ICommand GoToPageCommand { get; private set; }
 
         /// <summary>
-        /// Default Construcktor
+        /// Default Constructor
         /// </summary>
         public NewsRecordViewModel()
         {

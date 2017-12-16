@@ -37,7 +37,7 @@ namespace ZUTSchedule.desktop
         public async Task Animate()
         {
 
-            int time = 40;
+            int time = 160;
             var w = Week.ActualWidth;
             var n = News.ActualWidth;
 

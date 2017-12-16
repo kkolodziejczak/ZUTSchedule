@@ -3,69 +3,52 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ZUTSchedule.core
 {
     public class NewsContainerViewModel :BaseViewModel
     {
         /// <summary>
+        /// List of services to get news from
+        /// </summary>
+        private List<INewsService> _Services;
+
+        /// <summary>
         /// All news Downloaded form sites
         /// </summary>
         public ObservableCollection<NewsRecordViewModel> News { get; set; }
 
+
         /// <summary>
         /// Base Constructor
         /// </summary>
-        public NewsContainerViewModel()
+        public NewsContainerViewModel(List<INewsService> services)
         {
             //TODO: normalize Titles
+            _Services = services;
 
-            News = new ObservableCollection<NewsRecordViewModel>()
-            {
-                new NewsRecordViewModel()
-                {
-                    IsNew = true,
-                    Title = "Okresowe badania lekarskie – studia niestacjonarne...",
-                    Type = NewsType.Wi,
-                    Url = "http://google.pl/",
-
-                },
-                new NewsRecordViewModel()
-                {
-                    IsNew = false,
-                    Title = "Okresowe badania lekarskie – studia stacjonarne...",
-                    Type = NewsType.Global,
-                    Url = "http://google.pl/",
-
-                },
-                new NewsRecordViewModel()
-                {
-                    IsNew = true,
-                    Title = "Akcja DKMS \"HELPERS' GENERATION\" - przyjdź i zarejestruj ...",
-                    Type = NewsType.Global,
-                    Url = "http://google.pl/",
-
-                },
-                new NewsRecordViewModel()
-                {
-                    IsNew = true,
-                    Title = "Akcja DKMS \"HELPERS' GENERATION\" - przyjdź i zarejestruj ...",
-                    Type = NewsType.Global,
-                    Url = "http://google.pl/",
-
-                },
-                new NewsRecordViewModel()
-                {
-                    IsNew = false,
-                    Title = "Akcja DKMS \"HELPERS' GENERATION\" - przyjdź i zarejestruj ...",
-                    Type = NewsType.Wi,
-                    Url = "http://google.pl/",
-
-                },
-
-            };
-
+            var t = Task.Run(async () => await DownloadNews());
+            t.Wait();
         }
         
+        /// <summary>
+        /// Download News from services
+        /// </summary>
+        private async Task DownloadNews()
+        {
+            var list = new List<NewsRecordViewModel>();
+            foreach (var service in _Services)
+            {
+                var DownloadedNews = await service.GetNews();
+                foreach (var news in DownloadedNews)
+                {
+                    list.Add(news);
+                }
+            }
+
+            News = new ObservableCollection<NewsRecordViewModel>(list);
+        }
+
     }
 }

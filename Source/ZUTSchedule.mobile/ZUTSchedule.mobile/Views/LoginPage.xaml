@@ -15,7 +15,8 @@
             <!-- Password Entry -->
             <Entry IsPassword="True" 
                    Margin="0,5,0,0"
-                   Text="{Binding password, Mode=TwoWay}"
+                   x:Name="PasswordBox"
+                   TextChanged="Entry_TextChanged"
                    Placeholder="Password"/>
 
             <!-- Login type-->

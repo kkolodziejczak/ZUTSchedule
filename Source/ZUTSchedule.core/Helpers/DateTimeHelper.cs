@@ -23,6 +23,18 @@ namespace ZUTSchedule.core
         }
 
         /// <summary>
+        /// Returns true if <see cref="DateTime"/> is over week old
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static bool IsNotOlderThan(this DateTime date, int days)
+        {
+            var output = DateTime.Compare(date, DateTime.Now.AddDays(-days));
+
+            return output <= 0; 
+        }
+
+        /// <summary>
         /// Returns <see cref="DateTime"/> with only Date values
         /// </summary>
         /// <param name="date"></param>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,5 +19,17 @@ namespace ZUTSchedule.mobile
 			InitializeComponent ();
             BindingContext = new LoginViewModel(new mobile.NavigationService());
         }
-	}
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (BindingContext is LoginViewModel viewModel)
+            {
+                viewModel.UserPassword = new SecureString();
+                foreach (var character in PasswordBox.Text)
+                {
+                    viewModel.UserPassword.AppendChar(character);
+                }
+            }
+        }
+    }
 }
