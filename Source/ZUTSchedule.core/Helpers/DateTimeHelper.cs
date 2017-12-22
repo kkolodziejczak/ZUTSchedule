@@ -44,6 +44,24 @@ namespace ZUTSchedule.core
             return new DateTime(date.Year, date.Month, date.Day);
         }
 
+        /// <summary>
+        /// Converts a date to a week number.
+        /// ISO 8601 week 1 is the week that contains the first Thursday that year.
+        /// </summary>
+        public static int ToIso8601Weeknumber(this DateTime date)
+        {
+            var thursday = date.AddDays(3 - date.DayOfWeek.DayOffset());
+            return (thursday.DayOfYear - 1) / 7 + 1;
+        }
+
+        /// <summary>
+        /// Iso8601 weeks start on Monday. This returns 0 for Monday.
+        /// </summary>
+        private static int DayOffset(this DayOfWeek weekDay)
+        {
+            return ((int)weekDay + 6) % 7;
+        }
+
         private static Dictionary<DayOfWeek, string> Week = new Dictionary<DayOfWeek, string>()
         {
             {DayOfWeek.Monday, "Poniedziałek"},

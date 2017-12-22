@@ -13,8 +13,8 @@ namespace ZUTSchedule.core
         public static string Typ;
         //
 
-        public static int NumberOfDaysInTheWeek { get; } = 5;
-        public static int DayShift { get; private set; } = 0;
+        public static int NumberOfDaysInTheWeek { get; } = 1;
+        public static int DayShift { get; set; } = 0;
 
         public delegate void ShiftDayUpdate();
 

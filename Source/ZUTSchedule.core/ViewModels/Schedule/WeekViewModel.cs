@@ -9,11 +9,30 @@ namespace ZUTSchedule.core
 {
     public class WeekViewModel : BaseViewModel
     {
+
+        private List<DayViewModel> _days;
+
+        private ObservableCollection<List<DayViewModel>> _weeks;
+
         /// <summary>
         /// Contains all days of the week
         /// </summary>
-        public ObservableCollection<DayViewModel> Days { get; set; }
+        public List<DayViewModel> Days
+        {
+            get
+            {
+                return _weeks[Storage.DayShift% _weeks.Count];
+            }
+            set
+            {
+                _days = value;
+                _weeks.Add(value);
+            }
+        }
 
+        /// <summary>
+        /// Contains news feed
+        /// </summary>
         public NewsContainerViewModel News { get; set; }
 
         /// <summary>
@@ -21,6 +40,9 @@ namespace ZUTSchedule.core
         /// </summary>
         public WeekViewModel()
         {
+            _weeks = new ObservableCollection<List<DayViewModel>>();
+            _days = new List<DayViewModel>();
+
             RefreshSchedule();
             Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
 
@@ -42,51 +64,90 @@ namespace ZUTSchedule.core
         /// </summary>
         public void RefreshSchedule()
         {
+            if(_weeks.Count > 0)
+            {
+                OnPropertyChanged(nameof(Days));
+
+                if (_weeks.First().Count == Storage.NumberOfDaysInTheWeek)
+                {
+                    return;
+                }
+            }
+
             switch (Storage.NumberOfDaysInTheWeek)
             {
                 // Logic for 1 day Week
                 case 1:
-                    var ShiftedDate = DateTime.Now.AddDays(Storage.NumberOfDaysInTheWeek * Storage.DayShift);
 
-                    var Day = Storage.Classes.Where(day => day.date.DayOfYear == ShiftedDate.DayOfYear)
-                                                                                 .ToList();
-                    if (!Day.Any())
+                    var LastDayOfTheYear = Storage.Classes.Last().date;
+                    var LastDate = Storage.Classes.First().date;
+
+                    while (DateTime.Compare(LastDate, LastDayOfTheYear) < 0)
                     {
-                        Days = new ObservableCollection<DayViewModel>()
+                        var Day = Storage.Classes.Where(day => day.date.DayOfYear == LastDate.DayOfYear).ToList();
+                        if (!Day.Any())
                         {
-                            new DayViewModel() { date = ShiftedDate }
-                        };
-                        return;
+                            Days = new List<DayViewModel>()
+                            {
+                                new DayViewModel()
+                                {
+                                    date = LastDate
+                                }
+                            };
+                            LastDate = LastDate.AddDays(1);
+                            continue;
+                        }
+
+                        Days = new List<DayViewModel>(Day);
+                        LastDate = LastDate.AddDays(1);
                     }
 
-                    Days = new ObservableCollection<DayViewModel>(Day);
+                    var FirstDayOfTheClasses = _weeks.First().First().date.DayOfYear;
+                    var TodaysDayOfTheYear = DateTime.Now.DayOfYear;
+                    Storage.DayShift = TodaysDayOfTheYear - FirstDayOfTheClasses;
                     break;
 
                 // Logic for 5 and 7 week Days
                 default:
-                    var ShiftedDateTime = DateTime.Now.AddDays(Storage.NumberOfDaysInTheWeek * Storage.DayShift);
-                    var FirstDayOfTheWeek = ShiftedDateTime.StartOfWeek(DayOfWeek.Monday);
 
                     if (Storage.Classes == null)
                         return;
 
-                    var WeekDays = Storage.Classes.Where(day => day.date.DayOfYear >= FirstDayOfTheWeek.DayOfYear
-                                                             && day.date.DayOfYear < FirstDayOfTheWeek.DayOfYear + 7)
-                                                  .ToList();
+                    var EndOfLastWeek = Storage.Classes.First().date;
+                    foreach(var _class in Storage.Classes)
+                    {
+                        var FirstDayOfTheWeek = EndOfLastWeek.StartOfWeek(DayOfWeek.Monday);
 
-                    Days = GetMissingsDays(WeekDays, FirstDayOfTheWeek);
+                        var WeekDays = Storage.Classes.Where(day => day.date.DayOfYear >= FirstDayOfTheWeek.DayOfYear
+                                                                 && day.date.DayOfYear < FirstDayOfTheWeek.DayOfYear + 7)
+                                                      .ToList();
+
+                        var week = GetMissingsDays(WeekDays, FirstDayOfTheWeek);
+                        Days = week;
+
+                        EndOfLastWeek = week.Last().date.AddDays(7);
+                    }
+
+                    var FirstWeekOfTheYear = _weeks.First().First().date.ToIso8601Weeknumber();
+                    var TodaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber();
+                    Storage.DayShift = TodaysWeekOfTheYear - FirstWeekOfTheYear;
+
                     break;
             }
 
             OnPropertyChanged(nameof(Days));
         }
 
-        private ObservableCollection<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)
+        /// <summary>
+        /// Fills <paramref name="week"/> missing days
+        /// </summary>
+        /// <param name="week"></param>
+        /// <param name="FirstDayOfTheWeek"></param>
+        /// <returns></returns>
+        private List<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)
         {
-            var output = new ObservableCollection<DayViewModel>();
+            var output = new List<DayViewModel>();
 
-            //TODO get number of days from Settings! 
-            // Also check for 1 day view
             for (int i = 0; i < Storage.NumberOfDaysInTheWeek; i++)
             {
                 var day = week.Where(d => d.date == FirstDayOfTheWeek.AddDays(i));
