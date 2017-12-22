@@ -15,7 +15,7 @@ namespace ZUTSchedule.core
         /// Navigates to Day Page
         /// </summary>
         /// <returns></returns>
-        Task NavigateToDayPage();
+        Task NavigateToWeekPage();
 
         /// <summary>
         /// Navigates to root Page

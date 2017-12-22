@@ -5,14 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZUTSchedule.desktop"
         mc:Ignorable="d"
-        Title="ZUTSchedule" 
+        Title="{StaticResource AppName}" 
         MinHeight="320"
         Width="525"
         Margin="0,0,0,0" 
         ResizeMode="NoResize" 
         SizeToContent="WidthAndHeight"
+        AllowDrop="True" 
+        WindowStyle="None" 
+        Background="Transparent" 
+        AllowsTransparency="True"
+        MouseLeftButtonDown="DragWindow"
         >
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+
+                <MenuItem Header="{Binding AppVersion}" 
+                          IsEnabled="False" 
+                          ContextMenuService.ShowOnDisabled="True" />
+                <Separator/>
+                <MenuItem Header="{StaticResource Quit}"
+                          Click="QuitClicked"/>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <ContentPresenter Content="{Binding State, Converter={local:MainWindowStateValueConverter}}"/>
     </Grid>
 </Window>

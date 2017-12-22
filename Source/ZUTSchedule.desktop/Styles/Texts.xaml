@@ -3,17 +3,21 @@
                     xmlns:local="clr-namespace:ZUTSchedule.desktop"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <!-- Menu Tooltips -->
-    <system:String x:Key="TooltipProjects">Projects</system:String>
+    <!-- Common values -->
+    <system:String x:Key="AppName">ZUTSchedule</system:String>
+    <system:String x:Key="EDziekanat">e-Dziekanat</system:String>
     <system:String x:Key="NewText">NOWOŚĆ</system:String>
+    <system:String x:Key="LoginButton">Zaloguj</system:String>
+    <system:String x:Key="Student">Student</system:String>
+    <system:String x:Key="Teacher">Nauczyciel</system:String>
+    <system:String x:Key="Password">Hasło:</system:String>
+    <system:String x:Key="LoginID">Identyfikator:</system:String>
     
 
-    <!-- Info Page -->
-    <system:String x:Key="InfoPageProjectName">ZUTSchedule</system:String>
-    <system:String x:Key="InfoPageDescription">s</system:String>
-    <system:String x:Key="InfoPageAuthorName">Author:</system:String>
-    <system:String x:Key="InfoPageAuthorSite">Site:</system:String>
-
+    <!-- Drop-down menu -->
+    <system:String x:Key="Quit">Zamknij</system:String>
+    
+    
     <!-- Other -->
     <system:String x:Key="SaveButtonToolTip">Save changes</system:String>
     <system:String x:Key="CancelButtonToolTip">Discard all changes</system:String>

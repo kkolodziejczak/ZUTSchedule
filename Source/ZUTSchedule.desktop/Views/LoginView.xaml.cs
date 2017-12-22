@@ -25,7 +25,7 @@ namespace ZUTSchedule.desktop
         {
             InitializeComponent();
 
-            DataContext = new LoginViewModel(new NavigationService());
+            DataContext = new LoginViewModel();
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

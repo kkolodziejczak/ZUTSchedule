@@ -27,10 +27,21 @@ namespace ZUTSchedule.desktop
             InitializeComponent();
 
             // Set Data context
-            DataContext = MainWindowViewModel.Instance;
+            DataContext = IoC.Get<MainWindowViewModel>();
 
         }
 
+        private void DragWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is UIElement uiElement)
+            {
+                uiElement.DragOnClick(e);
+            }
+        }
 
+        private void QuitClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

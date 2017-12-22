@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +15,7 @@ namespace ZUTSchedule.core
 
     public class MainWindowViewModel : BaseViewModel
     {
-
         private MainWindowState _State;
-
-        private static MainWindowViewModel _Instance;
 
         /// <summary>
         /// State in with MainWindow is
@@ -35,27 +34,18 @@ namespace ZUTSchedule.core
             }
         }
 
-
         /// <summary>
-        /// Singleton
+        /// Current version of the application
         /// </summary>
-        public static MainWindowViewModel Instance
-        {
-            get
-            {
-                if(_Instance == null)
-                    _Instance = new MainWindowViewModel();
-
-                return _Instance;
-            }
-        }
+        public static string AppVersion { get; private set; }
 
         /// <summary>
         /// Base constructor
         /// </summary>
-        private MainWindowViewModel()
+        public MainWindowViewModel()
         {
             State = MainWindowState.loginPage;
+            AppVersion = $"ZUTSchedule v{Assembly.GetEntryAssembly().GetName().Version.ToString()}";
         }
 
     }

@@ -10,7 +10,7 @@
 
         <ItemsControl ItemsSource="{Binding News}">
 
-            <!-- Set items panel to StackPanel in vertical orientatnion-->
+            <!-- Set items panel to StackPanel in vertical orientation-->
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>

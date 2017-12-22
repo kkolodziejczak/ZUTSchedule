@@ -90,7 +90,8 @@
     <Compile Include="AttachedProperties\TextAttachedProperty.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\StoryBoardHelpers.cs" />
-    <Compile Include="Models\NavigationService.cs" />
+    <Compile Include="Helpers\UIElementHelper.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToFontWeightValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToVisibilityValueConverter.cs" />

@@ -20,7 +20,7 @@ namespace ZUTSchedule.mobile
         /// Navigate To DayView Page
         /// </summary>
         /// <returns></returns>
-        public Task NavigateToDayPage() => App.Page.Navigation.PushAsync(new DayPage());
+        public Task NavigateToWeekPage() => App.Page.Navigation.PushAsync(new DayPage());
 
         /// <summary>
         /// Navigate To Login Page

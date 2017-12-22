@@ -20,6 +20,7 @@
                       VerticalScrollBarVisibility="Hidden"
                       Width="{Binding ElementName=Week, Path=ActualWidth}"
                       Grid.Row="0"
+                      Background="White"
                       >
             <Grid>
                 <local:NewsContainer DataContext="{Binding News}"
@@ -41,7 +42,7 @@
                       ItemsSource="{Binding Days}"
                       >
 
-            <!-- Set items panel to StackPanel in vertical orientatnion-->
+            <!-- Set items panel to StackPanel in vertical orientation-->
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>

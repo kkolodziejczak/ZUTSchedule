@@ -4,15 +4,12 @@ using System.Text;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace ZUTSchedule.core
 {
     public class LoginViewModel : BaseViewModel
     {
-        /// <summary>
-        /// Service that allows to switch between pages
-        /// </summary>
-        private INavigationService _NavigationService;
         
         /// <summary>
         /// Login provided by user
@@ -32,7 +29,11 @@ namespace ZUTSchedule.core
             set { Storage.Password = value; }
         }
 
-        public string password { get; set; }
+        /// <summary>
+        /// Version of the application
+        /// </summary>
+        public string AppVersionString { get => MainWindowViewModel.AppVersion; }
+
         /// <summary>
         /// Indicates if user is login in as teacher
         /// </summary>
@@ -50,11 +51,9 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Base constructor
         /// </summary>
-        public LoginViewModel(INavigationService service)
+        public LoginViewModel()
         {
-            // Get injected navigation service
-            _NavigationService = service;
-
+            
             // setup commands
             LoginCommand = new RelayCommand(async() => await Login());
         }
@@ -80,9 +79,7 @@ namespace ZUTSchedule.core
             Storage.Classes = await EDziekanatService.getClasses(new List<DateTime>() { DateTime.Now });
 
             // Switch page to week view
-            MainWindowViewModel.Instance.State = MainWindowState.WeekView;
-
-            await _NavigationService.NavigateToDayPage();
+            await IoC.Get<INavigationService>().NavigateToWeekPage();
 
         }
 

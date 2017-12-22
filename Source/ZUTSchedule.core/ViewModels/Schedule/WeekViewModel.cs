@@ -42,21 +42,11 @@ namespace ZUTSchedule.core
         {
             _weeks = new ObservableCollection<List<DayViewModel>>();
             _days = new List<DayViewModel>();
+            News = new NewsContainerViewModel();
 
             RefreshSchedule();
             Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
 
-            var list = new List<INewsService>()
-            {
-                new WINewsService(),
-                new ZUTNewsService(),
-            };
-
-            var t = Task.Run(() =>
-            {
-                News = new NewsContainerViewModel(list);
-            });
-            t.Wait();
         }
 
         /// <summary>
