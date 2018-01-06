@@ -33,7 +33,7 @@
                     Width="20"
                     Style="{StaticResource SwitchWeekButton}"
                     Tag="L"
-                    Visibility="{Binding Path=date, Converter={local:DateTimeToVisibilityValueConverter}, ConverterParameter=true}"
+                    Visibility="{Binding Path=Date, Converter={local:DateTimeToVisibilityValueConverter}, ConverterParameter=true}"
                     Command="{Binding DecrementCommand}"
                     />
 
@@ -43,7 +43,7 @@
                     Margin="3 0"
                     Width="20"
                     Style="{StaticResource SwitchWeekButton}"
-                    Visibility="{Binding Path=date, Converter={local:DateTimeToVisibilityValueConverter}}"
+                    Visibility="{Binding Path=Date, Converter={local:DateTimeToVisibilityValueConverter}}"
                     Tag="R"
                     Command="{Binding IncrementCommand}"
                     />
@@ -64,7 +64,7 @@
                        FontStyle="Italic"
                        FontSize="14"
                        Foreground="{StaticResource TextIconsColorBrush}"
-                       Text="{Binding Path=date, StringFormat=dd.MM.yyyy}"/>
+                       Text="{Binding Path=Date, StringFormat=dd.MM.yyyy}"/>
 
         </Grid>
 
@@ -72,7 +72,7 @@
         <ItemsControl ItemsSource="{Binding Courses}"
                       Grid.Row="1">
 
-            <!-- Set items panel to StackPanel in vertical orientatnion-->
+            <!-- Set items panel to StackPanel in vertical orientation-->
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Vertical"/>

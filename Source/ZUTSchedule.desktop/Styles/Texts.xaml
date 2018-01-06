@@ -5,14 +5,21 @@
 
     <!-- Common values -->
     <system:String x:Key="AppName">ZUTSchedule</system:String>
+    <system:String x:Key="AppVersionString">ZUTSchedule v1.0.0</system:String>
     <system:String x:Key="EDziekanat">e-Dziekanat</system:String>
     <system:String x:Key="NewText">NOWOŚĆ</system:String>
     <system:String x:Key="LoginButton">Zaloguj</system:String>
-    <system:String x:Key="Student">Student</system:String>
-    <system:String x:Key="Teacher">Nauczyciel</system:String>
+    <system:String x:Key="LoginAs">Zaloguj jako:</system:String>
+    <system:String x:Key="DisplayMode">Uruchom w trybie:</system:String>
+
+    <system:String x:Key="Student">student</system:String>
+    <system:String x:Key="Teacher">dydaktyk</system:String>
     <system:String x:Key="Password">Hasło:</system:String>
     <system:String x:Key="LoginID">Identyfikator:</system:String>
-    
+    <system:String x:Key="OneDay">1-dniowym</system:String>
+    <system:String x:Key="FiveDays">5-dniowym</system:String>
+    <system:String x:Key="SevenDays">7-dniowym</system:String>
+
 
     <!-- Drop-down menu -->
     <system:String x:Key="Quit">Zamknij</system:String>

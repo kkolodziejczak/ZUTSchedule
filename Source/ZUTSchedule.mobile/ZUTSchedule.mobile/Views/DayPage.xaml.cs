@@ -16,7 +16,7 @@ namespace ZUTSchedule.mobile
 		public DayPage ()
 		{
 			InitializeComponent ();
-            var test = Storage.Classes.FirstOrDefault(d => d is DayViewModel);
+            var test = IoC.Settings.Classes.FirstOrDefault(d => d is DayViewModel);
 
             if(test != null)
             {

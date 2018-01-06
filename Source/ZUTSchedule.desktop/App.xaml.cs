@@ -1,10 +1,5 @@
-﻿using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac;
+using System.IO;
 using System.Windows;
 using ZUTSchedule.core;
 
@@ -19,28 +14,31 @@ namespace ZUTSchedule.desktop
         {
             base.OnStartup(e);
 
+            LoadSettings();
+
             ApplicationSetup();
 
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();
         }
 
-
         private void ApplicationSetup()
         {
-            // setup IoC container 
-            IoC.Setup();
-
-            // Bind Navigation service
-            IoC.Kernel.Bind<INavigationService>().ToConstant(new NavigationService());
-
-            // Bind News factory
-            IoC.Kernel.Bind<INewsFactory>().ToConstant(new NewsFactory(new INewsService[]
+            // setup IoC container
+            IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
+            IoC.Builder.RegisterInstance(new NewsFactory(new INewsService[]
             {
                 new WINewsService(),
                 new ZUTNewsService(),
-            }));
+            })).As<INewsFactory>();
 
+            IoC.Setup();
+        }
+
+        private void LoadSettings()
+        {
+            //TODO: Load settings
+            return;
         }
     }
 }

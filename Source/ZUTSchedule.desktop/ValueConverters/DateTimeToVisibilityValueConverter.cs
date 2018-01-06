@@ -25,8 +25,9 @@ namespace ZUTSchedule.desktop
                 return null;
 
             var type = (DateTime)value;
+            var settings = IoC.Settings;
 
-            if (core.Storage.NumberOfDaysInTheWeek == 1)
+            if (settings.NumberOfDaysInTheWeek == 1)
             {
                 return Visibility.Visible;
             }
@@ -42,11 +43,11 @@ namespace ZUTSchedule.desktop
             // Right
             else
             {
-                if (type.DayOfWeek == DayOfWeek.Friday && Storage.NumberOfDaysInTheWeek == 5)
+                if (type.DayOfWeek == DayOfWeek.Friday && settings.NumberOfDaysInTheWeek == 5)
                 {
                     return Visibility.Visible;
                 }
-                if (type.DayOfWeek == DayOfWeek.Sunday && Storage.NumberOfDaysInTheWeek == 7)
+                if (type.DayOfWeek == DayOfWeek.Sunday && settings.NumberOfDaysInTheWeek == 7)
                 {
                     return Visibility.Visible;
                 }

@@ -20,9 +20,9 @@ namespace ZUTSchedule.core
         public string Title { get; set; }
 
         /// <summary>
-        /// Url to page with news content
+        /// URL to page with news content
         /// </summary>
-        public string Url { get; set; }
+        public string Href { get; set; }
 
         /// <summary>
         /// Indicates if news is new 
@@ -39,7 +39,7 @@ namespace ZUTSchedule.core
         /// </summary>
         public NewsRecordViewModel()
         {
-            GoToPageCommand = new RelayCommand(async () => Process.Start(Url));
+            GoToPageCommand = new RelayCommand(async () => Process.Start(Href));
         }
 
     }

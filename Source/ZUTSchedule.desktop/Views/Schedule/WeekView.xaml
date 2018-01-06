@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ZUTSchedule.desktop"
              mc:Ignorable="d"
+             Background="White"
              >
-
-
     <Grid>
 
         <Grid.RowDefinitions>
@@ -20,7 +19,6 @@
                       VerticalScrollBarVisibility="Hidden"
                       Width="{Binding ElementName=Week, Path=ActualWidth}"
                       Grid.Row="0"
-                      Background="White"
                       >
             <Grid>
                 <local:NewsContainer DataContext="{Binding News}"
@@ -33,8 +31,6 @@
                                      />
             </Grid>
         </ScrollViewer>
-
-
 
         <!-- Classes -->
         <ItemsControl Grid.Row="1"

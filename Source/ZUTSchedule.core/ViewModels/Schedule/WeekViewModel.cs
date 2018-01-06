@@ -11,7 +11,7 @@ namespace ZUTSchedule.core
     {
 
         private List<DayViewModel> _days;
-
+        private Storage _settings;
         private ObservableCollection<List<DayViewModel>> _weeks;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace ZUTSchedule.core
         {
             get
             {
-                return _weeks[Storage.DayShift% _weeks.Count];
+                return _weeks[_settings.DayShift% _weeks.Count];
             }
             set
             {
@@ -42,10 +42,11 @@ namespace ZUTSchedule.core
         {
             _weeks = new ObservableCollection<List<DayViewModel>>();
             _days = new List<DayViewModel>();
+            _settings = IoC.Settings;
             News = new NewsContainerViewModel();
 
             RefreshSchedule();
-            Storage.Instance.OnDayShiftUpdate += RefreshSchedule;
+            _settings.OnDayShiftUpdate += RefreshSchedule;
 
         }
 
@@ -58,69 +59,72 @@ namespace ZUTSchedule.core
             {
                 OnPropertyChanged(nameof(Days));
 
-                if (_weeks.First().Count == Storage.NumberOfDaysInTheWeek)
+                if (_weeks.First().Count == _settings.NumberOfDaysInTheWeek)
                 {
                     return;
                 }
             }
 
-            switch (Storage.NumberOfDaysInTheWeek)
+            switch (_settings.NumberOfDaysInTheWeek)
             {
                 // Logic for 1 day Week
                 case 1:
 
-                    var LastDayOfTheYear = Storage.Classes.Last().date;
-                    var LastDate = Storage.Classes.First().date;
+                    var lastDayOfTheYear = _settings.Classes.Last().Date;
+                    var lastDate = _settings.Classes.First().Date;
 
-                    while (DateTime.Compare(LastDate, LastDayOfTheYear) < 0)
+                    while (DateTime.Compare(lastDate, lastDayOfTheYear) < 0)
                     {
-                        var Day = Storage.Classes.Where(day => day.date.DayOfYear == LastDate.DayOfYear).ToList();
-                        if (!Day.Any())
+                        var day = _settings.Classes.Where(d => d.Date.DayOfYear == lastDate.DayOfYear).ToList();
+                        if (!day.Any())
                         {
                             Days = new List<DayViewModel>()
                             {
                                 new DayViewModel()
                                 {
-                                    date = LastDate
+                                    Date = lastDate
                                 }
                             };
-                            LastDate = LastDate.AddDays(1);
+                            lastDate = lastDate.AddDays(1);
                             continue;
                         }
 
-                        Days = new List<DayViewModel>(Day);
-                        LastDate = LastDate.AddDays(1);
+                        Days = new List<DayViewModel>(day);
+                        lastDate = lastDate.AddDays(1);
                     }
 
-                    var FirstDayOfTheClasses = _weeks.First().First().date.DayOfYear;
-                    var TodaysDayOfTheYear = DateTime.Now.DayOfYear;
-                    Storage.DayShift = TodaysDayOfTheYear - FirstDayOfTheClasses;
+                    var firstDate = _weeks.First().First().Date;
+                    var firstDayOfTheClasses = firstDate.DayOfYear;
+                    var todaysDayOfTheYear = DateTime.Now.DayOfYear + (firstDate.Year < DateTime.Now.Year ? DateTime.Now.DaysInTheYear(firstDate.Year) : 0);
+                    _settings.DayShift = todaysDayOfTheYear - firstDayOfTheClasses;
                     break;
 
                 // Logic for 5 and 7 week Days
                 default:
 
-                    if (Storage.Classes == null)
+                    if (_settings.Classes == null)
                         return;
 
-                    var EndOfLastWeek = Storage.Classes.First().date;
-                    foreach(var _class in Storage.Classes)
+                    var endOfLastWeek = _settings.Classes.First().Date;
+                    foreach(var _class in _settings.Classes)
                     {
-                        var FirstDayOfTheWeek = EndOfLastWeek.StartOfWeek(DayOfWeek.Monday);
+                        var firstDayOfTheWeek = endOfLastWeek.StartOfWeek(DayOfWeek.Monday);
 
-                        var WeekDays = Storage.Classes.Where(day => day.date.DayOfYear >= FirstDayOfTheWeek.DayOfYear
-                                                                 && day.date.DayOfYear < FirstDayOfTheWeek.DayOfYear + 7)
+                        var weekDays = _settings.Classes.Where(day => day.Date.DayOfYear >= firstDayOfTheWeek.DayOfYear
+                                                                 && day.Date.DayOfYear < firstDayOfTheWeek.DayOfYear + 7)
                                                       .ToList();
 
-                        var week = GetMissingsDays(WeekDays, FirstDayOfTheWeek);
+                        var week = GetMissingsDays(weekDays, firstDayOfTheWeek);
                         Days = week;
 
-                        EndOfLastWeek = week.Last().date.AddDays(7);
+                        endOfLastWeek = week.Last().Date.AddDays(7);
                     }
 
-                    var FirstWeekOfTheYear = _weeks.First().First().date.ToIso8601Weeknumber();
-                    var TodaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber();
-                    Storage.DayShift = TodaysWeekOfTheYear - FirstWeekOfTheYear;
+                    var firstWeeksDate = _weeks.First().First().Date;
+                    var firstWeekOfTheYear = firstWeeksDate.ToIso8601Weeknumber();
+                    // In case of new year add 52 weeks else 0
+                    var todaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber() + (DateTime.Now.Year > firstWeeksDate.Year ? 52 : 0);
+                    _settings.DayShift = todaysWeekOfTheYear - firstWeekOfTheYear;
 
                     break;
             }
@@ -138,9 +142,9 @@ namespace ZUTSchedule.core
         {
             var output = new List<DayViewModel>();
 
-            for (int i = 0; i < Storage.NumberOfDaysInTheWeek; i++)
+            for (int i = 0; i < _settings.NumberOfDaysInTheWeek; i++)
             {
-                var day = week.Where(d => d.date == FirstDayOfTheWeek.AddDays(i));
+                var day = week.Where(d => d.Date == FirstDayOfTheWeek.AddDays(i));
                 if (day.Any())
                 {
                     output.Add(day.First());
@@ -149,7 +153,7 @@ namespace ZUTSchedule.core
 
                 output.Add(new DayViewModel()
                 {
-                    date = FirstDayOfTheWeek.AddDays(i),
+                    Date = FirstDayOfTheWeek.AddDays(i),
                 });
 
             }

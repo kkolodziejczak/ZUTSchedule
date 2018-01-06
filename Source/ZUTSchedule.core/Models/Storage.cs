@@ -5,66 +5,88 @@ using System.Text;
 
 namespace ZUTSchedule.core
 {
+
+    /// <summary>
+    /// Class that stores users credentials and application settings
+    /// </summary>
     public class Storage
     {
-        // Temp Login data
-        public static string login;
-        public static SecureString Password;
-        public static string Typ;
-        //
 
-        public static int NumberOfDaysInTheWeek { get; } = 1;
-        public static int DayShift { get; set; } = 0;
+        public readonly string loginURL = "https://www.zut.edu.pl/WU/Logowanie2.aspx";
+        public readonly string scheduleURL = "https://www.zut.edu.pl/WU/PodzGodzin.aspx";
+        public readonly string logOutURL = "https://www.zut.edu.pl/WU/Wyloguj.aspx";
 
-        public delegate void ShiftDayUpdate();
+        public readonly string newsZutURL = "http://www.zut.edu.pl/zut-studenci/start/aktualnosci.html#";
+        public readonly string newsWiZutURL = "https://www.wi.zut.edu.pl/index.php/pl/dla-studenta/sprawy-studenckie/aktualnosci-studenckie";
 
-        public event ShiftDayUpdate OnDayShiftUpdate = () => { };
+        public static readonly string SettingsFolderPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\ZUTSchedule";
 
+        public static readonly string SettingsFilePath = $@"{SettingsFolderPath}\Settings.ini";
+
+        // User Credentials 
+        public string login;
+        public SecureString Password;
+        public string Typ;
+
+        /// <summary>
+        /// Defines maximum length of the message;
+        /// </summary>
+        public int HowLongNewsMessages { get; } = 50;
+
+        /// <summary>
+        /// How many days NEW box will show next to news
+        /// </summary>
+        public int HowManyDaysIsNew { get; } = 3;
+
+        /// <summary>
+        /// Downloaded classes 
+        /// </summary>
+        public List<DayViewModel> Classes { get; set; }
+
+        /// <summary>
+        /// Number of days in the week to display
+        /// </summary>
+        public int NumberOfDaysInTheWeek { get; set; } = 5;
+
+        /// <summary>
+        /// Number of shifted days
+        /// </summary>
+        public int DayShift { get; set; } = 0;
+
+        /// <summary>
+        /// Fired when week is changing 
+        /// </summary>
+        public event Action OnDayShiftUpdate = () => { };
+
+        /// <summary>
+        /// Switches to next week
+        /// </summary>
         public void IncrementWeek()
         {
             DayShift++;
             OnDayShiftUpdate();
         }
 
+        /// <summary>
+        /// Switches to week earlier 
+        /// </summary>
         public void DecrementWeek()
         {
+            if(DayShift - 1 < 0)
+            {
+                return;
+            }
+
             DayShift--;
             OnDayShiftUpdate();
         }
 
-
-        public static string LoginURL { get; } = "https://www.zut.edu.pl/WU/Logowanie2.aspx";
-        public static string PlanURL { get; } = "https://www.zut.edu.pl/WU/PodzGodzin.aspx";
-        public static string LogOutURL { get; } = "https://www.zut.edu.pl/WU/Wyloguj.aspx";
-
-        public static List<DayViewModel> Classes { get; set; }
-
-        public static List<DayOfWeek> WeekDays { get; } = new List<DayOfWeek>
+        /// <summary>
+        /// Refreshes schedule
+        /// </summary>
+        public void RefreshSchedule()
         {
-            DayOfWeek.Monday,
-            DayOfWeek.Tuesday,
-            DayOfWeek.Wednesday,
-            DayOfWeek.Thursday,
-            DayOfWeek.Friday,
-            DayOfWeek.Saturday,
-            DayOfWeek.Sunday
-        };
-
-        private static Storage _Instance;
-        public static Storage Instance
-        {
-            get
-            {
-                if (_Instance == null)
-                    _Instance = new Storage();
-
-                return _Instance;
-            }
-        }
-
-        private Storage()
-        {
-
+            OnDayShiftUpdate();
         }
     }
 }

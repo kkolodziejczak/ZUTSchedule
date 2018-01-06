@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ZUTSchedule.core
 {
@@ -15,29 +16,24 @@ namespace ZUTSchedule.core
 
     public class MainWindowViewModel : BaseViewModel
     {
-        private MainWindowState _State;
+        private MainWindowState _state;
 
         /// <summary>
         /// State in with MainWindow is
         /// </summary>
         public MainWindowState State
         {
-            get { return _State; }
+            get { return _state; }
             set
             {
-                if (_State == value)
+                if (_state == value)
                     return;
 
-                _State = value;
+                _state = value;
 
                 OnPropertyChanged(nameof(State));
             }
         }
-
-        /// <summary>
-        /// Current version of the application
-        /// </summary>
-        public static string AppVersion { get; private set; }
 
         /// <summary>
         /// Base constructor
@@ -45,7 +41,6 @@ namespace ZUTSchedule.core
         public MainWindowViewModel()
         {
             State = MainWindowState.loginPage;
-            AppVersion = $"ZUTSchedule v{Assembly.GetEntryAssembly().GetName().Version.ToString()}";
         }
 
     }

@@ -82,5 +82,16 @@ namespace ZUTSchedule.core
         {
             return Week[date.DayOfWeek];
         }
+
+        /// <summary>
+        /// Returns number of days in <paramref name="year"/>
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static int DaysInTheYear(this DateTime date, int year)
+        {
+            return new DateTime(year, 12, 31).DayOfYear;
+        }
     }
 }

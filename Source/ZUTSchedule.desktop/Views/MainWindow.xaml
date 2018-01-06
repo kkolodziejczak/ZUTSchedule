@@ -18,17 +18,16 @@
         MouseLeftButtonDown="DragWindow"
         >
     <Grid>
+        <!-- Context menu for application -->
         <Grid.ContextMenu>
             <ContextMenu>
-
-                <MenuItem Header="{Binding AppVersion}" 
-                          IsEnabled="False" 
-                          ContextMenuService.ShowOnDisabled="True" />
                 <Separator/>
                 <MenuItem Header="{StaticResource Quit}"
                           Click="QuitClicked"/>
             </ContextMenu>
         </Grid.ContextMenu>
+        
+        <!-- Main application content -->
         <ContentPresenter Content="{Binding State, Converter={local:MainWindowStateValueConverter}}"/>
     </Grid>
 </Window>

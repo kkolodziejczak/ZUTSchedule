@@ -17,7 +17,7 @@ namespace ZUTSchedule.mobile
 		public LoginPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new LoginViewModel(new mobile.NavigationService());
+            BindingContext = new LoginViewModel();
         }
 
         private void Entry_TextChanged(object sender, TextChangedEventArgs e)

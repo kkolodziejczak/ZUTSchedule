@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ZUTSchedule.core;
-
-using Xamarin.Forms;
+﻿using ZUTSchedule.core;
 using System.Threading.Tasks;
 
 namespace ZUTSchedule.mobile

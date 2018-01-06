@@ -19,7 +19,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Date of the day
         /// </summary>
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         /// Indicates if DayViewModel contains classes that are today
@@ -42,7 +42,7 @@ namespace ZUTSchedule.core
                 // == 0     t1 is the same as t2
                 // >  0     t1 i later than t2
                 //                        t1              t2
-                return DateTime.Compare(date.OnlyDate(), DateTimeToCheck.OnlyDate()) == 0;
+                return DateTime.Compare(Date.OnlyDate(), DateTimeToCheck.OnlyDate()) == 0;
             }
         }
 
@@ -53,7 +53,7 @@ namespace ZUTSchedule.core
         {
             get
             {
-                return date.GetDayOfWeekPolish();
+                return Date.GetDayOfWeekPolish();
             }
         }
 
@@ -67,8 +67,8 @@ namespace ZUTSchedule.core
         {
             Courses = new ObservableCollection<ClassViewModel>();
 
-            IncrementCommand = new RelayCommand(Storage.Instance.IncrementWeek);
-            DecrementCommand = new RelayCommand(Storage.Instance.DecrementWeek);
+            IncrementCommand = new RelayCommand(IoC.Settings.IncrementWeek);
+            DecrementCommand = new RelayCommand(IoC.Settings.DecrementWeek);
         }
 
     }

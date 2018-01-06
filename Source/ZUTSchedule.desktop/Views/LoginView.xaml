@@ -44,43 +44,63 @@
 
             <!-- Login Field -->
             <TextBlock Text="{StaticResource LoginID}"
-                       Margin="0 0 0 3"/>
+                        Margin="0 0 0 3"/>
             <TextBox Text="{Binding UserLogin, Mode=TwoWay}"
-                     TabIndex="0"
-                     local:FocusOnLoadProperty.Value="True"
-                     />
+                        TabIndex="0"
+                        local:FocusOnLoadProperty.Value="True"
+                        />
             <!-- Password Field -->
             <TextBlock Text="{StaticResource Password}"
-                       Margin="0 10 0 3"/>
+                        Margin="0 10 0 3"/>
             <PasswordBox Name="PasswordBox"
-                         TabIndex="1"
-                         PasswordChanged="PasswordBox_PasswordChanged"/>
+                            TabIndex="1"
+                            PasswordChanged="PasswordBox_PasswordChanged"/>
 
-            <!-- RadioButtons -->
+
+            <!-- Display mode -->
+            <TextBlock Text="{StaticResource DisplayMode}"
+                       Margin="0 10 0 3"/>
+            <ComboBox SelectedIndex="{Binding DayMode, Mode=TwoWay}"
+                      Margin="0 0 0 10"
+                      TabIndex="2"
+                      >
+                <ComboBoxItem Content="{StaticResource OneDay}"
+                              TabIndex="3"/>
+                <ComboBoxItem Content="{StaticResource FiveDays}"
+                              TabIndex="4"/>
+                <ComboBoxItem Content="{StaticResource SevenDays}"
+                              TabIndex="5"/>
+            </ComboBox>
+            
+            <!-- Login way -->
+            <TextBlock Text="{StaticResource LoginAs}"
+                       Margin="0 0 0 3"/>
             <StackPanel Orientation="Horizontal"
-                        Margin="0 15 0 10">
+                        HorizontalAlignment="Center"
+                        Margin="0 0 0 10">
                 <RadioButton Margin="0 0 10 0"
                              Content="{StaticResource Student}" 
                              GroupName="LoginTyp" 
                              IsChecked="True"
                              FontSize="14"
-                             TabIndex="2"
+                             TabIndex="6"
                              VerticalContentAlignment="Center"/>
                 <RadioButton Content="{StaticResource Teacher}" 
                              GroupName="LoginTyp"
                              FontSize="14"
                              VerticalContentAlignment="Center"
-                             TabIndex="3"/>
+                             TabIndex="7"/>
             </StackPanel>
 
             <!-- Login Button -->
             <Button Content="{StaticResource LoginButton}" 
                     IsDefault="True"
-                    TabIndex="4"
+                    TabIndex="8"
+                    IsEnabled="{Binding IsLogginIn, Converter={local:NegateBoolValueConverter}}"
                     Command="{Binding LoginCommand}"/>
             
             <!-- Application Version -->
-            <TextBlock Text="{Binding AppVersionString}"
+            <TextBlock Text="{StaticResource AppVersionString}"
                        FontSize="{StaticResource FontSizeXSmall}"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"

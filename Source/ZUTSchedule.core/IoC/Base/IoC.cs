@@ -1,4 +1,4 @@
-﻿using Ninject;
+﻿using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +8,14 @@ namespace ZUTSchedule.core
     public static class IoC
     {
         /// <summary>
-        /// The kernel for our IoC container
+        /// The IoC container
         /// </summary>
-        public static IKernel Kernel { get; private set; } = new StandardKernel();
+        private static IContainer _container;
+
+        /// <summary>
+        /// Builder for IoC container
+        /// </summary>
+        public static ContainerBuilder Builder { get; private set; } = new ContainerBuilder();
 
         /// <summary>
         /// A shortcut to access the <see cref="INavigationService"/>
@@ -18,20 +23,24 @@ namespace ZUTSchedule.core
         public static INavigationService Navigation => IoC.Get<INavigationService>();
 
         /// <summary>
-        /// Setup IoC container
+        /// A shortcut to access the <see cref="Storage"/>
+        /// </summary>
+        public static Storage Settings => IoC.Get<Storage>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="EDziekanatService"/>
+        /// </summary>
+        public static EDziekanatService EDziekanatService => IoC.Get<EDziekanatService>();
+
+        /// <summary>
+        /// Fire after <see cref="Builder"/> is set
         /// </summary>
         public static void Setup()
         {
-            BindViewModels();
-        }
-
-        /// <summary>
-        /// Binds all singleton view models
-        /// </summary>
-        private static void BindViewModels()
-        {
-            // Bind to a single instance of Application view model
-            Kernel.Bind<MainWindowViewModel>().ToConstant(new MainWindowViewModel());
+            Builder.RegisterInstance(new Storage());
+            Builder.RegisterInstance(new EDziekanatService());
+            Builder.RegisterInstance(new MainWindowViewModel());
+            _container = Builder.Build();
         }
 
         /// <summary>
@@ -41,7 +50,7 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         public static T Get<T>()
         {
-            return Kernel.Get<T>();
+            return _container.Resolve<T>();
         }
 
     }

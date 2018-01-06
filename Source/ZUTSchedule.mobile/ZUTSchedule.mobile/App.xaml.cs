@@ -5,18 +5,25 @@ using System.Text;
 using ZUTSchedule.core;
 
 using Xamarin.Forms;
+using Autofac;
 
 namespace ZUTSchedule.mobile
 {
-	public partial class App : Application
+
+
+    public partial class App : Application
 	{
+        public static IContainer Container { get; set; }
+
         public static Page Page { get; private set; }
 
 		public App ()
 		{
-			InitializeComponent();
+            ApplicationSetup();
 
-			MainPage = new NavigationPage( new LoginPage());
+            InitializeComponent();
+
+            MainPage = new NavigationPage( new LoginPage());
             
             MainPage.ToolbarItems.Add(new ToolbarItem()
             {
@@ -37,12 +44,19 @@ namespace ZUTSchedule.mobile
             Page = this.MainPage;
         }
 
-		protected override void OnStart ()
-		{
-			// Handle when your app starts
-		}
+        private void ApplicationSetup()
+        {
+            IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
+            IoC.Builder.RegisterInstance(new NewsFactory()).As<INewsFactory>();
+            IoC.Setup();
+        }
 
-		protected override void OnSleep ()
+        protected override void OnStart ()
+		{
+            // Handle when your app starts
+        }
+
+        protected override void OnSleep ()
 		{
 			// Handle when your app sleeps
 		}

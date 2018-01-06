@@ -10,14 +10,16 @@ namespace ZUTSchedule.core
 {
     public class LoginViewModel : BaseViewModel
     {
-        
+
+        private bool _isLogginIn;
+
         /// <summary>
         /// Login provided by user
         /// </summary>
         public string UserLogin
         {
-            get { return Storage.login; }
-            set { Storage.login = value; }
+            get { return IoC.Settings.login; }
+            set { IoC.Settings.login = value; }
         }
 
         /// <summary>
@@ -25,23 +27,37 @@ namespace ZUTSchedule.core
         /// </summary>
         public SecureString UserPassword
         {
-            get { return Storage.Password; }
-            set { Storage.Password = value; }
+            get { return IoC.Settings.Password; }
+            set { IoC.Settings.Password = value; }
         }
-
-        /// <summary>
-        /// Version of the application
-        /// </summary>
-        public string AppVersionString { get => MainWindowViewModel.AppVersion; }
 
         /// <summary>
         /// Indicates if user is login in as teacher
         /// </summary>
         public bool IsTeacher
         {
-            get { return Storage.Typ == "dydaktyk" ? true : false; }
-            set { Storage.Typ = value ? "dydaktyk" : "student"; }
+            get { return IoC.Settings.Typ == "dydaktyk" ? true : false; }
+            set { IoC.Settings.Typ = value ? "dydaktyk" : "student"; }
         }
+        
+        /// <summary>
+        /// Indicates if login is in process
+        /// </summary>
+        public bool IsLogginIn
+        {
+            get => _isLogginIn;
+
+            set
+            {
+                _isLogginIn = value;
+                OnPropertyChanged(nameof(IsLogginIn));
+            }
+        }
+
+        /// <summary>
+        /// Indicates in with mode run application
+        /// </summary>
+        public int DayMode { get; set; } = 1;
 
         /// <summary>
         /// Command that login user into system
@@ -53,7 +69,6 @@ namespace ZUTSchedule.core
         /// </summary>
         public LoginViewModel()
         {
-            
             // setup commands
             LoginCommand = new RelayCommand(async() => await Login());
         }
@@ -64,8 +79,12 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         private async Task Login()
         {
-            // Create new Service
-            EDziekanatService EDziekanatService = new EDziekanatService();
+            if(IsLogginIn == true)
+            {
+                return;
+            }
+
+            var service = IoC.EDziekanatService;
 
             // In case of something is missing
             if(string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
@@ -75,12 +94,23 @@ namespace ZUTSchedule.core
                 return;
             }
 
+            IsLogginIn = true;
+
             // Get courses
-            Storage.Classes = await EDziekanatService.getClasses(new List<DateTime>() { DateTime.Now });
+            IoC.Settings.Classes = await service.GetClasses(new List<DateTime>() { DateTime.Now });
+
+            if(IoC.Settings.Classes.Count == 0)
+            {
+                IsLogginIn = false;
+                return;
+            }
+
+            IoC.Settings.NumberOfDaysInTheWeek = DayMode == 0 ? 1 : DayMode == 1 ? 5 : 7;
 
             // Switch page to week view
-            await IoC.Get<INavigationService>().NavigateToWeekPage();
+            await IoC.Navigation.NavigateToWeekPage();
 
+            IsLogginIn = false;
         }
 
 
