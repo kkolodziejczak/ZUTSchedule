@@ -10,7 +10,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// The IoC container
         /// </summary>
-        private static IContainer _container;
+        public static IContainer container;
 
         /// <summary>
         /// Builder for IoC container
@@ -37,10 +37,10 @@ namespace ZUTSchedule.core
         /// </summary>
         public static void Setup()
         {
-            Builder.RegisterInstance(new Storage());
             Builder.RegisterInstance(new EDziekanatService());
             Builder.RegisterInstance(new MainWindowViewModel());
-            _container = Builder.Build();
+            container = Builder.Build();
+            
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         public static T Get<T>()
         {
-            return _container.Resolve<T>();
+            return container.Resolve<T>();
         }
 
     }

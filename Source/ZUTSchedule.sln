@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUTSchedule.desktop", "ZUTSchedule.desktop\ZUTSchedule.desktop.csproj", "{A0678C21-9530-4FCD-8600-51B32464EFB1}"
 EndProject
@@ -141,5 +141,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {562BE211-BDFF-4BA5-87B0-01A3DB1CCB60}
 	EndGlobalSection
 EndGlobal

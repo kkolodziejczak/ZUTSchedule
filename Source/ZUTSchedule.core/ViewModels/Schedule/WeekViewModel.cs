@@ -10,7 +10,6 @@ namespace ZUTSchedule.core
     public class WeekViewModel : BaseViewModel
     {
 
-        private List<DayViewModel> _days;
         private Storage _settings;
         private ObservableCollection<List<DayViewModel>> _weeks;
 
@@ -25,7 +24,6 @@ namespace ZUTSchedule.core
             }
             set
             {
-                _days = value;
                 _weeks.Add(value);
             }
         }
@@ -41,7 +39,6 @@ namespace ZUTSchedule.core
         public WeekViewModel()
         {
             _weeks = new ObservableCollection<List<DayViewModel>>();
-            _days = new List<DayViewModel>();
             _settings = IoC.Settings;
             News = new NewsContainerViewModel();
 

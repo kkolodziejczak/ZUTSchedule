@@ -31,12 +31,12 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Defines maximum length of the message;
         /// </summary>
-        public int HowLongNewsMessages { get; } = 50;
+        public int HowLongNewsMessages { get; }
 
         /// <summary>
         /// How many days NEW box will show next to news
         /// </summary>
-        public int HowManyDaysIsNew { get; } = 3;
+        public int HowManyDaysIsNew { get; }
 
         /// <summary>
         /// Downloaded classes 
@@ -46,7 +46,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Number of days in the week to display
         /// </summary>
-        public int NumberOfDaysInTheWeek { get; set; } = 5;
+        public int NumberOfDaysInTheWeek { get; set; }
 
         /// <summary>
         /// Number of shifted days
@@ -57,6 +57,17 @@ namespace ZUTSchedule.core
         /// Fired when week is changing 
         /// </summary>
         public event Action OnDayShiftUpdate = () => { };
+
+
+        /// <summary>
+        /// Base constructor
+        /// </summary>
+        public Storage(int numberOfDaysInTheWeek, int howManyDaysIsNew, int howLongNewsMessages)
+        {
+            NumberOfDaysInTheWeek = numberOfDaysInTheWeek;
+            HowManyDaysIsNew = howManyDaysIsNew;
+            HowLongNewsMessages = howLongNewsMessages;
+        }
 
         /// <summary>
         /// Switches to next week

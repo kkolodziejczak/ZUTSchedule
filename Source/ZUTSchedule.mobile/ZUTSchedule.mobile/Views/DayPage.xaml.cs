@@ -11,18 +11,41 @@ using ZUTSchedule.core;
 namespace ZUTSchedule.mobile
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class DayPage : ContentPage
-	{
+	public partial class DayPage : ContentPage, ISwipeCallBack
+    {
+        private Storage _settings;
+
 		public DayPage ()
 		{
-			InitializeComponent ();
-            var test = IoC.Settings.Classes.FirstOrDefault(d => d is DayViewModel);
+			InitializeComponent();
+            SwipeListener swipeListener = new SwipeListener(ClassesList, this);
+            _settings = IoC.Settings;
+            BindingContext = new WeekViewModel();
+        }
 
-            if(test != null)
-            {
-                BindingContext = test;
-            }
+        public void OnBottomSwipe(View view)
+        {
+            //throw new NotImplementedException();
+        }
 
-		}
-	}
+        public void OnLeftSwipe(View view)
+        {
+            _settings.DecrementWeek();
+        }
+
+        public void OnNothingSwiped(View view)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnRightSwipe(View view)
+        {
+            _settings.IncrementWeek();
+        }
+
+        public void OnTopSwipe(View view)
+        {
+            //throw new NotImplementedException();
+        }
+    }
 }

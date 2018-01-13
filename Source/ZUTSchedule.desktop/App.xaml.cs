@@ -25,6 +25,7 @@ namespace ZUTSchedule.desktop
         private void ApplicationSetup()
         {
             // setup IoC container
+            IoC.Builder.RegisterInstance(new Storage(5,3,50));
             IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
             IoC.Builder.RegisterInstance(new NewsFactory(new INewsService[]
             {

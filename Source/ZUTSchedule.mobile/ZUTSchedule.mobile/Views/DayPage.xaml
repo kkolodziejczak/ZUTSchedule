@@ -2,17 +2,39 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ZUTSchedule.mobile"
-             x:Class="ZUTSchedule.mobile.DayPage">
+             x:Class="ZUTSchedule.mobile.DayPage"
+             >
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Courses}"
-                  HasUnevenRows="True">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <local:ClassView BindingContext="{Binding}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+
+            <ListView ItemsSource="{Binding Days}"
+                      HasUnevenRows="True"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell IsEnabled="False">
+                            <ListView ItemsSource="{Binding Courses}"
+                                      HasUnevenRows="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell IsEnabled="False">
+                                            <local:ClassView BindingContext="{Binding}"/>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            
+
+            <!-- Element for swipe listener -->
+            <Label x:Name="ClassesList"
+                   BackgroundColor="Transparent"
+                   />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

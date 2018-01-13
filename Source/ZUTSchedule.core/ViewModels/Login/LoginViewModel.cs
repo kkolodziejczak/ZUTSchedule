@@ -57,7 +57,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Indicates in with mode run application
         /// </summary>
-        public int DayMode { get; set; } = 1;
+        public int DayMode { get; set; }
 
         /// <summary>
         /// Command that login user into system
@@ -67,10 +67,12 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Base constructor
         /// </summary>
-        public LoginViewModel()
+        public LoginViewModel(int dayMode = 1)
         {
+            // 1 for 5 days
+            DayMode = dayMode;
             // setup commands
-            LoginCommand = new RelayCommand(async() => await Login());
+            LoginCommand = new RelayCommand(async () => await Login());
         }
 
         /// <summary>
@@ -105,7 +107,7 @@ namespace ZUTSchedule.core
                 return;
             }
 
-            IoC.Settings.NumberOfDaysInTheWeek = DayMode == 0 ? 1 : DayMode == 1 ? 5 : 7;
+            IoC.Settings.NumberOfDaysInTheWeek = (DayMode == 0) ? 1 : (DayMode == 1 ? 5 : 7);
 
             // Switch page to week view
             await IoC.Navigation.NavigateToWeekPage();
