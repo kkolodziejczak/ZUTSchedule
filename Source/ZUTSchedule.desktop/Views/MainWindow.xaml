@@ -21,6 +21,8 @@
         <!-- Context menu for application -->
         <Grid.ContextMenu>
             <ContextMenu>
+                <MenuItem Header="{StaticResource LogOut}"
+                          Click="LogoutClicked"/>
                 <Separator/>
                 <MenuItem Header="{StaticResource Quit}"
                           Click="QuitClicked"/>

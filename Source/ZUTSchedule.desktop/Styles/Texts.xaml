@@ -11,6 +11,7 @@
     <system:String x:Key="LoginButton">Zaloguj</system:String>
     <system:String x:Key="LoginAs">Zaloguj jako:</system:String>
     <system:String x:Key="DisplayMode">Uruchom w trybie:</system:String>
+    <system:String x:Key="AutoLogin">Zaloguj automatycznie</system:String>
 
     <system:String x:Key="Student">student</system:String>
     <system:String x:Key="Teacher">dydaktyk</system:String>
@@ -20,8 +21,9 @@
     <system:String x:Key="FiveDays">5-dniowym</system:String>
     <system:String x:Key="SevenDays">7-dniowym</system:String>
 
-
+    
     <!-- Drop-down menu -->
+    <system:String x:Key="LogOut">Wyloguj</system:String>
     <system:String x:Key="Quit">Zamknij</system:String>
     
     

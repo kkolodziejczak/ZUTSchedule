@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace ZUTSchedule.core
 {
@@ -12,11 +7,20 @@ namespace ZUTSchedule.core
     /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Business logic of the application
+        /// </summary>
+        protected BusinessLogic businessLogic;
 
         /// <summary>
         /// The event that is fired when any child property changes its value
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
+
+        public BaseViewModel()
+        {
+            businessLogic = new BusinessLogic();
+        }
 
         /// <summary>
         /// Call this to fire a <see cref="PropertyChanged"/> event

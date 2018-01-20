@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Net.Http;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Reflection;
 
 namespace ZUTSchedule.core
 {
@@ -16,20 +13,12 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Login provided by user
         /// </summary>
-        public string UserLogin
-        {
-            get { return IoC.Settings.login; }
-            set { IoC.Settings.login = value; }
-        }
+        public string UserLogin { get; set; }
 
         /// <summary>
         /// Password provided by user
         /// </summary>
-        public SecureString UserPassword
-        {
-            get { return IoC.Settings.Password; }
-            set { IoC.Settings.Password = value; }
-        }
+        public SecureString UserPassword { get; set; }
 
         /// <summary>
         /// Indicates if user is login in as teacher
@@ -37,22 +26,27 @@ namespace ZUTSchedule.core
         public bool IsTeacher
         {
             get { return IoC.Settings.Typ == "dydaktyk" ? true : false; }
-            set { IoC.Settings.Typ = value ? "dydaktyk" : "student"; }
+            set { IoC.Settings.Typ = (value ? "dydaktyk" : "student"); }
         }
-        
+
         /// <summary>
         /// Indicates if login is in process
         /// </summary>
-        public bool IsLogginIn
+        public bool IsLoginProcessing
         {
             get => _isLogginIn;
 
             set
             {
                 _isLogginIn = value;
-                OnPropertyChanged(nameof(IsLogginIn));
+                OnPropertyChanged(nameof(IsLoginProcessing));
             }
         }
+
+        /// <summary>
+        /// Indicates if user wants to login automatically 
+        /// </summary>
+        public bool AutoLoginEnabled { get; set; }
 
         /// <summary>
         /// Indicates in with mode run application
@@ -69,10 +63,14 @@ namespace ZUTSchedule.core
         /// </summary>
         public LoginViewModel(int dayMode = 1)
         {
+
+            
+
             // 1 for 5 days
             DayMode = dayMode;
             // setup commands
             LoginCommand = new RelayCommand(async () => await Login());
+
         }
 
         /// <summary>
@@ -81,40 +79,68 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         private async Task Login()
         {
-            if(IsLogginIn == true)
+            if (IsLoginProcessing == true)
             {
                 return;
             }
 
-            var service = IoC.EDziekanatService;
-
             // In case of something is missing
-            if(string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
+            if (string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
             {
-                //TODO: signalize to login
+                Logger.Log("Username or Password are empty", Logger.LogLevel.Warning);
+                //TODO: signalize to user
                 //TODO: Add MessageService
                 return;
             }
 
-            IsLogginIn = true;
+            IsLoginProcessing = true;
 
-            // Get courses
-            IoC.Settings.Classes = await service.GetClasses(new List<DateTime>() { DateTime.Now });
+            //Perform Login Attempt
+            var loggedIn = await TryLoginAsync(new Credential(Credential.CredentialType.Generic,
+                                                            "ZUTSchedule",
+                                                            UserLogin,
+                                                            UserPassword));
 
-            if(IoC.Settings.Classes.Count == 0)
+            if (loggedIn == false)
             {
-                IsLogginIn = false;
+                Logger.Log("Login failed", Logger.LogLevel.Warning);
+                //TODO: signalize to user
+
                 return;
             }
 
             IoC.Settings.NumberOfDaysInTheWeek = (DayMode == 0) ? 1 : (DayMode == 1 ? 5 : 7);
 
+            if (AutoLoginEnabled == true)
+            {
+                // Save users credentials for later use
+                IoC.CredentialManager.SaveCredential("ZUTSchedule", UserLogin, UserPassword);
+            }
+
+            IsLoginProcessing = false;
+
             // Switch page to week view
             await IoC.Navigation.NavigateToWeekPage();
-
-            IsLogginIn = false;
         }
 
 
+        /// <summary>
+        /// Login into e-Dziekanat site
+        /// </summary>
+        /// <param name="credential"></param>
+        /// <returns></returns>
+        private async Task<bool> TryLoginAsync(Credential credential)
+        {
+            try
+            {
+                return await businessLogic.LoginAsync(credential);
+            }
+            catch (HttpRequestException ex)
+            {
+                Logger.Log($"Login failed! \n {ex.Message} \n\n {ex.StackTrace}", Logger.LogLevel.Error);
+                //TODO: signalize Fail login attempt With request // maybe connection issue
+                return false;
+            }
+        }
     }
 }

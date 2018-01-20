@@ -8,7 +8,7 @@
              MinWidth="320"
              Background="White"
              >
-    <Grid Margin="50">
+    <Grid Margin="50 50 50 10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -96,16 +96,21 @@
             <Button Content="{StaticResource LoginButton}" 
                     IsDefault="True"
                     TabIndex="8"
-                    IsEnabled="{Binding IsLogginIn, Converter={local:NegateBoolValueConverter}}"
+                    IsEnabled="{Binding IsLoginProcessing, Converter={local:NegateBoolValueConverter}}"
                     Command="{Binding LoginCommand}"/>
-            
+
+            <CheckBox Margin="0 6 0 0"
+                      Content="{StaticResource AutoLogin}"
+                      IsChecked="{Binding AutoLoginEnabled}"
+                      VerticalContentAlignment="Center"/>
+
             <!-- Application Version -->
             <TextBlock Text="{StaticResource AppVersionString}"
                        FontSize="{StaticResource FontSizeXSmall}"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
                        Foreground="Gray"
-                       Margin="0 5 0 0"
+                       Margin="0 40 0 0"
                        />
         </StackPanel>
 

@@ -23,5 +23,9 @@ namespace ZUTSchedule.mobile
         /// <returns></returns>
         public Task NavigateToLoginPage() => App.Page.Navigation.PushAsync(new LoginPage());
 
+        public Task NavigateToProgressIndicator()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

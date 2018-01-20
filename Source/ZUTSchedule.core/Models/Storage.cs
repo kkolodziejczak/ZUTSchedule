@@ -16,17 +16,29 @@ namespace ZUTSchedule.core
         public readonly string scheduleURL = "https://www.zut.edu.pl/WU/PodzGodzin.aspx";
         public readonly string logOutURL = "https://www.zut.edu.pl/WU/Wyloguj.aspx";
 
-        public readonly string newsZutURL = "http://www.zut.edu.pl/zut-studenci/start/aktualnosci.html#";
+        public readonly string newsZutURL = "http://www.zut.edu.pl/zut-studenci/start/aktualnosci.html";
         public readonly string newsWiZutURL = "https://www.wi.zut.edu.pl/index.php/pl/dla-studenta/sprawy-studenckie/aktualnosci-studenckie";
 
         public static readonly string SettingsFolderPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\ZUTSchedule";
-
         public static readonly string SettingsFilePath = $@"{SettingsFolderPath}\Settings.ini";
 
-        // User Credentials 
-        public string login;
-        public SecureString Password;
-        public string Typ;
+        /// <summary>
+        /// User Credentials
+        /// </summary>
+        public Credential UserCredential
+        {
+            get => IoC.Get<ICredentialManager>().ReadCredential("ZUTSchedule");
+        }
+
+        /// <summary>
+        /// Indicates if User is logged in to e-Dziekanat system
+        /// </summary>
+        public bool IsUserLoggedIn { get; set; }
+
+        /// <summary>
+        /// Mode in with user wants to login in 
+        /// </summary>
+        public string Typ { get; set; }
 
         /// <summary>
         /// Defines maximum length of the message;

@@ -42,8 +42,14 @@ namespace ZUTSchedule.core
             _settings = IoC.Settings;
             News = new NewsContainerViewModel();
 
-            RefreshSchedule();
+            // Download 
+            Task.Run(async () =>
+            {
+                _settings.Classes = await businessLogic.GetClassesAsync();
+            }).Wait();
+
             _settings.OnDayShiftUpdate += RefreshSchedule;
+            RefreshSchedule();
 
         }
 

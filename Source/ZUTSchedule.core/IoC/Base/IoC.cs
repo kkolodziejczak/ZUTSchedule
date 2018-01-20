@@ -20,27 +20,30 @@ namespace ZUTSchedule.core
         /// <summary>
         /// A shortcut to access the <see cref="INavigationService"/>
         /// </summary>
-        public static INavigationService Navigation => IoC.Get<INavigationService>();
+        public static INavigationService Navigation => Get<INavigationService>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="INavigationService"/>
+        /// </summary>
+        public static ICredentialManager CredentialManager => Get<ICredentialManager>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="CommunicationService"/>
+        /// </summary>
+        public static CommunicationService CommunicationService => Get<CommunicationService>();
 
         /// <summary>
         /// A shortcut to access the <see cref="Storage"/>
         /// </summary>
-        public static Storage Settings => IoC.Get<Storage>();
-
-        /// <summary>
-        /// A shortcut to access the <see cref="EDziekanatService"/>
-        /// </summary>
-        public static EDziekanatService EDziekanatService => IoC.Get<EDziekanatService>();
+        public static Storage Settings => Get<Storage>();
 
         /// <summary>
         /// Fire after <see cref="Builder"/> is set
         /// </summary>
         public static void Setup()
         {
-            Builder.RegisterInstance(new EDziekanatService());
-            Builder.RegisterInstance(new MainWindowViewModel());
+            Builder.RegisterInstance(new CommunicationService());
             container = Builder.Build();
-            
         }
 
         /// <summary>

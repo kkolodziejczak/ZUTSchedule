@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using System.IO;
 using System.Windows;
 using ZUTSchedule.core;
 
@@ -27,6 +26,7 @@ namespace ZUTSchedule.desktop
             // setup IoC container
             IoC.Builder.RegisterInstance(new Storage(5,3,50));
             IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
+            IoC.Builder.RegisterInstance(new CredentialManager()).As<ICredentialManager>();
             IoC.Builder.RegisterInstance(new NewsFactory(new INewsService[]
             {
                 new WINewsService(),
@@ -36,10 +36,14 @@ namespace ZUTSchedule.desktop
             IoC.Setup();
         }
 
-        private void LoadSettings()
+        private async void LoadSettings()
         {
             //TODO: Load settings
-            return;
+
+            
         }
+
+
+
     }
 }

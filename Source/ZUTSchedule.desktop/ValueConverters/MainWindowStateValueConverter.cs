@@ -17,10 +17,12 @@ namespace ZUTSchedule.desktop
 
             switch ((MainWindowState)value)
             {
-                case MainWindowState.loginPage:
+                case MainWindowState.LoginPage:
                     return new LoginView();
                 case MainWindowState.WeekView:
                     return new WeekView();
+                case MainWindowState.ProgressIndicator:
+                    return new ProgressIndicator();
                 default:
                     return null;
 

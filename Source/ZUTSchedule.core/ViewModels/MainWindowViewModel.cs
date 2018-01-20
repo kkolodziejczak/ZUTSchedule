@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
-using System.Text;
+﻿using System.ComponentModel;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ZUTSchedule.core
 {
     public enum MainWindowState
     {
-        loginPage,
+        LoginPage,
         WeekView,
+        ProgressIndicator
     }
 
     public class MainWindowViewModel : BaseViewModel
     {
-        private MainWindowState _state;
+        private static MainWindowState _state;
 
         /// <summary>
         /// State in with MainWindow is
         /// </summary>
-        public MainWindowState State
+        public static MainWindowState State
         {
             get { return _state; }
             set
@@ -31,16 +29,66 @@ namespace ZUTSchedule.core
 
                 _state = value;
 
-                OnPropertyChanged(nameof(State));
+                OnStaticPropertyChanged();
             }
         }
 
         /// <summary>
-        /// Base constructor
+        /// The event that is fired when any child property changes its value
         /// </summary>
+        public static event PropertyChangedEventHandler StaticPropertyChanged = (sender, e) => { };
+
+        /// <summary>
+        /// Call this to fire a <see cref="StaticPropertyChanged"/> event
+        /// </summary>
+        /// <param name="name"></param>
+        public static void OnStaticPropertyChanged([CallerMemberName]string name = null)
+        {
+            StaticPropertyChanged(null, new PropertyChangedEventArgs(name));
+        }
+
         public MainWindowViewModel()
         {
-            State = MainWindowState.loginPage;
+            State = MainWindowState.ProgressIndicator;
+            AttemtToLoginAutomaticly();
+        }
+        
+        private async Task AttemtToLoginAutomaticly()
+        {
+            // Test if user stored he's credentials
+            var credential = IoC.CredentialManager.ReadCredential("ZUTSchedule");
+
+            // user have saved credentials...
+            if (credential != null)
+            {
+                await IoC.Navigation.NavigateToProgressIndicator();
+
+                // use them to login
+                var loggedIn = false;
+
+                try
+                {
+                    loggedIn = await businessLogic.LoginAsync(credential);
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Do nothing
+                }
+
+                // login failed
+                if (loggedIn == false)
+                {
+                    //TODO: signalize Fail login attempt
+                    Logger.Log($"Automatic login failed!", Logger.LogLevel.Warning);
+                    await IoC.Navigation.NavigateToLoginPage();
+                    return;
+                }
+
+                await IoC.Navigation.NavigateToWeekPage();
+                return;
+            }
+
+            await IoC.Navigation.NavigateToLoginPage();
         }
 
     }
