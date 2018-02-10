@@ -40,7 +40,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Fire after <see cref="Builder"/> is set
         /// </summary>
-        public static void Setup()
+        public static void Compile()
         {
             Builder.RegisterInstance(new CommunicationService());
             container = Builder.Build();

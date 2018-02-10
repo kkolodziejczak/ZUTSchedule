@@ -46,10 +46,15 @@ namespace ZUTSchedule.mobile
 
         private void ApplicationSetup()
         {
-            IoC.Builder.RegisterInstance(new Storage(1, 3, 50));
+            IoC.Builder.RegisterInstance(new Storage()
+            {
+                HowManyDaysIsNew = 3,
+                HowLongNewsMessages = 50,
+                NumberOfDaysInTheWeek = 1,
+            });
             IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
             IoC.Builder.RegisterInstance(new NewsFactory()).As<INewsFactory>();
-            IoC.Setup();
+            IoC.Compile();
         }
 
         protected override void OnStart ()

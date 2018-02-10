@@ -25,8 +25,8 @@ namespace ZUTSchedule.core
         /// </summary>
         public bool IsTeacher
         {
-            get { return IoC.Settings.Typ == "dydaktyk" ? true : false; }
-            set { IoC.Settings.Typ = (value ? "dydaktyk" : "student"); }
+            get { return IoC.Settings.Type == "dydaktyk" ? true : false; }
+            set { IoC.Settings.Type = (value ? "dydaktyk" : "student"); }
         }
 
         /// <summary>
@@ -49,6 +49,11 @@ namespace ZUTSchedule.core
         public bool AutoLoginEnabled { get; set; }
 
         /// <summary>
+        /// Indicates if user wants to start application automatically 
+        /// </summary>
+        public bool AutoRunEnabled { get; set; }
+
+        /// <summary>
         /// Indicates in with mode run application
         /// </summary>
         public int DayMode { get; set; }
@@ -63,11 +68,10 @@ namespace ZUTSchedule.core
         /// </summary>
         public LoginViewModel(int dayMode = 1)
         {
-
-            
-
             // 1 for 5 days
             DayMode = dayMode;
+            // Check for AutoRun
+            AutoRunEnabled = IoC.Get<IAutoRun>().IsAutoRunEnabled();
             // setup commands
             LoginCommand = new RelayCommand(async () => await Login());
 
@@ -87,7 +91,7 @@ namespace ZUTSchedule.core
             // In case of something is missing
             if (string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
             {
-                Logger.Log("Username or Password are empty", Logger.LogLevel.Warning);
+                Logger.Warning("Username or Password are empty");
                 //TODO: signalize to user
                 //TODO: Add MessageService
                 return;
@@ -103,7 +107,8 @@ namespace ZUTSchedule.core
 
             if (loggedIn == false)
             {
-                Logger.Log("Login failed", Logger.LogLevel.Warning);
+                Logger.Warning("Login failed");
+                IsLoginProcessing = false;
                 //TODO: signalize to user
 
                 return;
@@ -115,6 +120,17 @@ namespace ZUTSchedule.core
             {
                 // Save users credentials for later use
                 IoC.CredentialManager.SaveCredential("ZUTSchedule", UserLogin, UserPassword);
+            }
+
+            if (AutoRunEnabled == true)
+            {
+                // Enable auto run with Windows
+                IoC.Get<IAutoRun>().EnableAutoRun();
+            }
+            else
+            {
+                // Disable auto run with Windows
+                IoC.Get<IAutoRun>().DisableAutoRun();
             }
 
             IsLoginProcessing = false;
@@ -137,7 +153,7 @@ namespace ZUTSchedule.core
             }
             catch (HttpRequestException ex)
             {
-                Logger.Log($"Login failed! \n {ex.Message} \n\n {ex.StackTrace}", Logger.LogLevel.Error);
+                Logger.Error($"Login failed! \n {ex.Message} \n\n {ex.StackTrace}");
                 //TODO: signalize Fail login attempt With request // maybe connection issue
                 return false;
             }

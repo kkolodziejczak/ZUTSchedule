@@ -24,11 +24,7 @@ namespace ZUTSchedule.core
             get { return _state; }
             set
             {
-                if (_state == value)
-                    return;
-
                 _state = value;
-
                 OnStaticPropertyChanged();
             }
         }
@@ -79,7 +75,7 @@ namespace ZUTSchedule.core
                 if (loggedIn == false)
                 {
                     //TODO: signalize Fail login attempt
-                    Logger.Log($"Automatic login failed!", Logger.LogLevel.Warning);
+                    Logger.Warning($"Automatic login failed!");
                     await IoC.Navigation.NavigateToLoginPage();
                     return;
                 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace ZUTSchedule.core
 {
@@ -57,7 +58,9 @@ namespace ZUTSchedule.core
             }
         }
 
+        [XmlIgnore]
         public ICommand IncrementCommand { get; private set; }
+        [XmlIgnore]
         public ICommand DecrementCommand { get; private set; }
 
         /// <summary>

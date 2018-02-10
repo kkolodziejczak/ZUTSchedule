@@ -104,6 +104,12 @@
                       IsChecked="{Binding AutoLoginEnabled}"
                       VerticalContentAlignment="Center"/>
 
+            <CheckBox Margin="0 6 0 0"
+                      Content="{StaticResource AutoRun}"
+                      IsChecked="{Binding AutoRunEnabled}"
+                      VerticalContentAlignment="Center"/>
+            
+            
             <!-- Application Version -->
             <TextBlock Text="{StaticResource AppVersionString}"
                        FontSize="{StaticResource FontSizeXSmall}"

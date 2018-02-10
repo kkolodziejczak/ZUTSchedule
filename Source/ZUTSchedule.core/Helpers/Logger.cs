@@ -18,21 +18,36 @@ namespace ZUTSchedule.core
     /// </summary>
     public static class Logger
     {
-        public enum LogLevel
+        private enum LogLevel
         {
             Info,
             Warning,
             Error
         }
 
-        public static void Log(string message, LogLevel logLevel, [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = -1, [CallerMemberName] string callerName = "")
+        public static void Info(string message, [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = -1, [CallerMemberName] string callerName = "")
         {
+            Log(message, LogLevel.Info, filePath, lineNumber, callerName);
+        }
+
+        public static void Warning(string message, [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = -1, [CallerMemberName] string callerName = "")
+        {
+            Log(message, LogLevel.Warning, filePath, lineNumber, callerName);
+        }
+
+        public static void Error(string message, [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = -1, [CallerMemberName] string callerName = "")
+        {
+            Log(message, LogLevel.Error, filePath, lineNumber, callerName);
+        }
+
+        private static void Log(string message, LogLevel logLevel, string filePath, int lineNumber, string callerName)
+{
             string level = string.Empty;
 
             switch (logLevel)
             {
                 case LogLevel.Info:
-                    level = "***";
+                    level = "+++>";
                     break;
                 case LogLevel.Warning:
                     level = "[Warning]";

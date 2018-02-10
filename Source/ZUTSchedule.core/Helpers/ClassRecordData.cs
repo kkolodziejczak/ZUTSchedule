@@ -14,6 +14,5 @@ namespace ZUTSchedule.core
         public static short Course { get; } = 4;
         public static short CourseType { get; } = 5;
         public static short Teacher { get; } = 6;
-        public static short Status { get; } = 8;
     }
 }

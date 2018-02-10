@@ -43,14 +43,30 @@ namespace ZUTSchedule.core
             News = new NewsContainerViewModel();
 
             // Download 
-            Task.Run(async () =>
+            if(_settings.Classes == null || _settings.Classes.Count == 0)
             {
-                _settings.Classes = await businessLogic.GetClassesAsync();
-            }).Wait();
+                Task.Run(GetClasses).Wait();
+            }
 
             _settings.OnDayShiftUpdate += RefreshSchedule;
+            _settings.OnRefresh += ReloadSchedule;
             RefreshSchedule();
 
+        }
+
+        public async void ReloadSchedule()
+        {
+            await GetClasses();
+            RefreshSchedule();
+        }
+
+        /// <summary>
+        /// Get Download classes
+        /// </summary>
+        /// <returns></returns>
+        private async Task GetClasses()
+        {
+            _settings.Classes = await businessLogic.GetClassesAsync();
         }
 
         /// <summary>

@@ -44,12 +44,12 @@ namespace ZUTSchedule.core
             try
             {
                 var httpResponse = await _client.PostAsync(url, httpContent);
-                Logger.Log($"POST: {url}", Logger.LogLevel.Info);
+                Logger.Info($"POST: {url}");
                 return await httpResponse.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException ex)
             {
-                Logger.Log($"Something went bad with POST request {url} \n {ex.Message} \n\n {ex.StackTrace}", Logger.LogLevel.Error);
+                Logger.Error($"Something went bad with POST request {url} \n {ex.Message} \n\n {ex.StackTrace}");
                 throw;
             }
         }
@@ -60,12 +60,12 @@ namespace ZUTSchedule.core
             try
             {
                 var httpResponse = await _client.GetAsync(url);
-                Logger.Log($"GET: {url}", Logger.LogLevel.Info);
+                Logger.Info($"GET: {url}");
                 return await httpResponse.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException ex)
             {
-                Logger.Log($"Something went bad with GET request {url} \n {ex.Message} \n\n {ex.StackTrace}", Logger.LogLevel.Error);
+                Logger.Error($"Something went bad with GET request {url} \n {ex.Message} \n\n {ex.StackTrace}");
                 throw;
             }
         }

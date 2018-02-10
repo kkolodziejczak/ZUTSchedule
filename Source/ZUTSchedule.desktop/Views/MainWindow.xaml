@@ -18,9 +18,11 @@
         MouseLeftButtonDown="DragWindow"
         >
     <Grid>
-        <!-- Context menu for application -->
+        <!-- Context menu for application  Click="SheduleRefresh"-->
         <Grid.ContextMenu>
             <ContextMenu>
+                <MenuItem Header="{StaticResource Refresh}"
+                          Click="Refresh"/>
                 <MenuItem Header="{StaticResource LogOut}"
                           Click="LogoutClicked"/>
                 <Separator/>

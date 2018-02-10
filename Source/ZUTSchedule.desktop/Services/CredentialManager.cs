@@ -91,7 +91,7 @@ namespace ZUTSchedule.desktop
                 Marshal.FreeCoTaskMem(credential.UserName);
             }
 
-            Logger.Log($"CredWrite failed with the error code {lastError}.", Logger.LogLevel.Error);
+            Logger.Error($"CredWrite failed with the error code {lastError}.");
             throw new CredWriteException($"CredWrite failed with the error code {lastError}.");
         }
 
@@ -106,7 +106,7 @@ namespace ZUTSchedule.desktop
             if (!success)
             {
                 var lastError = Marshal.GetLastWin32Error();
-                Logger.Log($"CreadDelete failed with the error code {lastError}.", Logger.LogLevel.Error);
+                Logger.Error($"CreadDelete failed with the error code {lastError}.");
                 throw new CredDeleteException($"CreadDelete failed with the error code {lastError}.");
             }
         }

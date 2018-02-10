@@ -1,6 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
@@ -18,6 +22,11 @@ namespace ZUTSchedule.desktop
             DataContext = new MainWindowViewModel();
         }
 
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            IoC.Settings.RefreshSchedule();
+        }
+
         private void DragWindow(object sender, MouseButtonEventArgs e)
         {
             if (sender is UIElement uiElement)
@@ -28,6 +37,17 @@ namespace ZUTSchedule.desktop
 
         private void QuitClicked(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(Storage.SettingsFilePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(Storage.SettingsFilePath));
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(Storage));
+            using (TextWriter tw = new StreamWriter(Storage.SettingsFilePath))
+            {
+                xs.Serialize(tw, IoC.Settings);
+            }
+
             Application.Current.Shutdown();
         }
 
@@ -43,5 +63,7 @@ namespace ZUTSchedule.desktop
             }
             await IoC.Navigation.NavigateToLoginPage();
         }
+
+
     }
 }

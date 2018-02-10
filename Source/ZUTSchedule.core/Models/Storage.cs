@@ -38,17 +38,17 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Mode in with user wants to login in 
         /// </summary>
-        public string Typ { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// Defines maximum length of the message;
         /// </summary>
-        public int HowLongNewsMessages { get; }
+        public int HowLongNewsMessages { get; set; }
 
         /// <summary>
         /// How many days NEW box will show next to news
         /// </summary>
-        public int HowManyDaysIsNew { get; }
+        public int HowManyDaysIsNew { get; set; }
 
         /// <summary>
         /// Downloaded classes 
@@ -66,20 +66,14 @@ namespace ZUTSchedule.core
         public int DayShift { get; set; } = 0;
 
         /// <summary>
+        /// Reload classes from e-Dziekanat service
+        /// </summary>
+        public event Action OnRefresh = () => { };
+
+        /// <summary>
         /// Fired when week is changing 
         /// </summary>
         public event Action OnDayShiftUpdate = () => { };
-
-
-        /// <summary>
-        /// Base constructor
-        /// </summary>
-        public Storage(int numberOfDaysInTheWeek, int howManyDaysIsNew, int howLongNewsMessages)
-        {
-            NumberOfDaysInTheWeek = numberOfDaysInTheWeek;
-            HowManyDaysIsNew = howManyDaysIsNew;
-            HowLongNewsMessages = howLongNewsMessages;
-        }
 
         /// <summary>
         /// Switches to next week
@@ -105,11 +99,25 @@ namespace ZUTSchedule.core
         }
 
         /// <summary>
-        /// Refreshes schedule
+        /// Refreshes schedule with fresh data
         /// </summary>
         public void RefreshSchedule()
         {
-            OnDayShiftUpdate();
+            OnRefresh();
+        }
+
+        /// <summary>
+        /// Copy all information from <paramref name="storage"/>
+        /// </summary>
+        /// <param name="storage"></param>
+        public void CopyFrom(Storage storage)
+        {
+            this.Classes = storage.Classes;
+            this.HowLongNewsMessages = storage.HowLongNewsMessages;
+            this.HowManyDaysIsNew = storage.HowManyDaysIsNew;
+            this.NumberOfDaysInTheWeek = storage.NumberOfDaysInTheWeek;
+            this.Type = storage.Type;
+            this.IsUserLoggedIn = storage.IsUserLoggedIn;
         }
     }
 }
