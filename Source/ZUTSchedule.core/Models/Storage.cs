@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace ZUTSchedule.core
 {
@@ -14,6 +15,7 @@ namespace ZUTSchedule.core
 
         public readonly string loginURL = "https://www.zut.edu.pl/WU/Logowanie2.aspx";
         public readonly string scheduleURL = "https://www.zut.edu.pl/WU/PodzGodzin.aspx";
+        public readonly string LevelURL = "https://www.zut.edu.pl/WU/KierunkiStudiow.aspx";
         public readonly string logOutURL = "https://www.zut.edu.pl/WU/Wyloguj.aspx";
 
         public readonly string newsZutURL = "http://www.zut.edu.pl/zut-studenci/start/aktualnosci.html";
@@ -22,12 +24,26 @@ namespace ZUTSchedule.core
         public static readonly string SettingsFolderPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\ZUTSchedule";
         public static readonly string SettingsFilePath = $@"{SettingsFolderPath}\Settings.ini";
 
+        private Credential _userCredential;
+
         /// <summary>
         /// User Credentials
         /// </summary>
+        [XmlIgnore]
         public Credential UserCredential
         {
-            get => IoC.Get<ICredentialManager>().ReadCredential("ZUTSchedule");
+            get
+            {
+                if(_userCredential != null)
+                {
+                    return _userCredential;
+                }
+                else
+                {
+                    return IoC.Get<ICredentialManager>().ReadCredential("ZUTSchedule");
+                }
+            }
+            set => _userCredential = value;
         }
 
         /// <summary>

@@ -58,12 +58,6 @@ namespace ZUTSchedule.core
             }
             Debug.WriteLine(PrepareMessage(message,level,filePath,lineNumber,callerName));
 
-#if DEBUG
-            if (logLevel == LogLevel.Error)
-            {
-                Debugger.Break();
-            }
-#endif
         }
 
         private static string PrepareMessage(string message, string level, string filePath, int lineNumber, string callerName)

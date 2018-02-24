@@ -18,7 +18,6 @@ namespace ZUTSchedule.mobile
 		public DayPage ()
 		{
 			InitializeComponent();
-            SwipeListener swipeListener = new SwipeListener(ClassesList, this);
             _settings = IoC.Settings;
             BindingContext = new WeekViewModel();
         }

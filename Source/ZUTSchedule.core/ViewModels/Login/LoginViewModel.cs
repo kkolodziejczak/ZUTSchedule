@@ -96,14 +96,18 @@ namespace ZUTSchedule.core
                 //TODO: Add MessageService
                 return;
             }
+            else
+            {
+                IoC.Settings.UserCredential = new Credential(Credential.CredentialType.Generic,
+                                                            "ZUTSchedule",
+                                                            UserLogin,
+                                                            UserPassword);
+            }
 
             IsLoginProcessing = true;
 
             //Perform Login Attempt
-            var loggedIn = await TryLoginAsync(new Credential(Credential.CredentialType.Generic,
-                                                            "ZUTSchedule",
-                                                            UserLogin,
-                                                            UserPassword));
+            var loggedIn = await TryLoginAsync(IoC.Settings.UserCredential);
 
             if (loggedIn == false)
             {
@@ -133,7 +137,8 @@ namespace ZUTSchedule.core
                 IoC.Get<IAutoRun>().DisableAutoRun();
             }
 
-            IsLoginProcessing = false;
+            // Logout no need to be logged in
+            await businessLogic.LogoutAsync();
 
             // Switch page to week view
             await IoC.Navigation.NavigateToWeekPage();
@@ -149,7 +154,8 @@ namespace ZUTSchedule.core
         {
             try
             {
-                return await businessLogic.LoginAsync(credential);
+                await businessLogic.LoginAsync(credential);
+                return IoC.Settings.IsUserLoggedIn;
             }
             catch (HttpRequestException ex)
             {

@@ -48,6 +48,12 @@ namespace ZUTSchedule.core
                 Task.Run(GetClasses).Wait();
             }
 
+            if (_settings.Classes.IsNullOrEmpty())
+            {
+                Logger.Error("No classes downloaded");
+                throw new NoClassesException();
+            }
+
             _settings.OnDayShiftUpdate += RefreshSchedule;
             _settings.OnRefresh += ReloadSchedule;
             RefreshSchedule();
@@ -143,7 +149,7 @@ namespace ZUTSchedule.core
                     var firstWeekOfTheYear = firstWeeksDate.ToIso8601Weeknumber();
                     // In case of new year add 52 weeks else 0
                     var todaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber() + (DateTime.Now.Year > firstWeeksDate.Year ? 52 : 0);
-                    _settings.DayShift = todaysWeekOfTheYear - firstWeekOfTheYear;
+                    //_settings.DayShift = todaysWeekOfTheYear - firstWeekOfTheYear;
 
                     break;
             }

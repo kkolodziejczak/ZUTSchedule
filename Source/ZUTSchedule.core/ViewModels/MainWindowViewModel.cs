@@ -60,11 +60,9 @@ namespace ZUTSchedule.core
                 await IoC.Navigation.NavigateToProgressIndicator();
 
                 // use them to login
-                var loggedIn = false;
-
                 try
                 {
-                    loggedIn = await businessLogic.LoginAsync(credential);
+                    await businessLogic.LoginAsync(credential);
                 }
                 catch (HttpRequestException ex)
                 {
@@ -72,7 +70,7 @@ namespace ZUTSchedule.core
                 }
 
                 // login failed
-                if (loggedIn == false)
+                if (IoC.Settings.IsUserLoggedIn == false)
                 {
                     //TODO: signalize Fail login attempt
                     Logger.Warning($"Automatic login failed!");

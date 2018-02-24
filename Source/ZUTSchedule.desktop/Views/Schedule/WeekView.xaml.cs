@@ -26,7 +26,15 @@ namespace ZUTSchedule.desktop
         {
             InitializeComponent();
 
-            DataContext = new WeekViewModel();
+            try
+            {
+                DataContext = new WeekViewModel();
+            }
+            catch(NoClassesException e)
+            {
+                MessageBox.Show("No classes to download");
+                throw;
+            }
         }
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
