@@ -13,6 +13,14 @@ namespace ZUTSchedule.core
         private static HttpClientHandler _handle;
         private static HttpClient _client;
 
+        public string LastResponse { get; private set; }
+
+        /// <summary>
+        /// Returns last response
+        /// </summary>
+        /// <returns></returns>
+        public string GetLastResponse() => LastResponse;
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -23,7 +31,6 @@ namespace ZUTSchedule.core
                 AllowAutoRedirect = true,
                 UseCookies = true,
                 CookieContainer = new CookieContainer(),
-                
             };
 
             _client = new HttpClient(_handle);
@@ -45,7 +52,8 @@ namespace ZUTSchedule.core
             {
                 var httpResponse = await _client.PostAsync(url, httpContent);
                 Logger.Info($"POST: {url}");
-                return await httpResponse.Content.ReadAsStringAsync();
+                LastResponse = await httpResponse.Content.ReadAsStringAsync();
+                return LastResponse;
             }
             catch (HttpRequestException ex)
             {

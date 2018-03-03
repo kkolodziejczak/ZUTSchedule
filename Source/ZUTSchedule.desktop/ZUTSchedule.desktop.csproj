@@ -97,11 +97,17 @@
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperty.cs" />
+    <Compile Include="Dialog\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\MessageBox.cs" />
+    <Compile Include="Dialog\ViewModels\DialogViewModel.cs" />
     <Compile Include="Services\AutoRunService.cs" />
     <Compile Include="Services\CredentialManager.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\StoryBoardHelpers.cs" />
     <Compile Include="Helpers\UIElementHelper.cs" />
+    <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BoolToFontWeightValueConverter.cs" />
@@ -110,6 +116,7 @@
     <Compile Include="ValueConverters\DateTimeToTodayValueConverter.cs" />
     <Compile Include="ValueConverters\DateTimeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\MainWindowStateValueConverter.cs" />
+    <Compile Include="ValueConverters\MessageBoxTypeToVisibilityValueConverter.cs" />
     <Compile Include="ValueConverters\NegateBoolValueConverter.cs" />
     <Compile Include="ValueConverters\RecordTypeToImageMarginValueConverter.cs" />
     <Compile Include="ValueConverters\RecordTypeToImageValueConverter.cs" />
@@ -135,6 +142,10 @@
     <Compile Include="Views\Schedule\WeekView.xaml.cs">
       <DependentUpon>WeekView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Dialog\DialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\VectorImages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

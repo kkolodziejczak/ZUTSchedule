@@ -1,7 +1,4 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ZUTSchedule.core
 {
@@ -10,7 +7,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// The IoC container
         /// </summary>
-        public static IContainer container;
+        private static IContainer _container;
 
         /// <summary>
         /// Builder for IoC container
@@ -21,6 +18,11 @@ namespace ZUTSchedule.core
         /// A shortcut to access the <see cref="INavigationService"/>
         /// </summary>
         public static INavigationService Navigation => Get<INavigationService>();
+
+        /// <summary>
+        /// A shortcut to access the <see cref="IMessageService"/>
+        /// </summary>
+        public static IMessageService MessageService => Get<IMessageService>();
 
         /// <summary>
         /// A shortcut to access the <see cref="INavigationService"/>
@@ -42,8 +44,7 @@ namespace ZUTSchedule.core
         /// </summary>
         public static void Compile()
         {
-            Builder.RegisterInstance(new CommunicationService());
-            container = Builder.Build();
+            _container = Builder.Build();
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         public static T Get<T>()
         {
-            return container.Resolve<T>();
+            return _container.Resolve<T>();
         }
 
     }

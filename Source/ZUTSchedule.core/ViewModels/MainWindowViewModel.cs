@@ -48,7 +48,7 @@ namespace ZUTSchedule.core
             State = MainWindowState.ProgressIndicator;
             AttemtToLoginAutomaticly();
         }
-        
+
         private async Task AttemtToLoginAutomaticly()
         {
             // Test if user stored he's credentials
@@ -64,7 +64,7 @@ namespace ZUTSchedule.core
                 {
                     await businessLogic.LoginAsync(credential);
                 }
-                catch (HttpRequestException ex)
+                catch
                 {
                     // Do nothing
                 }
@@ -72,9 +72,9 @@ namespace ZUTSchedule.core
                 // login failed
                 if (IoC.Settings.IsUserLoggedIn == false)
                 {
-                    //TODO: signalize Fail login attempt
                     Logger.Warning($"Automatic login failed!");
                     await IoC.Navigation.NavigateToLoginPage();
+                    IoC.MessageService.ShowAlert("Automatic Login failed!");
                     return;
                 }
 

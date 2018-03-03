@@ -92,16 +92,23 @@ namespace ZUTSchedule.core
             if (string.IsNullOrWhiteSpace(UserLogin) || UserPassword.Length <= 0)
             {
                 Logger.Warning("Username or Password are empty");
-                //TODO: signalize to user
-                //TODO: Add MessageService
+                IoC.MessageService.ShowAlert("Fill all fields!");
                 return;
             }
             else
             {
-                IoC.Settings.UserCredential = new Credential(Credential.CredentialType.Generic,
-                                                            "ZUTSchedule",
-                                                            UserLogin,
-                                                            UserPassword);
+                if (AutoLoginEnabled == true)
+                {
+                    // Save users credentials for later use
+                    IoC.CredentialManager.SaveCredential("ZUTSchedule", UserLogin, UserPassword);
+                }
+                else
+                {
+                    IoC.Settings.UserCredential = new Credential(Credential.CredentialType.Generic,
+                                                                "ZUTSchedule",
+                                                                UserLogin,
+                                                                UserPassword);
+                }
             }
 
             IsLoginProcessing = true;
@@ -111,20 +118,15 @@ namespace ZUTSchedule.core
 
             if (loggedIn == false)
             {
-                Logger.Warning("Login failed");
                 IsLoginProcessing = false;
-                //TODO: signalize to user
-
                 return;
             }
 
-            IoC.Settings.NumberOfDaysInTheWeek = (DayMode == 0) ? 1 : (DayMode == 1 ? 5 : 7);
+            // Logout no need to be logged in
+            await businessLogic.LogoutAsync();
 
-            if (AutoLoginEnabled == true)
-            {
-                // Save users credentials for later use
-                IoC.CredentialManager.SaveCredential("ZUTSchedule", UserLogin, UserPassword);
-            }
+            // Set number of days
+            IoC.Settings.NumberOfDaysInTheWeek = (DayMode == 0) ? 1 : (DayMode == 1 ? 5 : 7);
 
             if (AutoRunEnabled == true)
             {
@@ -137,13 +139,9 @@ namespace ZUTSchedule.core
                 IoC.Get<IAutoRun>().DisableAutoRun();
             }
 
-            // Logout no need to be logged in
-            await businessLogic.LogoutAsync();
-
             // Switch page to week view
             await IoC.Navigation.NavigateToWeekPage();
         }
-
 
         /// <summary>
         /// Login into e-Dziekanat site
@@ -157,10 +155,16 @@ namespace ZUTSchedule.core
                 await businessLogic.LoginAsync(credential);
                 return IoC.Settings.IsUserLoggedIn;
             }
+            catch (CredentialException cex)
+            {
+                Logger.Error($"Login failed! \n {cex.Message} \n\n {cex.StackTrace}");
+                IoC.MessageService.ShowAlert("Wrong Username or Password!");
+                return false;
+            }
             catch (HttpRequestException ex)
             {
                 Logger.Error($"Login failed! \n {ex.Message} \n\n {ex.StackTrace}");
-                //TODO: signalize Fail login attempt With request // maybe connection issue
+                IoC.MessageService.ShowAlert("Connection error!");
                 return false;
             }
         }

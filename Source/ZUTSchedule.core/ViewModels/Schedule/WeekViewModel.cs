@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace ZUTSchedule.core
 {
@@ -20,7 +21,7 @@ namespace ZUTSchedule.core
         {
             get
             {
-                return _weeks[_settings.DayShift% _weeks.Count];
+                return _weeks[Math.Abs(_settings.DayShift) % _weeks.Count];
             }
             set
             {
@@ -43,15 +44,16 @@ namespace ZUTSchedule.core
             News = new NewsContainerViewModel();
 
             // Download 
-            if(_settings.Classes == null || _settings.Classes.Count == 0)
-            {
-                Task.Run(GetClasses).Wait();
-            }
-
             if (_settings.Classes.IsNullOrEmpty())
             {
-                Logger.Error("No classes downloaded");
-                throw new NoClassesException();
+                Task.Run(GetClasses).Wait();
+
+                // Check if any classes show up
+                if (_settings.Classes.IsNullOrEmpty())
+                {
+                    Logger.Error("No classes downloaded");
+                    throw new NoClassesException();
+                }
             }
 
             _settings.OnDayShiftUpdate += RefreshSchedule;
@@ -62,130 +64,139 @@ namespace ZUTSchedule.core
 
         public async void ReloadSchedule()
         {
-            await GetClasses();
-            RefreshSchedule();
-        }
-
-        /// <summary>
-        /// Get Download classes
-        /// </summary>
-        /// <returns></returns>
-        private async Task GetClasses()
-        {
-            _settings.Classes = await businessLogic.GetClassesAsync();
-        }
-
-        /// <summary>
-        /// Refreshes schedule
-        /// </summary>
-        public void RefreshSchedule()
-        {
-            if(_weeks.Count > 0)
+            try
             {
-                OnPropertyChanged(nameof(Days));
-
-                if (_weeks.First().Count == _settings.NumberOfDaysInTheWeek)
-                {
-                    return;
-                }
+                await GetClasses();
+                RefreshSchedule();
+            }
+            catch (HttpRequestException)
+            {
+                IoC.MessageService.ShowAlert("Connection issue!");
             }
 
-            switch (_settings.NumberOfDaysInTheWeek)
+        }
+
+            /// <summary>
+            /// Get Download classes
+            /// </summary>
+            /// <returns></returns>
+            /// <exception cref="HttpRequestException"
+            private async Task GetClasses()
             {
-                // Logic for 1 day Week
-                case 1:
+                _settings.Classes = await businessLogic.GetClassesAsync();
+            }
 
-                    var lastDayOfTheYear = _settings.Classes.Last().Date;
-                    var lastDate = _settings.Classes.First().Date;
+            /// <summary>
+            /// Refreshes schedule
+            /// </summary>
+            public void RefreshSchedule()
+            {
+                if (_weeks.Count > 0)
+                {
+                    OnPropertyChanged(nameof(Days));
 
-                    while (DateTime.Compare(lastDate, lastDayOfTheYear) < 0)
+                    if (_weeks.First().Count == _settings.NumberOfDaysInTheWeek)
                     {
-                        var day = _settings.Classes.Where(d => d.Date.DayOfYear == lastDate.DayOfYear).ToList();
-                        if (!day.Any())
+                        return;
+                    }
+                }
+
+                switch (_settings.NumberOfDaysInTheWeek)
+                {
+                    // Logic for 1 day Week
+                    case 1:
+
+                        var lastDayOfTheYear = _settings.Classes.Last().Date;
+                        var lastDate = _settings.Classes.First().Date;
+
+                        while (DateTime.Compare(lastDate, lastDayOfTheYear) < 0)
                         {
-                            Days = new List<DayViewModel>()
+                            var day = _settings.Classes.Where(d => d.Date.DayOfYear == lastDate.DayOfYear).ToList();
+                            if (!day.Any())
+                            {
+                                Days = new List<DayViewModel>()
                             {
                                 new DayViewModel()
                                 {
                                     Date = lastDate
                                 }
                             };
+                                lastDate = lastDate.AddDays(1);
+                                continue;
+                            }
+
+                            Days = new List<DayViewModel>(day);
                             lastDate = lastDate.AddDays(1);
-                            continue;
                         }
 
-                        Days = new List<DayViewModel>(day);
-                        lastDate = lastDate.AddDays(1);
-                    }
+                        var firstDate = _weeks.First().First().Date;
+                        var firstDayOfTheClasses = firstDate.DayOfYear;
+                        var todaysDayOfTheYear = DateTime.Now.DayOfYear + (firstDate.Year < DateTime.Now.Year ? DateTime.Now.DaysInTheYear(firstDate.Year) : 0);
+                        _settings.DayShift = todaysDayOfTheYear - firstDayOfTheClasses;
+                        break;
 
-                    var firstDate = _weeks.First().First().Date;
-                    var firstDayOfTheClasses = firstDate.DayOfYear;
-                    var todaysDayOfTheYear = DateTime.Now.DayOfYear + (firstDate.Year < DateTime.Now.Year ? DateTime.Now.DaysInTheYear(firstDate.Year) : 0);
-                    _settings.DayShift = todaysDayOfTheYear - firstDayOfTheClasses;
-                    break;
+                    // Logic for 5 and 7 week Days
+                    default:
 
-                // Logic for 5 and 7 week Days
-                default:
+                        if (_settings.Classes == null)
+                            return;
 
-                    if (_settings.Classes == null)
-                        return;
+                        var endOfLastWeek = _settings.Classes.First().Date;
+                        foreach (var _class in _settings.Classes)
+                        {
+                            var firstDayOfTheWeek = endOfLastWeek.StartOfWeek(DayOfWeek.Monday);
 
-                    var endOfLastWeek = _settings.Classes.First().Date;
-                    foreach(var _class in _settings.Classes)
-                    {
-                        var firstDayOfTheWeek = endOfLastWeek.StartOfWeek(DayOfWeek.Monday);
+                            var weekDays = _settings.Classes.Where(day => day.Date.DayOfYear >= firstDayOfTheWeek.DayOfYear
+                                                                     && day.Date.DayOfYear < firstDayOfTheWeek.DayOfYear + 7)
+                                                          .ToList();
 
-                        var weekDays = _settings.Classes.Where(day => day.Date.DayOfYear >= firstDayOfTheWeek.DayOfYear
-                                                                 && day.Date.DayOfYear < firstDayOfTheWeek.DayOfYear + 7)
-                                                      .ToList();
+                            var week = GetMissingsDays(weekDays, firstDayOfTheWeek);
+                            Days = week;
 
-                        var week = GetMissingsDays(weekDays, firstDayOfTheWeek);
-                        Days = week;
+                            endOfLastWeek = week.Last().Date.AddDays(7);
+                        }
 
-                        endOfLastWeek = week.Last().Date.AddDays(7);
-                    }
+                        var firstWeeksDate = _weeks.First().First().Date;
+                        var firstWeekOfTheYear = firstWeeksDate.ToIso8601Weeknumber();
+                        // In case of new year add 52 weeks else 0
+                        var todaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber() + (DateTime.Now.Year > firstWeeksDate.Year ? 52 : 0);
+                        _settings.DayShift = todaysWeekOfTheYear - firstWeekOfTheYear;
 
-                    var firstWeeksDate = _weeks.First().First().Date;
-                    var firstWeekOfTheYear = firstWeeksDate.ToIso8601Weeknumber();
-                    // In case of new year add 52 weeks else 0
-                    var todaysWeekOfTheYear = DateTime.Now.ToIso8601Weeknumber() + (DateTime.Now.Year > firstWeeksDate.Year ? 52 : 0);
-                    //_settings.DayShift = todaysWeekOfTheYear - firstWeekOfTheYear;
-
-                    break;
-            }
-
-            OnPropertyChanged(nameof(Days));
-        }
-
-        /// <summary>
-        /// Fills <paramref name="week"/> missing days
-        /// </summary>
-        /// <param name="week"></param>
-        /// <param name="FirstDayOfTheWeek"></param>
-        /// <returns></returns>
-        private List<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)
-        {
-            var output = new List<DayViewModel>();
-
-            for (int i = 0; i < _settings.NumberOfDaysInTheWeek; i++)
-            {
-                var day = week.Where(d => d.Date == FirstDayOfTheWeek.AddDays(i));
-                if (day.Any())
-                {
-                    output.Add(day.First());
-                    continue;
+                        break;
                 }
 
-                output.Add(new DayViewModel()
-                {
-                    Date = FirstDayOfTheWeek.AddDays(i),
-                });
-
+                OnPropertyChanged(nameof(Days));
             }
 
-            return output;
+            /// <summary>
+            /// Fills <paramref name="week"/> missing days
+            /// </summary>
+            /// <param name="week"></param>
+            /// <param name="FirstDayOfTheWeek"></param>
+            /// <returns></returns>
+            private List<DayViewModel> GetMissingsDays(List<DayViewModel> week, DateTime FirstDayOfTheWeek)
+            {
+                var output = new List<DayViewModel>();
+
+                for (int i = 0; i < _settings.NumberOfDaysInTheWeek; i++)
+                {
+                    var day = week.Where(d => d.Date == FirstDayOfTheWeek.AddDays(i));
+                    if (day.Any())
+                    {
+                        output.Add(day.First());
+                        continue;
+                    }
+
+                    output.Add(new DayViewModel()
+                    {
+                        Date = FirstDayOfTheWeek.AddDays(i),
+                    });
+
+                }
+
+                return output;
+            }
+
         }
 
     }
-
-}

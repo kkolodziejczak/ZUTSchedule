@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace ZUTSchedule.core
@@ -34,7 +32,7 @@ namespace ZUTSchedule.core
         {
             get
             {
-                if(_userCredential != null)
+                if (_userCredential != null)
                 {
                     return _userCredential;
                 }
@@ -105,7 +103,7 @@ namespace ZUTSchedule.core
         /// </summary>
         public void DecrementWeek()
         {
-            if(DayShift - 1 < 0)
+            if (DayShift - 1 < 0)
             {
                 return;
             }

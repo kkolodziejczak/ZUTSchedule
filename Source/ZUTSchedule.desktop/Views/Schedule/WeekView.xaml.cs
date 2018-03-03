@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ZUTSchedule.core;
 
 namespace ZUTSchedule.desktop
@@ -30,16 +20,24 @@ namespace ZUTSchedule.desktop
             {
                 DataContext = new WeekViewModel();
             }
-            catch(NoClassesException e)
+            catch (HttpRequestException)
             {
-                MessageBox.Show("No classes to download");
+                IoC.MessageService.ShowAlert("Connection issues");
+            }
+            catch (CredentialException)
+            {
+                IoC.MessageService.ShowAlert("Wrong Credentials");
+            }
+            catch (NoClassesException)
+            {
+                IoC.MessageService.ShowAlert("No classes to download");
                 throw;
             }
         }
 
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            await Animate();
+            Animate();
         }
 
         public async Task Animate()
@@ -62,7 +60,7 @@ namespace ZUTSchedule.desktop
             // x  sec == 1705px (news)[Width]
             // 40*1705 == x * 3400
             // x = (40*1705) / 3400
-            var dif = (n * time) / (n + w + (n-w));
+            var dif = (n * time) / (n + w + (n - w));
 
             // Wait for it to finish
             await Task.Delay((int)(dif * 1000));
@@ -75,7 +73,6 @@ namespace ZUTSchedule.desktop
 
             // Make page visible
             this.News2.Visibility = Visibility.Visible;
-
         }
     }
 

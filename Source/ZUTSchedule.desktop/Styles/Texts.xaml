@@ -5,7 +5,7 @@
 
     <!-- Common values -->
     <system:String x:Key="AppName">ZUTSchedule</system:String>
-    <system:String x:Key="AppVersionString">ZUTSchedule v0.3.0</system:String>
+    <system:String x:Key="AppVersionString">ZUTSchedule v0.5.0</system:String>
     <system:String x:Key="EDziekanat">e-Dziekanat</system:String>
     <system:String x:Key="NewText">NOWOŚĆ</system:String>
     <system:String x:Key="LoginButton">Zaloguj</system:String>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -41,7 +40,7 @@ namespace ZUTSchedule.core
         }
 
         private static void Log(string message, LogLevel logLevel, string filePath, int lineNumber, string callerName)
-{
+        {
             string level = string.Empty;
 
             switch (logLevel)
@@ -56,7 +55,7 @@ namespace ZUTSchedule.core
                     level = "[Error]";
                     break;
             }
-            Debug.WriteLine(PrepareMessage(message,level,filePath,lineNumber,callerName));
+            Debug.WriteLine(PrepareMessage(message, level, filePath, lineNumber, callerName));
 
         }
 

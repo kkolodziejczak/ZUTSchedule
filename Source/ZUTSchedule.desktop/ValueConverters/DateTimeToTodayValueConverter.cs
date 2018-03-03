@@ -12,7 +12,6 @@ namespace ZUTSchedule.desktop
             if (value == null || !(value is bool Today))
                 return null;
 
-            // TODO: Change to normal Method
             return ResourceHelper.GetStaticFieldValue(Today ? "ZUTBlueColorBrush" : "ZUTGreenColorBrush");
         }
 
