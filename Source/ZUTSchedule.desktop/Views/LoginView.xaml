@@ -39,6 +39,7 @@
         <!-- Login form -->
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    Width="132"
                     Grid.Row="1"
                     >
 
@@ -46,15 +47,19 @@
             <TextBlock Text="{StaticResource LoginID}"
                         Margin="0 0 0 3"/>
             <TextBox Text="{Binding UserLogin, Mode=TwoWay}"
-                        TabIndex="0"
-                        local:FocusOnLoadProperty.Value="True"
+                     TabIndex="0"
+                     FontSize="12"
+                     Padding="0 2 0 0 "
+                     Height="20"
+                     local:FocusOnLoadProperty.Value="True"
                         />
             <!-- Password Field -->
             <TextBlock Text="{StaticResource Password}"
                         Margin="0 10 0 3"/>
             <PasswordBox Name="PasswordBox"
-                            TabIndex="1"
-                            PasswordChanged="PasswordBox_PasswordChanged"/>
+                        TabIndex="1"
+                        Height="20"
+                        PasswordChanged="PasswordBox_PasswordChanged"/>
 
 
             <!-- Display mode -->
@@ -81,14 +86,19 @@
                 <RadioButton Margin="0 0 10 0"
                              Content="{StaticResource Student}" 
                              GroupName="LoginTyp" 
-                             IsChecked="True"
-                             FontSize="14"
+                             FontSize="16"
                              TabIndex="6"
-                             VerticalContentAlignment="Center"/>
+                             IsChecked="True"
+                             Command="{Binding SetLoginAsStudentCommand}"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             Padding="2 1 0 0"
+                             />
                 <RadioButton Content="{StaticResource Teacher}" 
                              GroupName="LoginTyp"
-                             FontSize="14"
-                             VerticalContentAlignment="Center"
+                             FontSize="16"
+                             Command="{Binding SetLoginAsTeacherCommand}"
+                             Padding="2 1 0 0"
                              TabIndex="7"/>
             </StackPanel>
 

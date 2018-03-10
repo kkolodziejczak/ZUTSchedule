@@ -25,7 +25,7 @@ namespace ZUTSchedule.core
         /// <param name="value"></param>
         /// <param name="toCompareAgainst"></param>
         /// <returns></returns>
-        public static bool IsTheSameAs(this string value, string toCompareAgainst)
+        public static bool Is(this string value, string toCompareAgainst)
         {
             return 0 == string.CompareOrdinal(value, toCompareAgainst);
         }
@@ -36,9 +36,9 @@ namespace ZUTSchedule.core
         /// <param name="value"></param>
         /// <param name="toCompareAgainst"></param>
         /// <returns></returns>
-        public static bool IsNotTheSameAs(this string value, string toCompareAgainst)
+        public static bool IsNot(this string value, string toCompareAgainst)
         {
-            return !value.IsTheSameAs(toCompareAgainst);
+            return !value.Is(toCompareAgainst);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ZUTSchedule.core
         /// <param name="toCompareAgainst"></param>
         /// <exception cref="ArgumentException"
         /// <returns></returns>
-        public static bool IsTheSameAsIgnoreCase(this string value, string toCompareAgainst)
+        public static bool IsIgnoreCase(this string value, string toCompareAgainst)
         {
             return string.Equals(value, toCompareAgainst, StringComparison.OrdinalIgnoreCase);
         }
@@ -60,9 +60,9 @@ namespace ZUTSchedule.core
         /// <param name="toCompareAgainst"></param>
         /// <exception cref="ArgumentException"
         /// <returns></returns>
-        public static bool IsNotTheSameAsIgnoreCase(this string value, string toCompareAgainst)
+        public static bool IsNotIgnoreCase(this string value, string toCompareAgainst)
         {
-            return !value.IsTheSameAsIgnoreCase(toCompareAgainst);
+            return !value.IsIgnoreCase(toCompareAgainst);
         }
 
         /// <summary>

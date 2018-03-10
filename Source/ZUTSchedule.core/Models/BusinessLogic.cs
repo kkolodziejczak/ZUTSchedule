@@ -11,14 +11,14 @@ namespace ZUTSchedule.core
 {
     public class BusinessLogic
     {
-        private CommunicationService _communicationService;
+        private static CommunicationService _communicationService;
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public BusinessLogic()
         {
-            _communicationService = new CommunicationService();
+            _communicationService = IoC.CommunicationService;
         }
 
         /// <summary>
@@ -46,6 +46,8 @@ namespace ZUTSchedule.core
         /// Attempt to logout user from e-Dziekanat system
         /// </summary>
         /// <returns></returns>
+        /// <exception cref="CredentialException"/>
+        /// <exception cref="BannedAccountException"/>
         public async Task<string> LogoutAsync()
         {
             try
@@ -68,7 +70,7 @@ namespace ZUTSchedule.core
         /// <returns></returns>
         private HttpContent GenerateLoginContent(Credential userCredential)
         {
-            return new StringContent($"ctl00_ctl00_ScriptManager1_HiddenField=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUKMTc3NTQ1OTc2NA8WAh4DaGFzZRYCZg9kFgJmD2QWAgIBD2QWBAIDD2QWAgIBD2QWAgIBD2QWAgICDxQrAAIUKwACDxYEHgtfIURhdGFCb3VuZGceF0VuYWJsZUFqYXhTa2luUmVuZGVyaW5naGRkZGQCBA9kFgICAQ9kFhICAQ8WAh4JaW5uZXJodG1sBSZlLUR6aWVrYW5hdDwhLS0gc3RhdHVzOiA1NjE0NTAxMjYgLS0%2BIGQCDQ8PFgIeBE1vZGULKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRleHRCb3hNb2RlAmRkAhUPDxYEHgRUZXh0BRlPZHp5c2tpd2FuaWUgaGFzxYJhPGJyIC8%2BHgdWaXNpYmxlaGRkAhcPZBYCAgMPEGQPFgJmAgEWAgURc3R1ZGVudC9kb2t0b3JhbnQFCGR5ZGFrdHlrFgFmZAIZD2QWBAIBDw8WAh8FBTQ8YnIgLz5MdWIgemFsb2d1aiBzacSZIGpha28gc3R1ZGVudCBwcnpleiBPZmZpY2UzNjU6ZGQCAw8PFgIfBQUIUHJ6ZWpkxbpkZAIbDw8WBB8FBRhTZXJ3aXMgQWJzb2x3ZW50w7N3PGJyLz4fBmhkZAIfDw8WAh8GaGRkAiEPDxYCHwZoZBYGAgEPDxYCHwVkZGQCAw8PFgIfBQUGQW51bHVqZGQCBQ8PFgIfBQUHUG9iaWVyemRkAiMPDxYCHwUFI1fFgsSFY3ogcmVrbGFtxJkgYXBsaWthY2ppIG1vYmlsbmVqZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFSmN0bDAwJGN0bDAwJFRvcE1lbnVQbGFjZUhvbGRlciRUb3BNZW51Q29udGVudFBsYWNlSG9sZGVyJE1lbnVUb3AzJG1lbnVUb3Az38BzqfstGliCA7rUUjKrKnlhZpc%3D&__VIEWSTATEGENERATOR=7D6A02AE&ctl00_ctl00_TopMenuPlaceHolder_TopMenuContentPlaceHolder_MenuTop3_menuTop3_ClientState=&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtIdent={userCredential.UserName}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtHaslo={userCredential.Password.Unsecure()}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24rbKto={IoC.Settings.Type}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24butLoguj=Zaloguj",
+            return new StringContent($"ctl00_ctl00_ScriptManager1_HiddenField=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUKMTc3NTQ1OTc2NA8WAh4DaGFzZRYCZg9kFgJmD2QWAgIBD2QWBAIDD2QWAgIBD2QWAgIBD2QWAgICDxQrAAIUKwACDxYEHgtfIURhdGFCb3VuZGceF0VuYWJsZUFqYXhTa2luUmVuZGVyaW5naGRkZGQCBA9kFgICAQ9kFhICAQ8WAh4JaW5uZXJodG1sBSZlLUR6aWVrYW5hdDwhLS0gc3RhdHVzOiA1NjE0NTAxMjYgLS0%2BIGQCDQ8PFgIeBE1vZGULKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRleHRCb3hNb2RlAmRkAhUPDxYEHgRUZXh0BRlPZHp5c2tpd2FuaWUgaGFzxYJhPGJyIC8%2BHgdWaXNpYmxlaGRkAhcPZBYCAgMPEGQPFgJmAgEWAgURc3R1ZGVudC9kb2t0b3JhbnQFCGR5ZGFrdHlrFgFmZAIZD2QWBAIBDw8WAh8FBTQ8YnIgLz5MdWIgemFsb2d1aiBzacSZIGpha28gc3R1ZGVudCBwcnpleiBPZmZpY2UzNjU6ZGQCAw8PFgIfBQUIUHJ6ZWpkxbpkZAIbDw8WBB8FBRhTZXJ3aXMgQWJzb2x3ZW50w7N3PGJyLz4fBmhkZAIfDw8WAh8GaGRkAiEPDxYCHwZoZBYGAgEPDxYCHwVkZGQCAw8PFgIfBQUGQW51bHVqZGQCBQ8PFgIfBQUHUG9iaWVyemRkAiMPDxYCHwUFI1fFgsSFY3ogcmVrbGFtxJkgYXBsaWthY2ppIG1vYmlsbmVqZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFSmN0bDAwJGN0bDAwJFRvcE1lbnVQbGFjZUhvbGRlciRUb3BNZW51Q29udGVudFBsYWNlSG9sZGVyJE1lbnVUb3AzJG1lbnVUb3Az38BzqfstGliCA7rUUjKrKnlhZpc%3D&__VIEWSTATEGENERATOR=7D6A02AE&ctl00_ctl00_TopMenuPlaceHolder_TopMenuContentPlaceHolder_MenuTop3_menuTop3_ClientState=&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtIdent={userCredential.UserName}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24txtHaslo={userCredential.Password.Unsecure()}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24rbKto={IoC.Settings.LoginAs}&ctl00%24ctl00%24ContentPlaceHolder%24MiddleContentPlaceHolder%24butLoguj=Zaloguj",
                 Encoding.UTF8,
                 "application/x-www-form-urlencoded");
         }
@@ -78,24 +80,39 @@ namespace ZUTSchedule.core
         /// </summary>
         /// <param name="siteHTML"></param>
         /// <returns></returns>
+        /// <exception cref="CredentialException"/>
+        /// <exception cref="BannedAccountException"/>
         private bool CheckIfLoggedIn(string siteHTML)
         {
             if (string.IsNullOrWhiteSpace(siteHTML))
             {
                 return false;
             }
-
-            var badUsernameOrPassword = Regex.Matches(siteHTML, "Zła nazwa użytkownika lub hasło");
-            if (badUsernameOrPassword.Count != 0)
-            {
-                throw new CredentialException();
-            }
-
+            CheckForErrors(siteHTML);
             var logged = Regex.Matches(siteHTML, "WhoIsLoggedIn");
             IoC.Settings.IsUserLoggedIn = logged.Count != 0;
             return IoC.Settings.IsUserLoggedIn;
         }
 
+        /// <summary>
+        /// Throws Exceptions when there is error displayed 
+        /// </summary>
+        /// <param name="siteHTML"></param>
+        /// <exception cref="CredentialException"/>
+        /// <exception cref="BannedAccountException"/>
+        private void CheckForErrors(string siteHTML)
+        {
+            var badUsernameOrPassword = Regex.Matches(siteHTML, "Zła nazwa użytkownika lub hasło");
+            if (badUsernameOrPassword.Count != 0)
+            {
+                throw new CredentialException();
+            }
+            var accountBannedOrNoData = Regex.Matches(siteHTML, "Zablokowane konto lub brak danych w systemie dziekanatowym");
+            if (accountBannedOrNoData.Count != 0)
+            {
+                throw new BannedAccountException();
+            }
+        }
         /// <summary>
         /// Returns list of all classes
         /// </summary>

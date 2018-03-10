@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using ZUTSchedule.core;
@@ -55,12 +53,24 @@ namespace ZUTSchedule.desktop
         {
             try
             {
-                IoC.CredentialManager.DeleteCredential("ZUTSchedule");
+                var cred = IoC.CredentialManager.ReadCredential("ZUTSchedule");
+                if (cred != null)
+                {
+                    IoC.CredentialManager.DeleteCredential("ZUTSchedule");
+                    Logger.Info("Credentials were cleared after logout");
+                }
+
+                if (File.Exists(Storage.SettingsFilePath))
+                {
+                    File.Delete(Storage.SettingsFilePath);
+                    Logger.Info("Settings file was deleted at Logout");
+                }
             }
             catch (Exception ex)
             {
                 // Do nothing
             }
+
             await IoC.Navigation.NavigateToLoginPage();
         }
 

@@ -21,12 +21,12 @@ namespace ZUTSchedule.core
         public SecureString UserPassword { get; set; }
 
         /// <summary>
-        /// Indicates if user is login in as teacher
+        /// Indicates if user is login in as Teacher
         /// </summary>
         public bool IsTeacher
         {
-            get { return IoC.Settings.Type == "dydaktyk" ? true : false; }
-            set { IoC.Settings.Type = (value ? "dydaktyk" : "student"); }
+            get => IoC.Settings.LoginAs.Is("dydaktyk");
+            set => IoC.Settings.LoginAs = (value ? "dydaktyk" : "student");
         }
 
         /// <summary>
@@ -64,6 +64,16 @@ namespace ZUTSchedule.core
         public ICommand LoginCommand { get; set; }
 
         /// <summary>
+        /// Sets login mode as Student
+        /// </summary>
+        public ICommand SetLoginAsStudentCommand { get; set; }
+
+        /// <summary>
+        /// Sets login mode as Teacher
+        /// </summary>
+        public ICommand SetLoginAsTeacherCommand { get; set; }
+      
+        /// <summary>
         /// Base constructor
         /// </summary>
         public LoginViewModel(int dayMode = 1)
@@ -74,7 +84,8 @@ namespace ZUTSchedule.core
             AutoRunEnabled = IoC.Get<IAutoRun>().IsAutoRunEnabled();
             // setup commands
             LoginCommand = new RelayCommand(async () => await Login());
-
+            SetLoginAsStudentCommand = new RelayCommand(() => IoC.Settings.LoginAs = "student");
+            SetLoginAsTeacherCommand = new RelayCommand(() => IoC.Settings.LoginAs = "dydaktyk");
         }
 
         /// <summary>
@@ -154,6 +165,12 @@ namespace ZUTSchedule.core
             {
                 await businessLogic.LoginAsync(credential);
                 return IoC.Settings.IsUserLoggedIn;
+            }
+            catch (BannedAccountException bex)
+            {
+                Logger.Error($"Login failed! \n {bex.Message} \n\n {bex.StackTrace}");
+                IoC.MessageService.ShowAlert("Your Account is banned or does not exists!");
+                return false;
             }
             catch (CredentialException cex)
             {

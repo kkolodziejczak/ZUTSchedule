@@ -52,7 +52,7 @@ namespace ZUTSchedule.core
         /// <summary>
         /// Mode in with user wants to login in 
         /// </summary>
-        public string Type { get; set; }
+        public string LoginAs { get; set; } = "student";
 
         /// <summary>
         /// Defines maximum length of the message;
@@ -130,7 +130,7 @@ namespace ZUTSchedule.core
             this.HowLongNewsMessages = storage.HowLongNewsMessages;
             this.HowManyDaysIsNew = storage.HowManyDaysIsNew;
             this.NumberOfDaysInTheWeek = storage.NumberOfDaysInTheWeek;
-            this.Type = storage.Type;
+            this.LoginAs = storage.LoginAs;
             this.IsUserLoggedIn = storage.IsUserLoggedIn;
         }
     }

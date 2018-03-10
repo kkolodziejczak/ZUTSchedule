@@ -33,6 +33,7 @@ namespace ZUTSchedule.desktop
                 HowLongNewsMessages = 50,
                 NumberOfDaysInTheWeek = 5,
             });
+            IoC.Builder.RegisterInstance(new CommunicationService());
             IoC.Builder.RegisterInstance(new MessageService()).As<IMessageService>();
             IoC.Builder.RegisterInstance(new AutoRunService()).As<IAutoRun>();
             IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
