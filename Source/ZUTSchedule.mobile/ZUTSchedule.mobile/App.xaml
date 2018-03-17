@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:Simple.Xamarin.Framework.Components;assembly=Simple.Xamarin.Framework"
+             x:Class="ZUTSchedule.mobile.App">
+	<Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="MainDarkColor">#388E3C</Color>
+            <Color x:Key="MainColor">#4CAF50</Color>
+            <Color x:Key="BackgroundColor">#536DFE</Color>
+            <Color x:Key="TextPrimary">#212121</Color>
+            <Color x:Key="TextSecondary">#757575</Color>
+            <Color x:Key="Divider">#BDBDBD</Color>
+            <Color x:Key="IconText">#FFFFFF</Color>
+            <Color x:Key="AccentColor">#213ab7</Color>
+            
+            <Style TargetType="Grid">
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+            </Style>
+
+            <Style TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
+            </Style>
+
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{StaticResource IconText}"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
+            </Style>
+
+
+        </ResourceDictionary>
+		<!-- Application resource dictionary -->
+
+	</Application.Resources>
+</Application>
