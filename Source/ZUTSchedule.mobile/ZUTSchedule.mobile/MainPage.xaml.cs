@@ -1,4 +1,5 @@
-﻿using Simple.Xamarin.Framework.Base;
+﻿using Simple.Xamarin.Framework;
+using Simple.Xamarin.Framework.core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,7 @@ namespace ZUTSchedule.mobile
 		public MainPage()
 		{
 			InitializeComponent();
-
-            BindingContext = new BasePageViewModel()
-            {
-                PageTitle = "Simple Test",
-                LeftButtonTitle = "Left",
-                RightButtonTitle = "Right",
-            };
+            BindingContext = new BasePageViewModel();
         }
-	}
+    }
 }

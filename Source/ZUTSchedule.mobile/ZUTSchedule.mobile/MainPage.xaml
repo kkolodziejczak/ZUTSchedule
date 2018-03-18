@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <base:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:base="clr-namespace:Simple.Xamarin.Framework.Base;assembly=Simple.Xamarin.Framework"
+                      xmlns:base="clr-namespace:Simple.Xamarin.Framework;assembly=Simple.Xamarin.Framework"
                       xmlns:local="clr-namespace:ZUTSchedule.mobile"
                       x:Class="ZUTSchedule.mobile.MainPage"
                       >
