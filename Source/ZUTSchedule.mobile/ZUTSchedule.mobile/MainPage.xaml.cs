@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using ZUTSchedule.mobile.ViewModels;
 
 namespace ZUTSchedule.mobile
 {
@@ -15,7 +16,7 @@ namespace ZUTSchedule.mobile
 		public MainPage()
 		{
 			InitializeComponent();
-            BindingContext = new BasePageViewModel();
+            BindingContext = new LoginPageViewModel();
         }
     }
 }

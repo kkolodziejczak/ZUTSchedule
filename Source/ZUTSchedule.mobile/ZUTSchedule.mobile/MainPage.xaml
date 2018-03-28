@@ -8,9 +8,32 @@
                       UpperToolBarBackgroundColor="DarkCyan"
                       BottomToolBarBackgroundColor="DarkOrange"
                       >
+    <base:BaseContentPage.UpperToolBarContent>
+        <Grid BackgroundColor="Red">
+            <base:ToolBar ItemsSource="{Binding Items}">
+                <base:ToolBar.ItemTemplate>
+                    <DataTemplate>
+                        <Button Text="{Binding Title}"
+                                FontFamily="{Binding FontFamily}"
+                                Command="{Binding Command}"/>
+                    </DataTemplate>
+                </base:ToolBar.ItemTemplate>
+            </base:ToolBar>
+        </Grid>
+    </base:BaseContentPage.UpperToolBarContent>
+    <base:BaseContentPage.BottomToolBarContent>
+        <StackLayout>
+            <Label Text="H"/>
+            <Label Text="E"/>
+            <Label Text="L"/>
+            <Label Text="L"/>
+            <Label Text="O"/>
+        </StackLayout>
+    </base:BaseContentPage.BottomToolBarContent>
+    
     <base:BaseContentPage.Content>
         <Grid>
-            <Label Text="Hello World!"/>
+            <Label Text="{Binding Text}"/>
         </Grid>
     </base:BaseContentPage.Content>
 </base:BaseContentPage>

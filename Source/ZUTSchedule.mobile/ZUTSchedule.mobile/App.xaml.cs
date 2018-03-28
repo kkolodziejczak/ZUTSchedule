@@ -13,7 +13,7 @@ namespace ZUTSchedule.mobile
 		{
 			InitializeComponent();
 
-			MainPage = new ZUTSchedule.mobile.MainPage();
+			MainPage = new MainPage();
 		}
 
 		protected override void OnStart ()

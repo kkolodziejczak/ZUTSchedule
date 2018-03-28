@@ -6,12 +6,12 @@
 	<Application.Resources>
         <ResourceDictionary>
             <Color x:Key="MainDarkColor">#388E3C</Color>
-            <Color x:Key="MainColor">#4CAF50</Color>
+            <Color x:Key="Simple_Xamarin_Framework_MainColor">#4CAF50</Color>
             <Color x:Key="BackgroundColor">#536DFE</Color>
             <Color x:Key="TextPrimary">#212121</Color>
             <Color x:Key="TextSecondary">#757575</Color>
             <Color x:Key="Divider">#BDBDBD</Color>
-            <Color x:Key="IconText">#FFFFFF</Color>
+            <Color x:Key="Simple_Xamarin_Framework_IconText">#FFFFFF</Color>
             <Color x:Key="AccentColor">#213ab7</Color>
             
             <Style TargetType="Grid">
@@ -29,7 +29,7 @@
 
 
             <Style TargetType="Button">
-                <Setter Property="TextColor" Value="{StaticResource IconText}"/>
+                <Setter Property="TextColor" Value="{StaticResource Simple_Xamarin_Framework_IconText}"/>
                 <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
             </Style>
 
