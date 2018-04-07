@@ -18,7 +18,7 @@ namespace ZUTSchedule.desktop
 
             ApplicationSetup();
 
-            LoadSettings();
+            //LoadSettings();
 
             Current.MainWindow = new MainWindow();
             Current.MainWindow.Show();

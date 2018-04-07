@@ -3,6 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:base="clr-namespace:Simple.Xamarin.Framework;assembly=Simple.Xamarin.Framework"
                       xmlns:local="clr-namespace:ZUTSchedule.mobile"
+                      xmlns:sxf="clr-namespace:Simple.Xamarin.Framework.Components;assembly=Simple.Xamarin.Framework"
                       x:Class="ZUTSchedule.mobile.MainPage"
                       NavigationBarBackgroundColor="DarkGreen"
                       UpperToolBarBackgroundColor="DarkCyan"
@@ -32,8 +33,18 @@
     </base:BaseContentPage.BottomToolBarContent>
     
     <base:BaseContentPage.Content>
-        <Grid>
+        <StackLayout>
+            <sxf:ExtendedLabel Text="XSmall" FontSize="XSmall"/>
+            <sxf:ExtendedLabel Text="xSmall" FontSize="xSmall"/>
+            <sxf:ExtendedLabel Text="Small" FontSize="Small"/>
+            <sxf:ExtendedLabel Text="Normal" FontSize="Normal"/>
+            <sxf:ExtendedLabel Text="Default" FontSize="Default"/>
+            <sxf:ExtendedLabel Text="Large" FontSize="Large"/>
+            <sxf:ExtendedLabel Text="xLarge" FontSize="xLarge"/>
+            <sxf:ExtendedLabel Text="XLarge" FontSize="XLarge"/>
+            <sxf:ExtendedLabel Text="xxLarge" FontSize="xxLarge"/>
+            <sxf:ExtendedLabel Text="XXLarge" FontSize="XXLarge"/>
             <Label Text="{Binding Text}"/>
-        </Grid>
+        </StackLayout>
     </base:BaseContentPage.Content>
 </base:BaseContentPage>

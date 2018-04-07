@@ -13,8 +13,9 @@ namespace ZUTSchedule.mobile.ViewModels
         public LoginPageViewModel()
         {
             BottomToolBar.Show();
-            Text = "Hello World! From MainPage.xaml";
+            Text = "Hello World!";
             BottomToolBar.Show();
+            ActivityIndicator.Hide();
         }
 
         public override void InitializeNavigationBar()
@@ -54,10 +55,10 @@ namespace ZUTSchedule.mobile.ViewModels
         {
             ShowProgressBar("Downloading...\nPlease Wait!");
             await Task.Delay(7 * 1000);
-            ShowActivityIndicator("Please Wait!");
+            ActivityIndicator.Show("Please Wait!");
             HideProgressBar();
             await Task.Delay(5 * 1000);
-            HideActivityIndicator();
+            ActivityIndicator.Hide();
         }
     }
 }

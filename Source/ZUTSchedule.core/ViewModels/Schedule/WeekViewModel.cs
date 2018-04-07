@@ -43,18 +43,8 @@ namespace ZUTSchedule.core
             _settings = IoC.Settings;
             News = new NewsContainerViewModel();
 
-            // Download 
-            if (_settings.Classes.IsNullOrEmpty())
-            {
-                Task.Run(GetClasses).Wait();
-
-                // Check if any classes show up
-                if (_settings.Classes.IsNullOrEmpty())
-                {
-                    Logger.Error("No classes downloaded");
-                    throw new NoClassesException();
-                }
-            }
+            // Download
+            Task.Run(GetClasses).Wait();
 
             _settings.OnDayShiftUpdate += RefreshSchedule;
             _settings.OnRefresh += ReloadSchedule;

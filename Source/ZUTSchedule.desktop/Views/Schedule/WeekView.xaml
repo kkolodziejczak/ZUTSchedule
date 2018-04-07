@@ -55,6 +55,16 @@
             </ItemsControl.ItemTemplate>
 
         </ItemsControl>
+
+        <!-- Application Version -->
+        <TextBlock Text="{StaticResource AppVersionString}"
+                   Grid.Row="1"
+                   FontSize="{StaticResource FontSizeXSmall}"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Foreground="Gray"
+                   Margin="0 0 5 5"
+                   />
     </Grid>
 
 </UserControl>
