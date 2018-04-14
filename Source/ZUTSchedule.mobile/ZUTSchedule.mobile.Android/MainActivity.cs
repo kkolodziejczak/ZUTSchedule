@@ -20,6 +20,10 @@ namespace ZUTSchedule.mobile.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            App.DisplayScreenWidth = Resources.DisplayMetrics.WidthPixels;
+            App.DisplayXDpi = Resources.DisplayMetrics.Xdpi;
+
             LoadApplication(new App());
         }
     }

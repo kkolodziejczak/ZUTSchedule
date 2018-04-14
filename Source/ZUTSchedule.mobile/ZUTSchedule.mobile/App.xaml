@@ -13,6 +13,14 @@
             <Color x:Key="Divider">#BDBDBD</Color>
             <Color x:Key="Simple_Xamarin_Framework_IconText">#FFFFFF</Color>
             <Color x:Key="AccentColor">#213ab7</Color>
+
+            <Color x:Key="SXF_ProgressBar_PageBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="SXF_ProgressBar_IndicatorColor">#4CAF50</Color>
+            <Color x:Key="SXF_ProgressBar_IndicatorBackgroundColor">#BDBDBD</Color>
+            <Color x:Key="SXF_ProgressBar_CancelButtonColor">#FD0000</Color>
+            <Color x:Key="SXF_ProgressBar_IndicatorTextColor">#FFFFFF</Color>
+
+            <Color x:Key="SXF_NavigationBar_BackgroundColor">#4CAF50</Color>
             
             <Style TargetType="Grid">
                 <Setter Property="ColumnSpacing" Value="0"/>
@@ -26,7 +34,6 @@
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
             </Style>
-
 
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="{StaticResource Simple_Xamarin_Framework_IconText}"/>

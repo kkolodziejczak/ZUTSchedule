@@ -81,7 +81,10 @@ namespace ZUTSchedule.core
             // 1 for 5 days
             DayMode = dayMode;
             // Check for AutoRun
-            AutoRunEnabled = IoC.Get<IAutoRun>().IsAutoRunEnabled();
+            if(IoC.Get<IAutoRun>()?.IsAutoRunEnabled() is bool autoRun)
+            {
+                AutoRunEnabled = autoRun;
+            }
             // setup commands
             LoginCommand = new RelayCommand(async () => await Login());
             SetLoginAsStudentCommand = new RelayCommand(() => IoC.Settings.LoginAs = "student");
@@ -130,9 +133,11 @@ namespace ZUTSchedule.core
             if (loggedIn == false)
             {
                 IsLoginProcessing = false;
+                Logger.Info("Login was not successful!");
                 return;
             }
 
+            Logger.Info("Login was successful!");
             // Logout no need to be logged in
             await businessLogic.LogoutAsync();
 
@@ -142,12 +147,12 @@ namespace ZUTSchedule.core
             if (AutoRunEnabled == true)
             {
                 // Enable auto run with Windows
-                IoC.Get<IAutoRun>().EnableAutoRun();
+                IoC.Get<IAutoRun>()?.EnableAutoRun();
             }
             else
             {
                 // Disable auto run with Windows
-                IoC.Get<IAutoRun>().DisableAutoRun();
+                IoC.Get<IAutoRun>()?.DisableAutoRun();
             }
 
             // Switch page to week view

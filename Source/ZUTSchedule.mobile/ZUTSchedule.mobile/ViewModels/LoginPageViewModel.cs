@@ -3,61 +3,47 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ZUTSchedule.core;
 
-namespace ZUTSchedule.mobile.ViewModels
+namespace ZUTSchedule.mobile
 {
+
+    /// <summary>
+    /// LoginPage ViewModel that tells Page what to display
+    /// </summary>
     public class LoginPageViewModel : BasePageViewModel
     {
-        public string Text { get; set; }
+        /// <summary>
+        /// ViewModel with logic
+        /// </summary>
+        public LoginViewModel LoginVM { get; set; }
 
+        /// <summary>
+        /// Base Constructor
+        /// </summary>
         public LoginPageViewModel()
         {
-            BottomToolBar.Show();
-            Text = "Hello World! From MainPage.xaml";
-            BottomToolBar.Show();
+            LoginVM = new LoginViewModel();
+            LoginVM.SetLoginAsStudentCommand.Execute(null);
+
         }
 
         public override void InitializeNavigationBar()
         {
             NavigationBar = new NavigationBarViewModel
             {
-                Title = "Sample Title",
-                LeftButtonTitle = "Left",
-                RightButtonTitle = "Right",
-                LeftButtonCommand = new SequentialCommand(TestLeftButton),
-                RightButtonCommand = new SequentialCommand(TestRightButton),
+                Title = "Login",
             };
+            NavigationBar.Show();
         }
 
         public override void InitializeUpperToolBar()
         {
-            UpperToolBar = new ToolBarViewModel()
-                .AddItem("Test1", new SequentialCommand(() =>
-                {
-                    return Task.FromResult(2);
-                }));
         }
 
         public override void InitializeBottomToolBar()
         {
         }
 
-        public async Task TestLeftButton()
-        {
-            if (UpperToolBar.IsVisible)
-                UpperToolBar.Hide();
-            else
-                UpperToolBar.Show();
-        }
-
-        public async Task TestRightButton(object param)
-        {
-            ShowProgressBar("Downloading...\nPlease Wait!");
-            await Task.Delay(7 * 1000);
-            ShowActivityIndicator("Please Wait!");
-            HideProgressBar();
-            await Task.Delay(5 * 1000);
-            HideActivityIndicator();
-        }
     }
 }
