@@ -49,12 +49,22 @@ namespace ZUTSchedule.core
 
         /// <summary>
         /// Get's a service from the IoC, of the specified type
+        /// <para>
+        /// NOTE: When <typeparam name="T"/> will be not found default will be returned
+        /// </para>
         /// </summary>
         /// <typeparam name="T">The type to get</typeparam>
         /// <returns></returns>
         public static T Get<T>()
         {
-            return _container.Resolve<T>();
+            try
+            {
+                return _container.Resolve<T>();
+            }
+            catch
+            {
+                return default(T);
+            }
         }
 
     }

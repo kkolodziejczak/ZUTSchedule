@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sxf:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:sxf="clr-namespace:Simple.Xamarin.Framework;assembly=Simple.Xamarin.Framework"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="ZUTSchedule.mobile.Views.LoginPage"
+                 >
+    <sxf:BaseContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.Column="1"
+                         Spacing="0"
+                         VerticalOptions="Center"
+                         >
+
+                <StackLayout>
+                    <Label Text="Identyficator:"/>
+                    <Entry Text="{Binding LoginVM.UserLogin}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Hasło:"/>
+                    <Entry TextChanged="PasswordBox_PasswordChanged"
+                           x:Name="PasswordBox"
+                           IsPassword="True"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="StartAndExpand">
+                    <sxf:ExtendedLabel Text="Zaloguj jako dydaktyk:"
+                                       VerticalTextAlignment="Center"
+                                       Margin="Zero,Zero,Small,Zero"
+                                       />
+                    <Switch/>
+                </StackLayout>
+
+                <sxf:ExtendedLabel Text="Zaloguj"
+                                   HorizontalOptions="Center"
+                                   Margin="Zero,Large,Zero,Zero"
+                                   Padding="Large,Small"
+                                   TextColor="White"
+                                   BackgroundColor="{StaticResource MainDarkColor}"
+                                   TapCommand="{Binding LoginVM.LoginCommand}"
+                                   />
+
+            </StackLayout>
+
+        </Grid>
+
+    </sxf:BaseContentPage.Content>
+</sxf:BaseContentPage>

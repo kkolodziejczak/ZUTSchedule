@@ -1,15 +1,13 @@
-﻿using Simple.Xamarin.Framework;
-using Simple.Xamarin.Framework.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Autofac;
+using Simple.Xamarin.Framework;
 
 using Xamarin.Forms;
+using ZUTSchedule.core;
+using ZUTSchedule.mobile.Views;
 
 namespace ZUTSchedule.mobile
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
         public static double DisplayScreenWidth { get; set; }
         public static double DisplayScreenHeight { get; set; }
@@ -22,16 +20,16 @@ namespace ZUTSchedule.mobile
 		{
 			InitializeComponent();
 
-            var s = DisplayScreenWidth / DisplayXDpi;
-            var value = GetDP(1);
-
             new SXF()
-                .SetDefaultFontSize(s*5)
-                .SetDefaultUnitSize(s*5)
+                .SetDefaultFontSize(GetDP(4.5))
+                .SetDefaultUnitSize(GetDP(3))
                 .Initialize();
 
-            MainPage = new MainPage();
-		}
+            ApplicationSetup();
+
+            //MainPage = new MainPage();
+            MainPage = new LoginPage();
+        }
 
 		protected override void OnStart ()
 		{
@@ -47,5 +45,22 @@ namespace ZUTSchedule.mobile
 		{
 			// Handle when your app resumes
 		}
-	}
+
+        private void ApplicationSetup()
+        {
+            // setup IoC container
+            IoC.Builder.RegisterInstance(new Storage()
+            {
+                HowManyDaysIsNew = 3,
+                HowLongNewsMessages = 50,
+                NumberOfDaysInTheWeek = 5,
+            });
+            IoC.Builder.RegisterInstance(new CommunicationService());
+            IoC.Builder.RegisterInstance(new MessageService()).As<IMessageService>();
+            IoC.Builder.RegisterInstance(new NavigationService()).As<INavigationService>();
+            IoC.Builder.RegisterInstance(new CredentialManager()).As<ICredentialManager>();
+            IoC.Compile();
+        }
+
+    }
 }
