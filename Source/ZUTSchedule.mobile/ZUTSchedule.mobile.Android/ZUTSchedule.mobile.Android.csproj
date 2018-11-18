@@ -8,14 +8,13 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ZUTSchedule.mobile.Droid</RootNamespace>
     <AssemblyName>ZUTSchedule.mobile.Android</AssemblyName>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -88,10 +87,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Simple.Xamarin.Framework\Simple.Xamarin.Framework\Simple.Xamarin.Framework.csproj">
-      <Project>{28FD990D-E026-4048-A656-05F9599FD434}</Project>
-      <Name>Simple.Xamarin.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZUTSchedule.mobile\ZUTSchedule.mobile.csproj">
       <Project>{7D640966-0511-494C-BA96-15BB4DB09421}</Project>
       <Name>ZUTSchedule.mobile</Name>
